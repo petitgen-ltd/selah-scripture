@@ -67,5 +67,27 @@ Or open the live demo above. Click **Begin a workout**, the **language chips** t
 
 Setup steps for both keys: [`docs/SETUP-APIS.md`](docs/SETUP-APIS.md). Deploy the proxy: [`proxy/README.md`](proxy/README.md).
 
+## Under the hood — the engineering
+
+### System architecture
+![Architecture](docs/figures/architecture.png)
+
+App ↔ a deployed **Cloudflare Worker proxy** ↔ YouVersion + Gloo. The proxy (`proxy/src/worker.js`) holds both API keys **server-side** and exposes `/verse` `/discern` `/personalize` `/health`. It's built for strangers (judges) hitting it directly: **KV caching** (verses are static; Gloo lines cached per moment), **per-IP + a global daily Gloo-budget rate-limit** so a judge mashing the demo can't drain the $20 credit, **Gloo OAuth2 client-credentials** token exchange (cached ~55 min), and **graceful degradation** — every path falls back so the demo never breaks. Keys never touch the client.
+
+### The moment classifier — and why it stays silent
+![Confusion matrix + abstention](docs/figures/confusion-matrix.png)
+
+The physiological moment (the wall, the peak, the redline, the quiet after…) is named by a classifier trained on the provided biometric sessions and evaluated **held-out by session** (GroupKFold) — it must generalize to a person it has never seen, not memorize. Because *a verse at the wrong moment is worse than none*, it's tuned to **abstain when unsure**: as it stays silent on low-confidence moments, precision climbs toward 1.0 (the "never fire wrong" guarantee, quantified). Full analysis — feature engineering, per-class F1, model comparison, feature importance, the abstention/precision-coverage study — is in [`notebook.ipynb`](notebook.ipynb).
+
+### Discernment — three signals, combined safely
+![Discernment pipeline](docs/figures/discernment.png)
+
+A racing heart is ambiguous. `/discern` fuses **biometrics + the whispered words**: Gloo chooses the fitting verse **from a curated, safe candidate set** — the LLM is *constrained* so it cannot hallucinate a reference — writes one pastoral line, and **YouVersion serves the authoritative text**. Three signals, one safe answer.
+
+### Reproducible & tested
+- `engine/selah_engine.py` — the pipeline as a tested module; **46 tests** (`tests/`), green in **CI** (`.github/workflows/ci.yml`).
+- `notebook.ipynb` runs end-to-end in **demo mode out of the box** (data embedded — no keys, no setup).
+- Honest Gloo status (built + wired, running a labeled simulation pending billing): [`docs/GLOO-STATUS.md`](docs/GLOO-STATUS.md).
+
 ## Credits
 Built for Scripture in New Frontiers by **Petitgen Ltd**. Scripture served via the YouVersion Platform API. Faith-tuned inference via Gloo AI Studio. Licensed **MIT** (`LICENSE`).

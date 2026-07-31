@@ -2,6 +2,7 @@ import React from 'react';
 import {
   AbsoluteFill,
   Audio,
+  Img,
   OffthreadVideo,
   Sequence,
   staticFile,
@@ -35,13 +36,14 @@ const B = {
   b06: { start: 54.5, dur: 8.49, file: 'vo/06.wav' }, // it listens
   b07: { start: 63.5, dur: 4.08, file: 'vo/07.wav' }, // the right one found her
   b08: { start: 69.5, dur: 13.18, file: 'vo/08.wav' }, // it's real
-  b09: { start: 84.0, dur: 12.67, file: 'vo/09.wav' }, // widen
-  b10: { start: 97.0, dur: 2.5, file: 'vo/10.wav' }, // presence not performance
-  b11: { start: 100.5, dur: 3.75, file: 'vo/11.wav' }, // grace
-  b12: { start: 105.0, dur: 3.19, file: 'vo/12.wav' }, // benediction
-  b13: { start: 109.0, dur: 3.71, file: 'vo/13.wav' }, // close
+  b14: { start: 84.5, dur: 13.97, file: 'vo/14.wav' }, // UNDER THE HOOD (technical)
+  b09: { start: 100.0, dur: 12.67, file: 'vo/09.wav' }, // widen (shifted +16)
+  b10: { start: 113.0, dur: 2.5, file: 'vo/10.wav' }, // presence not performance
+  b11: { start: 116.5, dur: 3.75, file: 'vo/11.wav' }, // grace
+  b12: { start: 121.0, dur: 3.19, file: 'vo/12.wav' }, // benediction
+  b13: { start: 125.0, dur: 3.71, file: 'vo/13.wav' }, // close
 };
-const END_S = 119;
+const END_S = 135;
 export const TOTAL_FRAMES = s(END_S);
 
 // ═══ helpers ═══
@@ -215,10 +217,10 @@ const CUES: Cue[] = [
   { text: 'This is live. Real verses, from the YouVersion Platform, in two thousand languages.', from: 70.0, to: 75.3 },
   { text: "And one short, personal line, shaped by Gloo's faith-tuned voice.", from: 75.3, to: 79.3 },
   { text: 'Nothing here is staged.', from: 79.3, to: 82.2 },
-  { text: 'This was never about fitness.', from: 84.4, to: 87.1 },
-  { text: 'Cardiac rehab. The ninth hour of labor. A nurse’s twelfth hour.', from: 87.1, to: 91.6 },
-  { text: 'Wherever a heart races — or finally rests — the right word can already be there.', from: 91.6, to: 96.2 },
-  { text: 'And when she finally slows… a different kind of word.', from: 100.8, to: 104.3 },
+  { text: 'This was never about fitness.', from: 100.4, to: 103.1 },
+  { text: 'Cardiac rehab. The ninth hour of labor. A nurse’s twelfth hour.', from: 103.1, to: 107.6 },
+  { text: 'Wherever a heart races — or finally rests — the right word can already be there.', from: 107.6, to: 112.2 },
+  { text: 'And when she finally slows… a different kind of word.', from: 116.8, to: 120.3 },
 ];
 const CaptionBand: React.FC = () => {
   const t = useCurrentFrame() / FPS;
@@ -280,7 +282,7 @@ const duckWindows: [number, number][] = [
   [20.0, 26.0], // Psalm 23:4 rise
   [47.0, 53.5], // the wall verse
   [61.0, 69.5], // the whisper peak + held silence
-  [104.5, 108.5], // benediction
+  [120.5, 124.5], // benediction (shifted +16 for the technical beat)
 ];
 const BASE_VOL = 0.22; // raised — was a touch low
 const DUCK = 0.4; // duck to 40% (audible, not silent) — gentler
@@ -297,6 +299,19 @@ const Score: React.FC = () => {
   }
   const fade = Math.min(interpolate(t, [0, 2.5], [0, 1], cl), interpolate(t, [END_S - 3.5, END_S], [1, 0], cl));
   return <Audio src={staticFile('music/score.mp3')} volume={Math.max(0.03, vol * fade)} />;
+};
+
+// ═══ UNDER THE HOOD — technical diagram frame ═══
+const TechFrame: React.FC<{ src: string; kicker: string }> = ({ src, kicker }) => {
+  const frame = useCurrentFrame();
+  const op = useFade(0.7, 0.7);
+  const scale = interpolate(frame, [0, s(9)], [1.0, 1.04], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+  return (
+    <AbsoluteFill style={{ background: INK, justifyContent: 'center', alignItems: 'center', opacity: op }}>
+      <div style={{ position: 'absolute', top: 54, left: 66, fontFamily: SANS, fontSize: 15, letterSpacing: 4, textTransform: 'uppercase', color: TEAL, fontWeight: 700 }}>{kicker}</div>
+      <Img src={staticFile(src)} style={{ width: '84%', maxHeight: '80%', objectFit: 'contain', transform: `scale(${scale})`, borderRadius: 12 }} />
+    </AbsoluteFill>
+  );
 };
 
 export const Selah: React.FC = () => (
@@ -330,21 +345,26 @@ export const Selah: React.FC = () => (
       <LiveTag />
     </Sequence>
 
+    {/* ══ UNDER THE HOOD — technical depth ══ */}
+    <Sequence from={s(84.0)} durationInFrames={s(5.3)} name="Tech-arch"><TechFrame src="architecture.png" kicker="Under the hood · the system" /></Sequence>
+    <Sequence from={s(89.3)} durationInFrames={s(4.8)} name="Tech-cm"><TechFrame src="confusion-matrix.png" kicker="Held out by session · the classifier" /></Sequence>
+    <Sequence from={s(94.1)} durationInFrames={s(5.4)} name="Tech-abst"><TechFrame src="abstention-curve.png" kicker="It stays silent when unsure" /></Sequence>
+
     {/* ══ THE WIDEN ══ */}
-    <Sequence from={s(83.6)} durationInFrames={s(13.3)} name="Who">
+    <Sequence from={s(99.6)} durationInFrames={s(13.3)} name="Who">
       <FadeWrap inSec={1.0} outSec={1.0}><FullVideo src="who.webm" /></FadeWrap>
     </Sequence>
-    <Sequence from={s(96.9)} durationInFrames={s(3.4)} name="Presence"><BigLine text="Presence — not performance." size={70} /></Sequence>
+    <Sequence from={s(112.9)} durationInFrames={s(3.4)} name="Presence"><BigLine text="Presence — not performance." size={70} /></Sequence>
 
     {/* ══ GRACE / BENEDICTION ══ */}
-    <Sequence from={s(100.2)} durationInFrames={s(4.9)} name="Cooldown">
+    <Sequence from={s(116.2)} durationInFrames={s(4.9)} name="Cooldown">
       <FadeWrap inSec={0.9} outSec={0.7}><Tint color={TEAL} /><DemoStage src="cooldown.webm" /></FadeWrap>
     </Sequence>
-    <Sequence from={s(104.9)} durationInFrames={s(3.9)} name="Benediction"><Benediction /></Sequence>
+    <Sequence from={s(120.9)} durationInFrames={s(3.9)} name="Benediction"><Benediction /></Sequence>
 
     {/* ══ CLOSE + SIGN-OFF ══ */}
-    <Sequence from={s(108.8)} durationInFrames={s(4.1)} name="Close"><BigLine text="Not Scripture you go to. Scripture that shows up." italic size={58} /></Sequence>
-    <Sequence from={s(112.8)} durationInFrames={s(6.2)} name="SignOff"><SignOff /></Sequence>
+    <Sequence from={s(124.8)} durationInFrames={s(4.1)} name="Close"><BigLine text="Not Scripture you go to. Scripture that shows up." italic size={58} /></Sequence>
+    <Sequence from={s(128.8)} durationInFrames={s(6.2)} name="SignOff"><SignOff /></Sequence>
 
     {/* ── overlays ── */}
     <Grain />
