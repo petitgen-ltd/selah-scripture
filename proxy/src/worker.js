@@ -36,9 +36,19 @@ const GLOO_TOKEN_URL = "https://platform.ai.gloo.com/oauth2/token";
 // verified against docs.gloo.com. `model` is optional (auto-routed) unless env.GLOO_MODEL set.
 const GLOO_CHAT = "https://platform.ai.gloo.com/ai/v2/chat/completions";
 
-// language → YouVersion bibleId. These are best-known ids; verify each against
-// GET /bibles in the portal and override via env.BIBLES (JSON) without redeploy.
-const DEFAULT_BIBLES = { en: 206, es: 128, sw: 1126, ko: 88, pt: 129 };
+// language → YouVersion bibleId (verified against GET /v1/bibles).
+// en = 3034 (Berean Standard Bible, public domain). Non-English ids can be filled
+// from GET /v1/bibles?language_ranges[]=<lang> and overridden via env.BIBLES (JSON);
+// until then, non-English gracefully falls back to the app's embedded text.
+const DEFAULT_BIBLES = { en: 3034 };
+
+// internal ref book-codes → YouVersion USFM codes (only where they differ).
+const BOOK_FIX = { PHI: "PHP" }; // Philippians: our "PHI" → YouVersion "PHP"
+function toYVRef(ref) {
+  const dot = ref.indexOf(".");
+  const book = dot > 0 ? ref.slice(0, dot) : ref;
+  return BOOK_FIX[book] ? BOOK_FIX[book] + ref.slice(dot) : ref;
+}
 
 // Curated candidate verses Gloo must CHOOSE FROM (never invents a reference).
 // Spans emotional needs so a whispered word maps to a fitting verse.
@@ -160,13 +170,14 @@ async function bumpGloo(env) {
 
 // ── YouVersion ─────────────────────────────────────────────────────────────
 async function fetchVerse(env, ref, lang) {
-  const bible = bibles(env)[lang] || bibles(env).en;
+  const bible = bibles(env)[lang];
+  if (!bible) throw new Error(`no bibleId for ${lang}`); // caller falls back to embedded text
   const cacheKey = `verse:${bible}:${ref}`;
   if (env.SELAH) {
     const hit = await env.SELAH.get(cacheKey);
     if (hit) return JSON.parse(hit);
   }
-  const r = await fetch(`${YV_BASE}/bibles/${bible}/passages/${ref}`, {
+  const r = await fetch(`${YV_BASE}/bibles/${bible}/passages/${toYVRef(ref)}`, {
     headers: { "X-YVP-App-Key": env.YVP_APP_KEY, Accept: "application/json" },
   });
   if (!r.ok) throw new Error(`youversion ${r.status}`);
