@@ -20,3 +20,8 @@ capture/            # raw Playwright captures — regenerate: node scripts/captu
 video/public/       # staged render assets (clips/vo/music/stills)
 video/out/
 video/.remotion/
+
+# internal / strategy — not for the public submission repo
+docs/DISCUSSION-NOTES.md
+scripture-in-new-frontiers.zip
+sample fitness tracker.ipynb
