@@ -1,0 +1,53 @@
+moment_type,verse_reference,verse_text_preview,translation,theme_tag,delivery_format,hr_zone_trigger,effort_pct_trigger,activity_context
+peak_effort,ISA.40.31,Those who hope in the LORD will renew their strength,NIV,endurance,haptic_pulse + display,5,0.85,running/cycling
+peak_effort,ROM.8.37,We are more than conquerors through him who loved us,ESV,victory,display_only,5,0.85,all
+peak_effort,ISA.40.31,But they who wait for the LORD shall renew their strength,ESV,endurance,haptic_pulse + display,5,0.85,running/cycling
+peak_effort,ROM.8.37,We are more than conquerors through him who loved us,NIV,victory,haptic_pulse + display,5,0.90,all
+breakthrough_wall,PHI.4.13,I can do all this through him who gives me strength,NIV,strength,haptic_pulse + audio,4,0.75,running
+breakthrough_wall,JOS.1.9,Be strong and courageous. Do not be afraid,NIV,courage,display_only,4,0.75,all
+breakthrough_wall,PHI.4.13,I can do all things through him who strengthens me,ESV,strength,haptic_pulse + audio,4,0.78,running/cycling
+breakthrough_wall,2TI.1.7,God has not given us a spirit of fear but of power,NIV,power,display_only,4,0.76,all
+final_rep,2CO.12.9,My power is made perfect in weakness,NIV,grace,haptic_pulse + display,4,0.80,weightlifting
+final_rep,PHI.4.13,I can do all this through him who gives me strength,KJV,strength,haptic_pulse + display,4,0.82,weightlifting
+final_rep,ISA.41.10,I will strengthen you and help you,NIV,courage,haptic_pulse + audio,5,0.85,weightlifting
+final_rep,ROM.8.37,We are more than conquerors through him who loved us,NIV,victory,display_only,4,0.81,weightlifting
+steady_state,PSA.23.4,Even though I walk through the darkest valley,NIV,presence,display_only,3,0.60,running/cycling
+steady_state,PRO.3.5,Trust in the LORD with all your heart,NIV,trust,display_only,3,0.62,all
+steady_state,PSA.23.4,Even though I walk through the darkest valley,ESV,presence,display_only,2,0.55,running
+steady_state,LAM.3.22,His compassions never fail. They are new every morning,NIV,renewal,ambient_glow,3,0.58,all
+recovery_window,PSA.46.10,Be still and know that I am God,ESV,peace,ambient_glow,2,0.50,cycling
+recovery_window,LAM.3.22,His compassions never fail. They are new every morning,NIV,renewal,ambient_glow,2,0.48,all
+recovery_window,PSA.23.4,Your rod and your staff they comfort me,NIV,presence,ambient_glow,1,0.40,running
+recovery_window,PSA.46.10,Be still and know that I am God,NIV,peace,ambient_glow,2,0.45,all
+rest_set,LAM.3.22,His compassions never fail. They are new every morning,NIV,renewal,display_only,1,0.30,weightlifting
+rest_set,PSA.46.10,Be still and know that I am God,KJV,peace,display_only,1,0.28,weightlifting
+rest_set,PRO.3.5,Trust in the LORD with all thine heart,KJV,trust,ambient_glow,1,0.32,weightlifting
+rest_set,ISA.40.31,They that wait upon the LORD shall renew their strength,KJV,endurance,display_only,1,0.31,weightlifting
+finishing_strong,GAL.6.9,Let us not become weary in doing good,NIV,perseverance,haptic_pulse + display,4,0.80,running/cycling
+finishing_strong,1CO.9.24,Run in such a way as to get the prize,NIV,purpose,display_only,4,0.82,running
+finishing_strong,GAL.6.9,Let us not grow weary of doing good,ESV,perseverance,haptic_pulse + display,4,0.83,all
+finishing_strong,ISA.40.31,They will run and not grow weary,NIV,endurance,haptic_pulse + audio,5,0.88,running
+redline,ISA.41.10,Do not fear for I am with you,NIV,courage,haptic_pulse + audio,5,0.95,hiit
+redline,ROM.8.37,We are more than conquerors through him who loved us,NLT,victory,haptic_pulse + audio,5,0.96,all
+redline,PHI.4.13,I can do everything through Christ who gives me strength,NLT,strength,haptic_pulse + audio,5,0.97,hiit
+redline,ISA.41.10,I will strengthen you and help you says the LORD,ESV,courage,haptic_pulse + display,5,0.95,all
+pre_workout,PSA.118.24,This is the day the LORD has made let us rejoice,NIV,gratitude,display_only,1,0.10,all
+pre_workout,JOS.1.9,Be strong and courageous do not be discouraged,NIV,courage,display_only,1,0.12,all
+pre_workout,PSA.118.24,This is the day the LORD has made we will rejoice,KJV,gratitude,display_only,1,0.11,all
+pre_workout,PRO.3.5,Trust in the LORD with all your heart,ESV,trust,ambient_glow,1,0.10,all
+post_workout,1CO.9.24,Run in such a way as to get the prize,NIV,purpose,display_only,1,0.15,running
+post_workout,GAL.6.9,At the proper time we will reap a harvest,NIV,perseverance,display_only,1,0.14,all
+post_workout,1CO.9.24,So run that you may obtain the prize,ESV,purpose,display_only,1,0.15,all
+post_workout,ISA.40.31,They will walk and not be faint,NIV,endurance,display_only,1,0.13,all
+early_push,JOS.1.9,Be strong and courageous do not be afraid,ESV,courage,display_only,4,0.74,cycling
+early_push,2TI.1.7,God gave us a spirit of power love and self-discipline,NIV,power,display_only,4,0.75,all
+early_push,JOS.1.9,The LORD your God will be with you wherever you go,NIV,courage,haptic_pulse + display,4,0.76,running
+early_push,ISA.41.10,Do not fear for I am your God,NLT,courage,display_only,4,0.74,all
+warmup,PRO.3.5,Trust in the LORD with all your heart,KJV,trust,ambient_glow,1,0.22,weightlifting
+warmup,PSA.118.24,This is the day which the LORD hath made,KJV,gratitude,ambient_glow,1,0.20,weightlifting
+warmup,PRO.3.5,Do not lean on your own understanding,NIV,trust,ambient_glow,1,0.21,all
+warmup,LAM.3.22,Great is his faithfulness,NLT,renewal,ambient_glow,1,0.22,all
+active_recovery,LAM.3.22,His compassions never fail they are new every morning,NIV,renewal,ambient_glow,2,0.44,hiit
+active_recovery,PSA.23.4,Even though I walk through the darkest valley,NIV,presence,display_only,2,0.45,hiit
+active_recovery,PSA.46.10,Be still and know that I am God,NIV,peace,ambient_glow,2,0.43,all
+active_recovery,LAM.3.22,The steadfast love of the LORD never ceases,ESV,renewal,ambient_glow,2,0.46,hiit
