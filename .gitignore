@@ -4,6 +4,14 @@ __pycache__/
 *.pyc
 .pytest_cache/
 
+# secrets / env — NEVER commit (API keys live here + in Cloudflare secrets)
+.env
+.env.*
+*.env
+.dev.vars
+.dev.vars.*
+secrets/
+
 # video pipeline — large / regenerable assets (recreate with scripts/)
 vo/models/          # 126MB piper voice models — re-download via scripts/capture setup
 vo/*.wav            # regenerate: bash scripts/make_voiceover.sh
