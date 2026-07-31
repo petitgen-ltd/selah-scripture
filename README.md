@@ -1,9 +1,9 @@
 # Selah — Scripture at the right physiological moment
 
 **A wearable-native Scripture companion for the [Scripture in New Frontiers](https://www.kaggle.com/competitions/scripture-in-new-frontiers) hackathon.**
-Selah reads the body in motion and delivers the right verse at the exact physiological moment — the wall, the peak, the quiet after — using the **YouVersion Platform API** (Scripture in 2,000+ languages) and the **Gloo AI Studio API** (faith-tuned encouragement).
+Selah reads the body in motion and delivers the right verse at the exact physiological moment — the wall, the rehab ward, the ninth hour of labor, the quiet after — using the **YouVersion Platform API** (Scripture in 2,000+ languages) and the **Gloo AI Studio API** (faith-tuned encouragement).
 
-> Not another Bible app. Scripture that shows up where people already are.
+> Not another Bible app. **Scripture that finds you when you can't go looking** — for the moments you can't open an app: the wall, the hospital corridor, the ninth hour of labor, the 3 a.m. grief walk. Presence, not performance.
 
 ## What's here
 | | |
