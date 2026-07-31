@@ -1,50 +1,55 @@
-# Selah — 3-minute video script + storyboard
+# Selah — video script (v2, re-sequenced) · ≤3:00, public YouTube
 
-**Format:** ≤3:00, published public on YouTube. The video is 30% of the score and the primary lens for the other 70% — so it must tell a *story*, not just demo a UI.
-**How to shoot it:** screen-record the live demo (it self-plays and loops — just open it and let it run), intercut with a phone/wearable in a real running context if you can. Narrate warmly over it. Timings below are targets.
+**The fix from the judge panel:** open on *ache* (someone you love, who can't go looking), show the *mechanism* on the run, widen to *everyone*, close on *grace*. Tone: reverent, warm, unhurried — presence over performance. Never "crush your workout." Let verses breathe (a beat of silence lands harder than narration).
 
----
+**One sentence (say it once, clearly):** *"Scripture that finds you when you can't go looking."*
 
-### 0:00–0:20 — The hook (the problem, as a person)
-**On screen:** Slow shot of someone lacing up at dawn / a watch face waking on a wrist. Then the Selah hero: *"Scripture that meets you at the wall, the peak, and the quiet after."*
-**Voiceover:**
-> "This is Maya. Every morning she runs before the world wakes up. Her watch counts every heartbeat, every mile, every hard moment. It knows exactly when she wants to quit… and in all of that, the one thing that could carry her through has never once shown up. Scripture waits in an app she has to stop and open. So it never comes."
-
-### 0:20–0:35 — The turn
-**On screen:** The Selah wordmark. Tagline: *the right word, at the right moment.*
-**Voiceover:**
-> "We built Selah to change that. Not another Bible app — Scripture that lives *inside* the run, and shows up the way a watch speaks."
-
-### 0:35–1:40 — The demo (the heart of the video)
-**On screen:** Screen-record the live demo running. Let the moments land one at a time. Slow down / hold on each verse bloom.
-
-- **(Warm-up, teal)** VO: *"It starts the moment she does."* — verse blooms: *"This is the day that the LORD has made. We will rejoice and be glad in it!"*
-- **(The wall, indigo, haptic ripple)** Hold here. VO, quieter: *"Four minutes in — this is the wall. Maya's heart-rate spikes, her effort climbs, and her watch feels it. No menu. No pop-up. Just a pulse on her wrist —"* — verse: **"I can do all things through Christ, who strengthens me."** *"— the exact word for the exact moment."*
-- **(Peak effort, amber)** VO: *"At the peak —"* verse: **"They will run, and not be weary."**
-- **(Language beat)** Tap through Español · Kiswahili · 한국어. VO: *"In Maya's language, or any of two thousand others — pulled live from YouVersion."*
-- **(Cool-down, green, ambient glow)** VO, soft: *"And when she finally slows down… a different kind of word."* — the watch speaks: **"You ran your race today. Well done."**
-
-### 1:40–2:20 — How it's real (technical credibility, 30 pts)
-**On screen:** Cut to the "How it works" section / the code snippet / the notebook running.
-**Voiceover:**
-> "Every second, Selah reads the body — heart-rate, zone, effort — and a classifier names the moment: the wall, the peak, the finish. It pulls the verse from the **YouVersion Platform API** in the runner's own language, and the **Gloo AI Studio API** — faith-tuned for ministry — shapes one short, personal line that's safe to read at 178 beats per minute. This isn't a mock-up. The notebook runs the whole pipeline end to end; the demo you just watched is the front of a working system."
-
-### 2:20–2:55 — The vision (impact + scale, 40 pts)
-**On screen:** Pull back — montage feel: a gym, a trail, a hospital treadmill, a soldier on a ruck, a watch on an ordinary wrist. Return to the breathing Selah face.
-**Voiceover:**
-> "There are a billion wearables on a billion wrists, in every language on earth. Every one of them is a place the right word could find someone — at the moment they were built to go through the wall. Not Scripture you go to. Scripture that shows up. That's Selah."
-
-### 2:55–3:00 — Sign-off
-**On screen:** *Selah — wearable scripture. Built with YouVersion + Gloo AI.* Demo link + repo.
-**Voiceover (optional):**
-> "Selah. Meet people where they already are."
+**Assets:** self-playing demo `app/index.html` (screen-record: Run loop for the mechanism, the "Not just athletes" section scroll for the human montage, Lift/HIIT for breadth, language switch); the watch's ambient Psalm 23:4 glow for the opening; title/lower-third cards. No human on camera required — text treatments + demo footage + voiceover.
 
 ---
 
-## Shot list / assets you already have
-- **Live demo** (`app/index.html`) — self-plays and loops; screen-record in full-screen for the cleanest capture. Turn **Sound on** in the demo if you want the spoken verse under your VO (or leave off and narrate).
-- **Cover / stills:** the hero and each bloom moment make strong thumbnails (see `docs/cover.jpg`).
-- **B-roll (optional, strengthens the story):** phone footage of a real run, a watch on a wrist, dawn light. Even 15–20 seconds of real-world footage intercut with the demo makes the pitch feel real.
+### 0:00–0:28 — THE ACHE (open on someone judges ache for)
+**On screen:** Near-black. Slow text, one line at a time, over the watch quietly breathing (dim, a pulse). Then the watch glows and Psalm 23:4 rises — *wordlessly*.
+**Voiceover (soft):**
+> "It's three in the morning. She can't sleep — so she walks. Her heart is racing… not from exercise. From a grief no training plan ever prepared her for. The one thing that could steady her is a book she has no hands, no eyes, no strength to open right now. So it never comes."
+**(Beat. The watch glows. Psalm 23:4 appears, unspoken on screen:)** *"Even though I walk through the valley of the shadow… you are with me."*
+**VO:** "…Until now."
 
-## Tone notes
-Warm, human, unhurried. This is a story about a person, not a feature tour. Let the verse moments *breathe* — a beat of silence after each one lands harder than narration over it. The judges said: "show the soul of your project. Don't hold back."
+### 0:28–0:44 — WHAT IT IS
+**On screen:** Selah wordmark; the line *Scripture that finds you when you can't go looking.*
+**Voiceover:**
+> "This is Selah. Not another Bible app — Scripture that finds you when you can't go looking. The Word, arriving the way a watch speaks, at the exact moment a body needs it."
+
+### 0:44–1:40 — THE MECHANISM (show it, on a run)
+**On screen:** Screen-record the Run demo. Let each beat land; hold on the blooms.
+- **(Ambient, teal)** VO: *"Every second, Selah reads the body — heart-rate, effort, recovery — and names the moment. Most of the time, it says nothing at all. Just a colour that breathes."*
+- **(The wall, indigo, haptic)** Hold. VO, quieter: *"But when she hits the wall — it feels it. No menu. No pop-up. A pulse on her wrist —"* verse: **"I can do all things through Christ, who strengthens me."**
+- **(Peak, amber)** VO: *"— and at the edge of what she's got —"* verse: **"They will mount up with wings like eagles; they will run, and not be weary."**
+- **(Language)** tap Español · Kiswahili · 한국어. VO: *"In her language, or two thousand others — pulled live from YouVersion."*
+
+### 1:40–2:12 — NOT JUST ATHLETES (widen — the attachment)
+**On screen:** Scroll the "Not just athletes" section; linger on each vignette.
+**Voiceover:**
+> "But this was never about fitness. The same heartbeat spikes in cardiac rehab — a heart relearning to beat. In the ninth hour of labor. In a nurse's twelfth hour, a soldier's ruck, a parent's dawn. Wherever a heart races, or finally rests, the right word can already be there. **Presence — not performance.**"
+
+### 2:12–2:34 — IT'S REAL (technical credibility)
+**On screen:** the "How it works" / "The build" section + a glimpse of the notebook running.
+**Voiceover:**
+> "And it's real. A classifier trained on real biometric sessions names the moment; the **YouVersion Platform API** brings the verse; the **Gloo AI Studio API**, faith-tuned for ministry, shapes one short, personal line — safe to read at a glance. The notebook runs the whole thing, end to end. Nothing here is faked."
+
+### 2:34–2:52 — CLOSE ON GRACE
+**On screen:** the cool-down — the watch soft, green; the recap "the words that carried you today."
+**Voiceover (soft):**
+> "And when she finally slows down… a different kind of word." **(Beat — the watch speaks:)** *"You ran your race today. Well done."*
+> "Not Scripture you go to. Scripture that shows up. That's Selah — for the moments you can't go looking."
+
+### 2:52–3:00 — SIGN-OFF
+**On screen:** *Selah — wearable scripture. Built with the YouVersion Platform + Gloo AI Studio APIs.* Demo link · repo.
+
+---
+
+## Direction notes
+- **Protagonist:** keep her unnamed in the open (she is anyone). "Maya" can be the runner in the mechanism section, but the emotional bookends belong to the grieving walker and the benediction — the people judges ache for.
+- **Reverence:** no exertion-hype, no "share your run." The camera-heartbeat "Feel it live" is a quiet easter egg on the live site — do **not** put it in the video.
+- **Silence:** hold ~1s after each verse. The Word should breathe.
+- **Music:** calm, cinematic, low — never a workout beat.
