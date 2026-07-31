@@ -410,8 +410,9 @@ const NOTES={breakthrough_wall:"This is the wall, Maya. You were built to go thr
 /* ═══ #1 the spoken Word — pre-rendered warm neural voice (Piper en_US-amy-medium) ═══
    Eyes closed, hands full — the Word finds your ears. English clips ship in app/audio/;
    other languages fall back to the device voice. */
-let AUDIO={}, verseAudio=null;
-fetch("audio/manifest.json").then(r=>r.json()).then(m=>{AUDIO=(m&&m.clips)||{};}).catch(()=>{});
+// inlined clip map — no fetch dependency, so it works even opened from file://
+const AUDIO=["PSA.118.24","JOS.1.9","PSA.23.4","PRO.3.5","PHI.4.13","ISA.40.31","ROM.8.37","2CO.12.9","GAL.6.9","ISA.41.10","PSA.46.10","LAM.3.22","1CO.9.24"].reduce((o,r)=>(o[r]=r+".mp3",o),{});
+let verseAudio=null;
 function stopVoice(){if(verseAudio){try{verseAudio.pause();}catch(_){}verseAudio=null;}if(window.speechSynthesis)window.speechSynthesis.cancel();}
 function playVerse(ref,text){
   if(!sound)return; stopVoice();
@@ -536,8 +537,14 @@ function finish(){
 function stopAll(){clearInterval(timer);clearTimeout(restartT);playing=false;stopVoice();}
 
 $("#begin").addEventListener("click",()=>{if(playing)return;loop=true;clearTimeout(restartT);clearOverlays();play();});
-$("#soundBtn").addEventListener("click",e=>{sound=!sound;e.target.setAttribute("aria-pressed",sound);e.target.textContent=sound?"🔊 Voice on":"Hear the Word";if(!sound)stopVoice();
-  else if(playing&&idx>0){const s=sess()[Math.min(idx-1,sess().length-1)];if(DELIVERY[s[4]][1]==="interrupt"){const rf=MOMENT_VERSE[s[4]][0],v=VERSES[rf];playVerse(rf,(v.langs[lang]||v.langs.en).replace(/LORD/g,"Lord"));}}});
+$("#soundBtn").addEventListener("click",e=>{sound=!sound;e.target.setAttribute("aria-pressed",sound);e.target.textContent=sound?"🔊 Voice on":"Hear the Word";
+  if(!sound){stopVoice();return;}
+  // immediate feedback: speak the verse on the wrist now (or the last one received)
+  let rf=null;
+  if(playing&&idx>0){const st=sess()[Math.min(idx-1,sess().length-1)];if(DELIVERY[st[4]][1]==="interrupt")rf=MOMENT_VERSE[st[4]][0];}
+  if(!rf&&received.length)rf=received[received.length-1].ref;
+  if(rf){const v=VERSES[rf];playVerse(rf,(v.langs[lang]||v.langs.en).replace(/LORD/g,"Lord"));}
+});
 document.querySelectorAll(".act").forEach(b=>b.addEventListener("click",()=>{
   document.querySelectorAll(".act").forEach(x=>x.setAttribute("aria-pressed","false"));
   b.setAttribute("aria-pressed","true");act=b.dataset.act;stopAll();loop=true;clearOverlays();play();}));
