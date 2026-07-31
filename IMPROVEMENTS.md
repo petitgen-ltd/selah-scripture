@@ -19,7 +19,7 @@ Rubric: **Impact & Vision 40 · Video Storytelling 30 · Technical Depth 30.** J
 - [ ] **Close the loop → shareable "recap" card.** After a session, a *"the words that carried you today"* card (the verses received). This adds the **social/creator frontier** and a **viral hook** (people share it), strengthening both Impact and Video.
 
 ## 🟠 P1 — Technical Depth (30 pts)
-- [ ] **Use MORE of the YouVersion API** (brief explicitly lists reading plans, verse of the day, user highlights, community data). Wire + narrate: the verse can come from *"your reading plan"* or *"a verse you highlighted"* — innovative API use + real personalization.
+- [x] **Use MORE of the YouVersion API** (brief explicitly lists reading plans, verse of the day, user highlights, community data). Wire + narrate: the verse can come from *"your reading plan"* or *"a verse you highlighted"* — innovative API use + real personalization. → **Shipped** as the two "amazing" features below (community scale + highlighted-verse).
 - [ ] **Deeper Gloo personalization.** Show it adapts to the *person* (name, history, prior verses / tone), not a static template. Real endpoint + prompt in the notebook.
 - [ ] **Classifier rigor.** Evaluate **held-out by session** (generalize across people, not random CV) + a **confusion matrix** (use the `dataviz` skill). Report per-moment precision.
 - [ ] **Real API smoke-test cell** in the notebook that actually hits YouVersion + Gloo (fails gracefully without keys) — proves the integration is wired, "not faked."
@@ -51,3 +51,15 @@ Both APIs are free to participants; Gloo needs a card + the kickoff-form $20 cre
 
 ## Definition of done
 Live demo (multi-activity + delivery modes + recap) · rigorous tested notebook (real API smoke test) · ≤500-word writeup (IP-safe) · cover · video script · LICENSE · SETUP-APIS · all tests green.
+
+---
+
+## ✨ The three "amazing" features — SHIPPED (2026-07-31)
+
+Asked "which feature would be *amazing*?" — built all three. Each deepens the soul without new risk (additive, demo-safe, live-ready).
+
+1. **The spoken Word** (`#1`, on-thesis). Eyes closed, hands full — the watch *speaks* the verse in a warm neural voice, not a screen you read. 13 pre-rendered clips (Piper `en_US-amy-medium`, unhurried, ~0.45s padding) in `app/audio/`, played at the interrupt moment; **"Hear the Word"** toggle. Falls back to the device voice for non-English. Delivery pill now reads *"haptic pulse + audio."*
+2. **You are not alone** (`#2`, YouVersion community scale). At the moment the verse arrives, a quiet line: *"you're one of N being met by this word right now."* Turns a private ping into communion. Demo counts per verse; live mode reads real concurrent engagement from the API.
+3. **The verse you highlighted** (`#3`, YouVersion highlights + reading plan). Some verses arrive with *"★ you highlighted this — 3 weeks ago"* or *"from your plan · day 6."* The personalization the hosts explicitly asked for. Demo values; live mode pulls the reader's own highlights + active plan.
+
+All three verified live in-browser: no console errors, all render in one bloom (Philippians 4:13 at the wall). Synced to the GitHub Pages root (`index.html` + `audio/`). Live-mode wiring lands with the keys tonight.

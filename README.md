@@ -20,7 +20,9 @@ Selah reads the body in motion and delivers the right verse at the exact physiol
 cd app && python3 -m http.server 8099
 # open http://localhost:8099
 ```
-Or just open `app/index.html` in a browser. It starts a run automatically and loops. Click **Begin a run** to restart, the language chips to switch translation, **Sound on** to hear the verse spoken.
+Or just open `app/index.html` in a browser. It starts a run automatically and loops. Click **Begin a run** to restart, the language chips to switch translation, **Hear the Word** to let it speak the verse aloud in a warm neural voice (eyes closed, hands full).
+
+At each interrupt the watch also shows two quiet, human touches: **"you're one of N being met by this word right now"** (YouVersion community scale — you're never alone in it) and, when it applies, **"★ you highlighted this"** / **"from your reading plan"** (the verse pulled from the reader's own YouVersion highlights). Both are demo values here; live mode reads the real numbers and the reader's own highlights from the API.
 
 ## The pipeline (what the notebook does, once a second)
 ```
