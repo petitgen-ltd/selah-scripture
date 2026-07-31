@@ -11,7 +11,7 @@ compatibility_date = "2026-07-01"
 # then paste the returned id below (replace PASTE_KV_ID_HERE).
 [[kv_namespaces]]
 binding = "SELAH"
-id = "PASTE_KV_ID_HERE"
+id = "c672a47f841e490b84995b68e17a6b37"
 
 [vars]
 # Optional overrides (safe to leave commented):

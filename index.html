@@ -449,12 +449,13 @@ const HIGHLIGHTS={"PHI.4.13":"★ you highlighted this — 3 weeks ago",
    Set PROXY to the deployed Cloudflare Worker URL. Empty = pure demo (baked data,
    no network). The app pings /health and only flips to live when the proxy answers,
    so the public demo is always safe even if the proxy is down. */
-const PROXY=""; // ← after deploy: "https://selah-proxy.<subdomain>.workers.dev"
+const PROXY="https://selah-proxy.petitgen.workers.dev"; // Selah live-API proxy (Cloudflare)
 let LIVE={on:false,youversion:false,gloo:false}, bloomToken=0;
 const YVLANG={en:"en-US",es:"es-ES",sw:"sw",ko:"ko-KR",pt:"pt-BR"};
 function updateSrcBadge(glooLive){
   const el=document.querySelector("#srcbadge"); if(!el) return;
-  if(!LIVE.on){el.textContent="◦ demo data";el.className="srcbadge";return;}
+  // only claim "live" for what is genuinely live (YouVersion key present)
+  if(!LIVE.on||!LIVE.youversion){el.textContent="◦ demo data";el.className="srcbadge";return;}
   const g = glooLive!=null ? glooLive : LIVE.gloo;
   el.textContent = "YouVersion live · " + (g ? "Gloo live" : "Gloo simulated");
   el.className="srcbadge live";
@@ -463,7 +464,7 @@ if(PROXY){fetch(PROXY+"/health").then(r=>r.json()).then(h=>{LIVE={on:!!h.ok,youv
 
 // enrich a shown verse with REAL text (YouVersion) + REAL/sim line (Gloo) when live
 async function enrichLive(ref,m,text,token){
-  if(!LIVE.on||!PROXY) return;
+  if(!LIVE.youversion||!PROXY) return; // only hit the network when YouVersion is genuinely live
   try{const v=await fetch(`${PROXY}/verse?ref=${encodeURIComponent(ref)}&lang=${lang}`).then(r=>r.json());
     if(token===bloomToken&&v&&v.text){const bv=document.querySelector("#bverse");bv.textContent=v.text;bv.classList.toggle("long",v.text.length>92);}}catch(_){}
   try{const d=await fetch(`${PROXY}/personalize`,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({moment:m,verse:text,name:"Maya",lang})}).then(r=>r.json());
