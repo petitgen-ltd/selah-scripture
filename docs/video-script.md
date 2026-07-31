@@ -18,11 +18,11 @@
 ### 0:35–1:40 — The demo (the heart of the video)
 **On screen:** Screen-record the live demo running. Let the moments land one at a time. Slow down / hold on each verse bloom.
 
-- **(Warm-up, teal)** VO: *"It starts the moment she does."* — verse blooms: *This is the day the Lord has made.*
-- **(The wall, indigo, haptic ripple)** Hold here. VO, quieter: *"Four minutes in — this is the wall. Her heart-rate spikes, her effort climbs, and her watch feels it. No menu. No pop-up. Just a pulse on her wrist —"* — verse: **"I can do all this through him who gives me strength."** *"— the exact word for the exact moment."*
-- **(Peak effort, amber)** VO: *"At the peak —"* verse: **"They will run and not grow weary."**
-- **(Language beat)** Tap through Español · Kiswahili · 한국어. VO: *"In her language, or any of two thousand others — pulled live from YouVersion."*
-- **(Cool-down, green, ambient glow)** VO, soft: *"And when she finally slows down… a different kind of word."* — verse: **"You ran your race today. Well done."**
+- **(Warm-up, teal)** VO: *"It starts the moment she does."* — verse blooms: *"This is the day that the LORD has made. We will rejoice and be glad in it!"*
+- **(The wall, indigo, haptic ripple)** Hold here. VO, quieter: *"Four minutes in — this is the wall. Maya's heart-rate spikes, her effort climbs, and her watch feels it. No menu. No pop-up. Just a pulse on her wrist —"* — verse: **"I can do all things through Christ, who strengthens me."** *"— the exact word for the exact moment."*
+- **(Peak effort, amber)** VO: *"At the peak —"* verse: **"They will run, and not be weary."**
+- **(Language beat)** Tap through Español · Kiswahili · 한국어. VO: *"In Maya's language, or any of two thousand others — pulled live from YouVersion."*
+- **(Cool-down, green, ambient glow)** VO, soft: *"And when she finally slows down… a different kind of word."* — the watch speaks: **"You ran your race today. Well done."**
 
 ### 1:40–2:20 — How it's real (technical credibility, 30 pts)
 **On screen:** Cut to the "How it works" section / the code snippet / the notebook running.
@@ -43,7 +43,7 @@
 
 ## Shot list / assets you already have
 - **Live demo** (`app/index.html`) — self-plays and loops; screen-record in full-screen for the cleanest capture. Turn **Sound on** in the demo if you want the spoken verse under your VO (or leave off and narrate).
-- **Cover / stills:** the hero and each bloom moment make strong thumbnails (see `docs/cover.png`).
+- **Cover / stills:** the hero and each bloom moment make strong thumbnails (see `docs/cover.jpg`).
 - **B-roll (optional, strengthens the story):** phone footage of a real run, a watch on a wrist, dawn light. Even 15–20 seconds of real-world footage intercut with the demo makes the pitch feel real.
 
 ## Tone notes
