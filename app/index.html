@@ -6,7 +6,7 @@
 <title>Selah — Scripture at the right physiological moment</title>
 <meta name="description" content="A wearable-native Scripture companion. Selah reads your body in motion and delivers the right verse at the exact moment you need it — powered by the YouVersion Platform and Gloo AI Studio APIs.">
 <meta property="og:title" content="Selah — Scripture at the right physiological moment">
-<meta property="og:description" content="Not another Bible app. Scripture that shows up where people already are — at the wall, the peak, the quiet after.">
+<meta property="og:description" content="Scripture that finds you when you can't go looking — for the moments you can't open an app: the wall, the hospital corridor, the ninth hour of labor. Presence, not a pop-up.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -183,9 +183,9 @@ footer .fnote{margin-top:12px;font-size:11.5px;color:var(--faint);max-width:70ch
 
 <main class="hero">
   <div class="lede">
-    <p class="eyebrow">The right word · at the right moment</p>
-    <h1>Scripture that meets you<br>at the <em>wall</em>, the <em>peak</em>,<br>and the <em>quiet after</em>.</h1>
-    <p>A billion people wear a device that feels every heartbeat — and Scripture has never once shown up there. Selah changes that. It reads the body in motion and delivers the one verse built for the moment you're in: a haptic pulse when you hit the wall, an ambient glow in the cool-down. Never a pop-up.</p>
+    <p class="eyebrow">Presence · not a pop-up</p>
+    <h1>Scripture that finds you<br>when you <em>can't</em> go<br>looking.</h1>
+    <p>A billion people wear a device that feels every heartbeat — the spike at the wall, and the same racing pulse in a hospital corridor, in the ninth hour of labor, on the 3&nbsp;a.m. walk grief takes you on. Yet the Word has never shown up there, because Bible apps wait to be <em>opened</em>. Selah doesn't wait — a verse the moment you need it, a wordless glow when you don't. Never a pop-up.</p>
     <div class="cta">
       <button class="btn" id="begin">Begin a workout ▶</button>
       <button class="btn ghost" id="soundBtn" aria-pressed="false">Sound off</button>
@@ -226,7 +226,7 @@ footer .fnote{margin-top:12px;font-size:11.5px;color:var(--faint);max-width:70ch
       <div class="recap" id="recap">
         <h4>The words that carried you today</h4>
         <ul id="recaplist"></ul>
-        <div class="share">↗ Share your run</div>
+        <div class="share">↗ Carry these with you</div>
       </div>
     </div>
 
@@ -389,21 +389,21 @@ const STORY={warmup:"6:04 a.m. Maya starts before the world is awake.",
  post_workout:"She stops. Breathes. Today, she went further.",
  working_set:"Set after set. Nobody's watching but Him.",
  final_rep:"One more rep than last week. Right at the edge.",
- redline:"All the way into the red. Then through it.",
- active_recovery:"Ten seconds to breathe before the next round.",
+ redline:"The hardest round — and he isn't in it alone.",
+ active_recovery:"Ten seconds to breathe. Even this is held.",
  rest_set:"The pause between. Even this counts."};
 const NOTES={breakthrough_wall:"This is the wall, Maya. You were built to go through it.",
  peak_effort:"Right here, at the top — new strength. Keep running.",
  finishing_strong:"The last mile is the offering. Don't give up now.",
  final_rep:"One more. His power shows up right where you're weakest.",
- redline:"All the way through the red. More than a conqueror."};
+ redline:"Even here — held, and more than a conqueror through the One who loves you."};
 
 /* three workouts — compressed timelines; moment drives verse+delivery */
 const WORKOUTS={
  run:[[0,68,1,.10,"warmup","running · warm-up"],[3,142,3,.61,"steady_state","running · finding rhythm"],
    [5,162,4,.78,"breakthrough_wall","running · the wall"],[8,174,5,.91,"peak_effort","running · peak effort"],
    [12,155,4,.73,"steady_state","running · holding"],[18,170,4,.85,"breakthrough_wall","running · second wall"],
-   [21,178,5,.92,"peak_effort","running · full send"],[24,165,4,.82,"finishing_strong","running · the last mile"],
+   [21,178,5,.92,"peak_effort","running · everything she has"],[24,165,4,.82,"finishing_strong","running · the last mile"],
    [30,75,1,.15,"post_workout","cool-down · walking"]],
  lift:[[0,70,1,.12,"warmup","lifting · warm-up"],[4,120,2,.50,"working_set","lifting · working set"],
    [8,138,3,.64,"working_set","lifting · building"],[11,158,4,.82,"final_rep","lifting · the last rep"],
