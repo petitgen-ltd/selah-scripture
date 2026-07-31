@@ -66,6 +66,43 @@ const REF_NAME = {
   "ROM.8.37": "Romans 8:37", "PSA.46.10": "Psalm 46:10",
 };
 
+// ── Simulated Gloo output — an HONEST, clearly-labeled fallback (source:"gloo-sim") ──
+// Used ONLY when live Gloo isn't configured/available (e.g. the payment gate), so the
+// pipeline + demo work end-to-end and flip to the real API the instant creds are set.
+const SIM_LINES = {
+  warmup: (n) => `Ease in, ${n} — this is the day the Lord has made; you don't carry it alone.`,
+  steady_state: (n) => `Settle into the rhythm, ${n} — He is with you in the ordinary miles.`,
+  breakthrough_wall: (n) => `${n}, the wall is not the end of your strength — one breath, then the next.`,
+  peak_effort: (n) => `Right at the top, ${n} — new strength is given to those who wait on Him.`,
+  finishing_strong: (n) => `Don't grow weary, ${n} — the last stretch is an offering, and you're not running it alone.`,
+  post_workout: (n) => `Rest now, ${n} — His mercies are new, and today you went further.`,
+  working_set: (n) => `Nobody sees this set but Him, ${n} — and that is enough.`,
+  final_rep: (n) => `One more, ${n} — His power is made perfect right where you feel weakest.`,
+  redline: (n) => `Even here, ${n} — more than a conqueror through the One who loves you.`,
+  active_recovery: (n) => `Breathe, ${n} — be still, and know that He is God.`,
+  rest_set: (n) => `Even this pause is held, ${n} — be still a moment.`,
+};
+function simLine(moment, name) {
+  const f = SIM_LINES[moment] || SIM_LINES.steady_state;
+  return f(name || "friend");
+}
+// simulated "discernment": pick the fitting verse from the candidates by what was whispered
+function simPickRef(candidates, spoken) {
+  const s = (spoken || "").toLowerCase();
+  const rules = [
+    [/(scared|afraid|fear|anxious|panic|nervous|worried)/, ["ISA.41.10", "PSA.23.4", "JOS.1.9"]],
+    [/(can'?t|weak|exhaust|tired|done|quit|giving up|give up)/, ["PHI.4.13", "2CO.12.9", "ISA.40.31"]],
+    [/(grief|grieving|sad|loss|lost|alone|lonely|hurt|broken)/, ["PSA.23.4", "LAM.3.22"]],
+    [/(thank|grateful|gratitude|joy|good|bless)/, ["PSA.118.24"]],
+    [/(peace|calm|still|rest|quiet)/, ["PSA.46.10", "PSA.23.4"]],
+    [/(strength|strong|keep going|push|endure|finish)/, ["ISA.40.31", "PHI.4.13", "GAL.6.9"]],
+  ];
+  for (const [re, refs] of rules) {
+    if (re.test(s)) { const hit = refs.find((r) => candidates.includes(r)); if (hit) return hit; }
+  }
+  return candidates[0];
+}
+
 // Soft limits (protect the $20 Gloo credit against strangers testing).
 const RL_PER_MIN = 40;       // per-IP requests/min
 const GLOO_DAILY_CAP = 1200; // global Gloo calls/day; beyond → skip Gloo, keep verse
@@ -186,19 +223,27 @@ async function handleVerse(env, url) {
   catch (e) { return json({ ref, name: REF_NAME[ref], text: "", lang, source: "fallback", error: String(e) }, 200); }
 }
 
+function glooReady(env) { return !!(env.GLOO_CLIENT_ID && env.GLOO_CLIENT_SECRET); }
+
 async function handlePersonalize(env, req) {
-  const { moment = "", verse = "", name = "friend", lang = "en" } = await req.json().catch(() => ({}));
+  const { moment = "steady_state", verse = "", name = "friend", lang = "en" } = await req.json().catch(() => ({}));
   const cacheKey = `pers:${await sha(`${moment}|${verse}|${name}|${lang}`)}`;
   if (env.SELAH) { const hit = await env.SELAH.get(cacheKey); if (hit) return json(JSON.parse(hit)); }
-  try {
-    const line = await glooChat(env,
-      `In ONE short, warm, pastoral sentence a person can read at a glance mid-effort, ` +
-      `encourage ${name} at this moment ("${moment}") grounded in this verse: "${verse}". ` +
-      `Tender, never performance-y. No emojis, no quotes, under 18 words.`);
-    const out = { note: line || "", moment, source: "gloo" };
-    if (env.SELAH && line) await env.SELAH.put(cacheKey, JSON.stringify(out), { expirationTtl: 86400 });
-    return json(out);
-  } catch (e) { return json({ note: "", moment, source: "fallback", error: String(e) }, 200); }
+  if (glooReady(env)) {
+    try {
+      const line = await glooChat(env,
+        `In ONE short, warm, pastoral sentence a person can read at a glance mid-effort, ` +
+        `encourage ${name} at this moment ("${moment}") grounded in this verse: "${verse}". ` +
+        `Tender, never performance-y. No emojis, no quotes, under 18 words.`);
+      if (line) {
+        const out = { note: line, moment, source: "gloo" };
+        if (env.SELAH) await env.SELAH.put(cacheKey, JSON.stringify(out), { expirationTtl: 86400 });
+        return json(out);
+      }
+    } catch (_) { /* fall through to honest simulation */ }
+  }
+  // labeled simulation — pipeline works + demo is complete; flips to real Gloo when configured
+  return json({ note: simLine(moment, name), moment, source: "gloo-sim" });
 }
 
 async function handleDiscern(env, req) {
@@ -213,30 +258,38 @@ async function handleDiscern(env, req) {
   if (env.SELAH) { const hit = await env.SELAH.get(cacheKey); if (hit) return json(JSON.parse(hit)); }
 
   // Gloo DISCERNS: choose the fitting verse from the safe set + write the line.
-  let ref = candidates[0], note = "";
-  try {
-    const menu = candidates.map((r) => `${r} (${REF_NAME[r]})`).join(", ");
-    const prompt =
-      `A person on a wearable is at the moment "${moment}". ` +
-      (spoken ? `They just whispered: "${spoken}". ` : `They said nothing. `) +
-      `From EXACTLY this list, choose the single verse that best meets them right now: ${menu}. ` +
-      `Then write ONE short, tender, pastoral sentence (under 18 words, no emojis/quotes) for ${name} ` +
-      `grounded in that verse and what they said. ` +
-      `Reply as strict JSON only: {"ref":"<one ref from the list>","line":"<sentence>"}`;
-    const raw = await glooChat(env, prompt, 90);
-    const m = raw.match(/\{[\s\S]*\}/);
-    if (m) {
-      const parsed = JSON.parse(m[0]);
-      if (parsed.ref && candidates.includes(parsed.ref.toUpperCase())) ref = parsed.ref.toUpperCase();
-      if (parsed.line) note = parsed.line.trim();
-    }
-  } catch (_) { /* graceful: keep moment-default ref, empty note */ }
+  let ref = candidates[0], note = "", glooSource = null;
+  if (glooReady(env)) {
+    try {
+      const menu = candidates.map((r) => `${r} (${REF_NAME[r]})`).join(", ");
+      const prompt =
+        `A person on a wearable is at the moment "${moment}". ` +
+        (spoken ? `They just whispered: "${spoken}". ` : `They said nothing. `) +
+        `From EXACTLY this list, choose the single verse that best meets them right now: ${menu}. ` +
+        `Then write ONE short, tender, pastoral sentence (under 18 words, no emojis/quotes) for ${name} ` +
+        `grounded in that verse and what they said. ` +
+        `Reply as strict JSON only: {"ref":"<one ref from the list>","line":"<sentence>"}`;
+      const raw = await glooChat(env, prompt, 90);
+      const m = raw.match(/\{[\s\S]*\}/);
+      if (m) {
+        const parsed = JSON.parse(m[0]);
+        if (parsed.ref && candidates.includes(parsed.ref.toUpperCase())) ref = parsed.ref.toUpperCase();
+        if (parsed.line) { note = parsed.line.trim(); glooSource = "gloo"; }
+      }
+    } catch (_) { /* fall through to simulated discernment */ }
+  }
+  if (!note) {
+    // labeled simulation: pick the fitting verse by what was whispered + a pastoral line
+    ref = simPickRef(candidates, spoken);
+    note = simLine(moment, name);
+    glooSource = "gloo-sim";
+  }
 
   // authoritative text from YouVersion (falls back to empty text on failure)
   let verse = { ref, name: REF_NAME[ref], text: "", lang, source: "fallback" };
   try { verse = await fetchVerse(env, ref, lang); } catch (_) {}
 
-  const out = { ...verse, note, moment, spokenHeard: !!spoken, source: { youversion: !!verse.text, gloo: !!note } };
+  const out = { ...verse, note, moment, spokenHeard: !!spoken, source: { youversion: !!verse.text, gloo: glooSource } };
   if (env.SELAH && (verse.text || note)) await env.SELAH.put(cacheKey, JSON.stringify(out), { expirationTtl: 43200 });
   return json(out);
 }
