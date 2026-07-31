@@ -398,6 +398,12 @@ const VERSES={
  "LAM.3.22":{n:"Lamentations 3:22",langs:{en:"It is because of the LORD's loving kindnesses that we are not consumed, for his compassion doesn't fail.",
    es:"Por la misericordia de Jehová no hemos sido consumidos, porque nunca decayeron sus misericordias.",sw:"Ni huruma za Bwana kwamba hatuangamii, kwa kuwa rehema zake hazikomi.",
    ko:"여호와의 인자와 긍휼이 무궁하시므로 우리가 진멸되지 아니함이니이다.",pt:"As misericórdias do Senhor são a causa de não sermos consumidos, porque as suas misericórdias não têm fim."}},
+ "PSA.46.10":{n:"Psalm 46:10",langs:{en:"Be still, and know that I am God. I will be exalted among the nations. I will be exalted in the earth.",
+   es:"Estad quietos, y conoced que yo soy Dios; seré exaltado entre las naciones, enaltecido seré en la tierra.",sw:"Tulieni, mjue ya kuwa mimi ni Mungu; nitakwezwa katika mataifa, nitakwezwa katika nchi.",
+   ko:"너희는 가만히 있어 내가 하나님 됨을 알지어다 내가 뭇 나라 중에서 높임을 받으리라.",pt:"Aquietai-vos, e sabei que eu sou Deus; serei exaltado entre as nações, serei exaltado na terra."}},
+ "JOS.1.9":{n:"Joshua 1:9",langs:{en:"Have I not commanded you? Be strong and courageous. Do not be afraid, for the LORD your God is with you wherever you go.",
+   es:"Mira que te mando que te esfuerces y seas valiente; no temas ni desmayes, porque Jehová tu Dios estará contigo dondequiera que vayas.",sw:"Je, sikukuamuru? Uwe hodari na moyo wa ushujaa; usiogope, kwa kuwa Bwana, Mungu wako, yu pamoja nawe kila uendako.",
+   ko:"내가 네게 명령한 것이 아니냐 강하고 담대하라 두려워하지 말라 네가 어디로 가든지 네 하나님 여호와가 너와 함께 하느니라.",pt:"Não to mandei eu? Sê forte e corajoso; não temas, porque o Senhor teu Deus é contigo por onde quer que andares."}},
 };
 /* Maya's story — narrated beats through the run (the product tells a story) */
 const STORY={warmup:"6:04 a.m. Maya starts before the world is awake.",
@@ -730,7 +736,7 @@ function classifyLive(zone,effort){
   if(effort>=0.68)return "breakthrough_wall";
   if(effort>=0.42)return "steady_state";
   if(effort>=0.22)return "working_set";
-  return "recovery_window";
+  return "active_recovery";
 }
 function renderLive(step){ // reuse the render path but without the timeline/session
   const[min,hr,z,e,m]=step, th=THEME[MOMENT_VERSE[m][1]], [fmt,mode]=DELIVERY[m];
