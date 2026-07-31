@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Selah — Scripture at the right physiological moment</title>
 <meta name="description" content="A wearable-native Scripture companion. Selah reads your body in motion and delivers the right verse at the exact moment you need it — powered by the YouVersion Platform and Gloo AI Studio APIs.">
+<meta property="og:title" content="Selah — Scripture at the right physiological moment">
+<meta property="og:description" content="Not another Bible app. Scripture that shows up where people already are — at the wall, the peak, the quiet after.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -12,124 +14,116 @@
 :root{
   --ink:#0a0c10; --ink2:#0f1319; --panel:#12161d; --line:rgba(255,255,255,.09);
   --fg:#eef1f5; --muted:#9aa3b0; --faint:#5d6672;
-  /* physiological glow — set live by JS */
   --glow:#38e1c0; --glow2:#14b8a6;
   --serif:"Newsreader",Georgia,serif; --ui:"Space Grotesk",system-ui,sans-serif;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{
-  margin:0; background:var(--ink); color:var(--fg); font-family:var(--ui);
-  -webkit-font-smoothing:antialiased; overflow-x:hidden;
-  font-variant-numeric:tabular-nums;
-}
+body{margin:0;background:var(--ink);color:var(--fg);font-family:var(--ui);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;font-variant-numeric:tabular-nums}
 .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
 a{color:inherit}
-
-/* ambient field that reacts to physiological state */
 .field{position:fixed;inset:0;z-index:-2;background:
   radial-gradient(120% 80% at 50% -10%, color-mix(in oklab, var(--glow) 22%, transparent), transparent 60%),
   radial-gradient(90% 70% at 50% 120%, color-mix(in oklab, var(--glow2) 16%, transparent), transparent 55%),
-  var(--ink);
-  transition:background 1.4s ease}
+  var(--ink);transition:background 1.4s ease}
 .grain{position:fixed;inset:0;z-index:-1;opacity:.05;pointer-events:none;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
-/* ── top bar ── */
 header{display:flex;align-items:center;justify-content:space-between;padding:26px 0 8px}
 .brand{display:flex;align-items:center;gap:12px;font-weight:600;letter-spacing:.02em}
 .mark{width:30px;height:30px;position:relative}
 .mark span{position:absolute;inset:0;border-radius:50%;border:1.5px solid color-mix(in oklab,var(--glow) 80%,white 10%)}
-.mark span:nth-child(2){inset:6px;opacity:.55}
-.mark span:nth-child(3){inset:12px;opacity:.28}
+.mark span:nth-child(2){inset:6px;opacity:.55}.mark span:nth-child(3){inset:12px;opacity:.28}
 .brand b{font-size:20px}
 .brand small{color:var(--faint);font-weight:400;font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin-left:2px}
 nav{display:flex;gap:22px;font-size:13.5px;color:var(--muted)}
 nav a{text-decoration:none}nav a:hover{color:var(--fg)}
 
-/* ── hero ── */
-.hero{display:grid;grid-template-columns:1.02fr .98fr;gap:40px;align-items:center;
-  min-height:calc(100vh - 96px);padding:14px 0 40px}
+.hero{display:grid;grid-template-columns:1.02fr .98fr;gap:40px;align-items:center;min-height:calc(100vh - 96px);padding:14px 0 40px}
 .lede .eyebrow{font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:color-mix(in oklab,var(--glow) 70%,white 30%);margin:0 0 18px}
 .lede h1{font-family:var(--serif);font-weight:300;font-size:clamp(38px,5.4vw,68px);line-height:1.02;letter-spacing:-.015em;margin:0 0 20px}
 .lede h1 em{font-style:italic;color:color-mix(in oklab,var(--glow) 78%,white 22%)}
-.lede p{color:var(--muted);font-size:17px;line-height:1.6;max-width:46ch;margin:0 0 28px}
+.lede p{color:var(--muted);font-size:17px;line-height:1.6;max-width:46ch;margin:0 0 26px}
 .cta{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
-.btn{font-family:var(--ui);font-weight:600;font-size:15px;border:0;border-radius:100px;
-  padding:14px 24px;cursor:pointer;transition:transform .15s, box-shadow .3s;
-  background:linear-gradient(180deg,color-mix(in oklab,var(--glow) 92%,white),var(--glow2));
+.btn{font-family:var(--ui);font-weight:600;font-size:15px;border:0;border-radius:100px;padding:14px 24px;cursor:pointer;
+  transition:transform .15s, box-shadow .3s;background:linear-gradient(180deg,color-mix(in oklab,var(--glow) 92%,white),var(--glow2));
   color:#04110d;box-shadow:0 10px 34px color-mix(in oklab,var(--glow) 40%,transparent)}
 .btn:hover{transform:translateY(-1px)}
-.btn:focus-visible,a:focus-visible{outline:2px solid var(--glow);outline-offset:3px}
+.btn:focus-visible,a:focus-visible,.chip:focus-visible{outline:2px solid var(--glow);outline-offset:3px}
 .btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line);box-shadow:none}
-.tick{display:flex;gap:22px;margin-top:34px;color:var(--faint);font-size:12.5px;letter-spacing:.02em}
-.tick b{color:var(--fg);font-weight:600;display:block;font-size:15px;font-variant-numeric:tabular-nums}
+.tick{display:flex;gap:22px;margin-top:30px;color:var(--faint);font-size:12.5px}
+.tick b{color:var(--fg);font-weight:600;display:block;font-size:15px}
 
-/* ── the device ── */
-.stage{position:relative;display:flex;flex-direction:column;align-items:center;gap:22px}
+.stage{position:relative;display:flex;flex-direction:column;align-items:center;gap:18px}
+.activities{display:flex;gap:8px}
+.act{font-family:var(--ui);font-size:12.5px;color:var(--muted);background:rgba(255,255,255,.04);border:1px solid var(--line);
+  border-radius:100px;padding:8px 16px;cursor:pointer;transition:.18s;display:flex;align-items:center;gap:7px}
+.act:hover{color:var(--fg)}
+.act[aria-pressed="true"]{color:#04110d;background:var(--glow);border-color:var(--glow);font-weight:600}
 .watch{position:relative;width:340px;height:340px;border-radius:50%;
   background:radial-gradient(circle at 50% 38%, #1a212b, #090b0f 72%);
   box-shadow:0 40px 120px rgba(0,0,0,.6), inset 0 0 0 10px #05070a, inset 0 0 0 11px rgba(255,255,255,.05),
-   0 0 0 2px color-mix(in oklab,var(--glow) 40%,transparent);
-  transition:box-shadow 1.2s ease; overflow:hidden}
+   0 0 0 2px color-mix(in oklab,var(--glow) 40%,transparent);transition:box-shadow 1.2s ease;overflow:hidden}
 .watch::after{content:"";position:absolute;inset:0;border-radius:50%;
   background:radial-gradient(circle at 50% 40%, transparent 55%, color-mix(in oklab,var(--glow) 24%,transparent));
   opacity:.9;transition:background 1.2s ease;mix-blend-mode:screen}
 .pulse{position:absolute;inset:0;border-radius:50%;pointer-events:none}
-.pulse i{position:absolute;inset:34%;border-radius:50%;border:1.5px solid color-mix(in oklab,var(--glow) 70%,transparent);
-  animation:beat var(--beat,.72s) ease-out infinite}
+.pulse i{position:absolute;inset:34%;border-radius:50%;border:1.5px solid color-mix(in oklab,var(--glow) 70%,transparent);animation:beat var(--beat,.72s) ease-out infinite}
 @keyframes beat{0%{transform:scale(.5);opacity:.9}80%{opacity:0}100%{transform:scale(2.6);opacity:0}}
-
-/* face content */
-.face{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:34px}
-.hr{font-size:64px;font-weight:500;line-height:1;letter-spacing:-.03em}
-.hr small{font-size:15px;color:var(--muted);font-weight:500;letter-spacing:.05em}
-.bpmlab{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--faint);margin-top:4px}
-.meta{display:flex;gap:16px;margin-top:14px;font-size:12px;color:var(--muted)}
+.face{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:34px;transition:opacity .55s ease}
+.hr{font-size:62px;font-weight:500;line-height:1;letter-spacing:-.03em}
+.hr small{font-size:15px;color:var(--muted);font-weight:500}
+.bpmlab{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--faint);margin-top:4px}
+.meta{display:flex;gap:16px;margin-top:12px;font-size:12px;color:var(--muted)}
 .meta b{color:var(--fg);font-weight:600}
-.zone{margin-top:12px;height:5px;width:150px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden}
+#ecg{margin-top:12px;opacity:.85}
+.zone{margin-top:8px;height:5px;width:150px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden}
 .zone i{display:block;height:100%;width:10%;border-radius:4px;background:var(--glow);transition:width .9s ease,background 1.2s}
-
-/* the bloom — Scripture rises onto the face */
-.face{transition:opacity .55s ease}
-.watch.bloomed .face{opacity:.05}
-.bloom{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;padding:38px;opacity:0;transform:translateY(10px);pointer-events:none;
-  background:radial-gradient(circle at 50% 40%, #161d26, #090b0f 76%);
-  transition:opacity .9s ease, transform .9s ease}
+/* ambient whisper — the non-interrupting delivery */
+.whisper{position:absolute;left:0;right:0;bottom:40px;text-align:center;opacity:0;transition:opacity .8s ease;pointer-events:none}
+.whisper.show{opacity:.9}
+.whisper .w-ref{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:color-mix(in oklab,var(--glow) 72%,white 28%)}
+.whisper .w-theme{font-family:var(--serif);font-style:italic;font-size:14px;color:var(--muted);margin-top:2px}
+/* interrupt bloom — the haptic verse */
+.bloom{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:38px;
+  opacity:0;transform:translateY(10px);pointer-events:none;
+  background:radial-gradient(circle at 50% 40%, #161d26, #090b0f 76%);transition:opacity .9s ease, transform .9s ease}
 .bloom.show{opacity:1;transform:none}
 .bloom .ref{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:color-mix(in oklab,var(--glow) 72%,white 28%);margin-bottom:12px}
-.bloom .verse{font-family:var(--serif);font-weight:300;font-size:21px;line-height:1.34;letter-spacing:-.01em}
-.bloom .verse.long{font-size:18px}
+.bloom .verse{font-family:var(--serif);font-weight:300;font-size:20px;line-height:1.34;letter-spacing:-.01em}
+.bloom .verse.long{font-size:17px}
+.bloom .note{font-size:11.5px;color:var(--muted);margin-top:14px;font-style:italic;max-width:24ch}
 .ripple{position:absolute;inset:0;border-radius:50%;pointer-events:none}
 .ripple i{position:absolute;inset:50%;border-radius:50%;border:1px solid var(--glow);opacity:0}
-.ripple.go i{animation:rip 1.1s ease-out}
-.ripple.go i:nth-child(2){animation-delay:.14s}
-.ripple.go i:nth-child(3){animation-delay:.28s}
+.ripple.go i{animation:rip 1.1s ease-out}.ripple.go i:nth-child(2){animation-delay:.14s}.ripple.go i:nth-child(3){animation-delay:.28s}
 @keyframes rip{0%{inset:48%;opacity:.8}100%{inset:-6%;opacity:0}}
+/* recap card */
+.recap{position:absolute;inset:0;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;
+  opacity:0;transform:scale(.96);pointer-events:none;background:radial-gradient(circle at 50% 40%, #12202a, #080a0e 78%);transition:opacity .9s, transform .9s}
+.recap.show{opacity:1;transform:none}
+.recap h4{font-family:var(--serif);font-style:italic;font-weight:300;font-size:17px;margin:0 0 14px;color:var(--fg)}
+.recap ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+.recap li{font-size:12.5px;color:var(--muted)}.recap li b{color:color-mix(in oklab,var(--glow) 72%,white 28%);font-weight:600}
+.recap .share{margin-top:16px;font-size:11px;letter-spacing:.06em;color:var(--muted);border:1px solid var(--line);border-radius:100px;padding:7px 15px}
 
-/* moment caption under watch */
-.caption{min-height:58px;text-align:center;max-width:400px}
+.caption{min-height:52px;text-align:center;max-width:400px}
 .caption .mtag{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--glow);transition:color 1s}
 .caption .why{color:var(--faint);font-size:13px;line-height:1.5;margin-top:6px}
 .caption .why b{color:var(--muted);font-weight:600}
-.deliverpill{display:inline-flex;gap:7px;align-items:center;margin-top:9px;font-size:11px;color:var(--muted);
-  border:1px solid var(--line);border-radius:100px;padding:5px 11px;letter-spacing:.06em}
+.deliverpill{display:inline-flex;gap:7px;align-items:center;margin-top:9px;font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:100px;padding:5px 11px;letter-spacing:.05em}
 .deliverpill .dot{width:6px;height:6px;border-radius:50%;background:var(--glow);box-shadow:0 0 10px var(--glow)}
-
-/* controls */
+.deliverpill.ambient{opacity:.8}
 .controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center}
-.chip{font-family:var(--ui);font-size:12.5px;color:var(--muted);background:rgba(255,255,255,.04);
-  border:1px solid var(--line);border-radius:100px;padding:9px 15px;cursor:pointer;transition:.18s}
+.chip{font-family:var(--ui);font-size:12.5px;color:var(--muted);background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:100px;padding:9px 15px;cursor:pointer;transition:.18s}
 .chip:hover{color:var(--fg);border-color:color-mix(in oklab,var(--glow) 50%,var(--line))}
 .chip[aria-pressed="true"]{color:#04110d;background:var(--glow);border-color:var(--glow);font-weight:600}
 .timeline{width:100%;max-width:420px;height:5px;border-radius:4px;background:rgba(255,255,255,.07);position:relative;margin-top:2px}
 .timeline i{position:absolute;top:0;left:0;height:100%;border-radius:4px;background:var(--glow);width:0;transition:width .4s linear}
-.timeline b{position:absolute;top:-3px;width:11px;height:11px;border-radius:50%;transform:translateX(-50%);
-  background:var(--ink2);border:2px solid var(--faint)}
+.timeline b{position:absolute;top:-3px;width:11px;height:11px;border-radius:50%;transform:translateX(-50%);background:var(--ink2);border:2px solid var(--faint)}
 .timeline b.hit{border-color:var(--glow);box-shadow:0 0 10px var(--glow)}
+.timeline b.interrupt{width:13px;height:13px;top:-4px}
 
-/* sections */
 section.band{padding:96px 0;border-top:1px solid var(--line)}
 .kicker{font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--faint);margin:0 0 14px}
 .band h2{font-family:var(--serif);font-weight:300;font-size:clamp(28px,3.6vw,42px);letter-spacing:-.01em;margin:0 0 40px;max-width:20ch}
@@ -140,28 +134,20 @@ section.band{padding:96px 0;border-top:1px solid var(--line)}
 .step p{color:var(--muted);font-size:14.5px;line-height:1.6;margin:0}
 .step .src{margin-top:14px;font-size:12px;color:var(--faint);border-top:1px solid var(--line);padding-top:12px}
 .step .src b{color:color-mix(in oklab,var(--glow) 70%,white 30%);font-weight:600}
-
 .two{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
 .two p{color:var(--muted);font-size:15.5px;line-height:1.7}
-.stackcode{font-family:var(--ui);font-size:13px;color:var(--muted);background:var(--ink2);border:1px solid var(--line);
-  border-radius:14px;padding:22px;line-height:1.8;overflow-x:auto}
-.stackcode .k{color:color-mix(in oklab,var(--glow) 70%,white 30%)}
-.stackcode .c{color:var(--faint)}
-
-footer{border-top:1px solid var(--line);padding:40px 0 60px;color:var(--faint);font-size:13px;
-  display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
-footer a{color:var(--muted);text-decoration:none}footer a:hover{color:var(--fg)}
+.stackcode{font-family:var(--ui);font-size:13px;color:var(--muted);background:var(--ink2);border:1px solid var(--line);border-radius:14px;padding:22px;line-height:1.8;overflow-x:auto}
+.stackcode .k{color:color-mix(in oklab,var(--glow) 70%,white 30%)}.stackcode .c{color:var(--faint)}
+footer{border-top:1px solid var(--line);padding:40px 0 60px;color:var(--faint);font-size:13px}
+footer .fnote{margin-top:12px;font-size:11.5px;color:var(--faint);max-width:70ch}
 
 @media (max-width:900px){
-  .hero{grid-template-columns:1fr;gap:34px;text-align:center;padding-top:8px}
-  .lede p{margin-inline:auto}.cta,.tick{justify-content:center}
-  .steps{grid-template-columns:1fr}.two{grid-template-columns:1fr;gap:28px}
-  .watch{width:300px;height:300px}
+  .hero{grid-template-columns:1fr;gap:30px;text-align:center;padding-top:8px}
+  .lede p{margin-inline:auto}.cta,.tick{justify-content:center}.tick{flex-wrap:wrap;gap:16px 22px}
+  nav{display:none}.steps{grid-template-columns:1fr}.two{grid-template-columns:1fr;gap:28px}
+  .watch{width:300px;height:300px}.hr{font-size:54px}
 }
-@media (prefers-reduced-motion:reduce){
-  .pulse i,.ripple.go i{animation:none!important}
-  *{transition-duration:.01ms!important}
-}
+@media (prefers-reduced-motion:reduce){.pulse i,.ripple.go i{animation:none!important}*{transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
@@ -169,11 +155,9 @@ footer a{color:var(--muted);text-decoration:none}footer a:hover{color:var(--fg)}
 
 <div class="wrap">
 <header>
-  <div class="brand"><div class="mark"><span></span><span></span><span></span></div>
-    <b>Selah</b><small>wearable scripture</small></div>
+  <div class="brand"><div class="mark"><span></span><span></span><span></span></div><b>Selah</b><small>wearable scripture</small></div>
   <nav>
-    <a href="#how">How it works</a>
-    <a href="#tech">The build</a>
+    <a href="#how">How it works</a><a href="#tech">The build</a>
     <a href="https://youversion.com" target="_blank" rel="noopener">YouVersion</a>
     <a href="https://gloo.ai" target="_blank" rel="noopener">Gloo AI</a>
   </nav>
@@ -183,48 +167,61 @@ footer a{color:var(--muted);text-decoration:none}footer a:hover{color:var(--fg)}
   <div class="lede">
     <p class="eyebrow">The right word · at the right moment</p>
     <h1>Scripture that meets you<br>at the <em>wall</em>, the <em>peak</em>,<br>and the <em>quiet after</em>.</h1>
-    <p>Billions move through their days wearing a device that feels every heartbeat — yet Scripture has never once shown up there. Selah changes that. It reads your body in motion and delivers the one verse built for the moment you're in.</p>
+    <p>A billion people wear a device that feels every heartbeat — and Scripture has never once shown up there. Selah changes that. It reads the body in motion and delivers the one verse built for the moment you're in: a haptic pulse when you hit the wall, an ambient glow in the cool-down. Never a pop-up.</p>
     <div class="cta">
-      <button class="btn" id="begin">Begin a run ▶</button>
+      <button class="btn" id="begin">Begin a workout ▶</button>
       <button class="btn ghost" id="soundBtn" aria-pressed="false">Sound off</button>
     </div>
     <div class="tick">
-      <div><b id="tVerses">8</b>moments mapped</div>
+      <div><b id="tActs">3</b>kinds of effort</div>
       <div><b>2,000+</b>languages · YouVersion</div>
       <div><b>Gloo AI</b>faith-tuned voice</div>
     </div>
   </div>
 
   <div class="stage">
+    <div class="activities" role="group" aria-label="Choose a workout">
+      <button class="act" data-act="run" aria-pressed="true">◷ Run</button>
+      <button class="act" data-act="lift" aria-pressed="false">▤ Lift</button>
+      <button class="act" data-act="hiit" aria-pressed="false">⚡ HIIT</button>
+    </div>
     <div class="watch" id="watch">
       <div class="pulse"><i></i></div>
       <div class="ripple" id="ripple"><i></i><i></i><i></i></div>
       <div class="face" id="face">
         <div class="hr"><span id="bpm">68</span><small> bpm</small></div>
-        <div class="bpmlab" id="activity">running · warm-up</div>
-        <div class="meta"><span>effort <b id="effort">10%</b></span><span>zone <b id="zone">1</b></span><span id="clock">0:00</span></div>
+        <div class="bpmlab" id="activity">ready when you are</div>
+        <div class="meta"><span>effort <b id="effort">—</b></span><span>zone <b id="zone">1</b></span><span id="clock">0:00</span></div>
+        <canvas id="ecg" width="180" height="34" aria-hidden="true"></canvas>
         <div class="zone"><i id="zonebar"></i></div>
       </div>
-      <div class="bloom" id="bloom">
-        <div class="ref" id="bref">PHILIPPIANS 4:13 · NIV</div>
-        <div class="verse" id="bverse">I can do all this through him who gives me strength.</div>
+      <div class="whisper" id="whisper"><div class="w-ref" id="wref"></div><div class="w-theme" id="wtheme"></div></div>
+      <div class="bloom" id="bloom" aria-live="polite">
+        <div class="ref" id="bref"></div>
+        <div class="verse" id="bverse"></div>
+        <div class="note" id="bnote"></div>
+      </div>
+      <div class="recap" id="recap">
+        <h4>The words that carried you today</h4>
+        <ul id="recaplist"></ul>
+        <div class="share">↗ Share your run</div>
       </div>
     </div>
 
     <div class="caption" id="caption">
       <div class="mtag" id="mtag">standing by</div>
-      <div class="why" id="why">Press <b>Begin a run</b> — Selah will read the effort and choose the moment.</div>
-      <div class="deliverpill" id="pill" style="display:none"><span class="dot"></span><span id="pilltext">haptic pulse + display</span></div>
+      <div class="why" id="why">Pick a workout — Selah reads the effort and chooses the moment.</div>
+      <div class="deliverpill" id="pill" style="display:none"><span class="dot"></span><span id="pilltext"></span></div>
     </div>
 
     <div class="timeline" id="timeline"><i id="tlfill"></i></div>
 
-    <div class="controls">
-      <span class="chip" data-lang="en" aria-pressed="true">English</span>
-      <span class="chip" data-lang="es">Español</span>
-      <span class="chip" data-lang="sw">Kiswahili</span>
-      <span class="chip" data-lang="ko">한국어</span>
-      <span class="chip" data-lang="pt">Português</span>
+    <div class="controls" role="group" aria-label="Verse language">
+      <span class="chip" data-lang="en" tabindex="0" role="button" aria-pressed="true">English</span>
+      <span class="chip" data-lang="es" tabindex="0" role="button" aria-pressed="false">Español</span>
+      <span class="chip" data-lang="sw" tabindex="0" role="button" aria-pressed="false">Kiswahili</span>
+      <span class="chip" data-lang="ko" tabindex="0" role="button" aria-pressed="false">한국어</span>
+      <span class="chip" data-lang="pt" tabindex="0" role="button" aria-pressed="false">Português</span>
     </div>
   </div>
 </main>
@@ -235,17 +232,14 @@ footer a{color:var(--muted);text-decoration:none}footer a:hover{color:var(--fg)}
     <p class="kicker">How Selah works</p>
     <h2>Three steps, run once a second, entirely in the flow of the workout.</h2>
     <div class="steps">
-      <div class="step"><div class="n">Sense</div>
-        <h3>Read the body's moment</h3>
-        <p>Heart-rate, zone, effort and recovery stream off the wearable. A lightweight classifier names the physiological moment — warm-up, steady state, the wall, peak effort, the finish, the cool-down.</p>
-        <div class="src">from the hackathon's <b>biometric&nbsp;movements</b> data</div></div>
-      <div class="step"><div class="n">Discern</div>
-        <h3>Choose the verse that fits</h3>
-        <p>Each moment maps to Scripture built for it — strength at the wall, endurance at the peak, stillness in recovery. The verse and translation are pulled live in the runner's own language.</p>
+      <div class="step"><div class="n">Sense</div><h3>Read the body's moment</h3>
+        <p>Heart-rate, zone, effort and recovery stream off the wearable. A tiny on-device classifier names the physiological moment — the wall, peak effort, the last rep, the redline, the cool-down.</p>
+        <div class="src">trained on the hackathon's <b>biometric&nbsp;movements</b> data</div></div>
+      <div class="step"><div class="n">Discern</div><h3>Choose the verse — and how loud</h3>
+        <p>Each moment maps to Scripture built for it, pulled live in the runner's own language. And Selah chooses the <em>volume</em>: a haptic verse at the wall; a wordless ambient glow at rest. Presence, not interruption.</p>
         <div class="src">via the <b>YouVersion Platform API</b> · 2,000+ languages</div></div>
-      <div class="step"><div class="n">Deliver</div>
-        <h3>Say it the way a watch would</h3>
-        <p>Not a pop-up. A haptic pulse and a single line at peak effort; an ambient glow in the cool-down. Gloo's faith-tuned model shapes one short, personal word for this runner, this moment.</p>
+      <div class="step"><div class="n">Deliver</div><h3>Say it the way a watch would</h3>
+        <p>A pulse and one line at peak effort. A colour that breathes in the cool-down. And a personal word — shaped by Gloo's faith-tuned model for this person, this moment.</p>
         <div class="src">personalized by the <b>Gloo AI Studio API</b></div></div>
     </div>
   </div>
@@ -257,169 +251,198 @@ footer a{color:var(--muted);text-decoration:none}footer a:hover{color:var(--fg)}
     <div class="two">
       <div>
         <h2 style="margin-bottom:20px">Real engineering behind the demo.</h2>
-        <p>Selah is a client that turns a biometric stream into a verse delivery. The moment classifier is trained on the provided sessions; verse text is retrieved from YouVersion in any of its 2,000+ languages; and Gloo AI writes the one-line encouragement in a voice tuned for ministry — never generic, never off-tone.</p>
-        <p style="color:var(--faint);font-size:14px">The public notebook runs the exact same pipeline end-to-end, in demo mode out of the box and against the live APIs the moment keys are added. Nothing here is faked for the camera.</p>
+        <p>Selah turns a biometric stream into a verse delivery. The moment classifier is trained and validated on the provided sessions; verse text is retrieved from YouVersion in any of its 2,000+ languages; and Gloo AI writes the one-line encouragement in a voice tuned for ministry.</p>
+        <p style="color:var(--faint);font-size:14px">The public notebook runs the exact same pipeline end-to-end — demo mode out of the box, live APIs the moment keys are added. Scripture is served through YouVersion; verse text shown offline here is public-domain. Nothing is faked for the camera.</p>
       </div>
       <div class="stackcode">
 <span class="c"># one tick of the loop</span><br>
-snap = <span class="k">read_wearable</span>()            <span class="c"># hr, zone, effort…</span><br>
-moment = <span class="k">classify_moment</span>(snap)   <span class="c"># peak_effort</span><br>
-verse  = youversion.<span class="k">get_verse</span>(<br>
-&nbsp;&nbsp;ref=<span class="k">pick</span>(moment), lang=user.lang)<br>
-note   = gloo.<span class="k">personalize</span>(<br>
-&nbsp;&nbsp;moment, verse, user.history)<br>
-watch.<span class="k">deliver</span>(verse, note,<br>
-&nbsp;&nbsp;format=<span class="k">delivery_for</span>(moment))<br>
-<span class="c"># → haptic pulse + one line, at 174 bpm</span>
+snap   = <span class="k">read_wearable</span>()          <span class="c"># hr, zone, effort…</span><br>
+moment = <span class="k">classify_moment</span>(snap)     <span class="c"># peak_effort</span><br>
+verse  = youversion.<span class="k">get_verse</span>(<span class="k">pick</span>(moment), lang)<br>
+note   = gloo.<span class="k">personalize</span>(moment, verse, user)<br>
+fmt, mode = <span class="k">delivery_for</span>(moment)   <span class="c"># haptic / ambient</span><br>
+watch.<span class="k">deliver</span>(verse, note, fmt, mode)<br>
+<span class="c"># → a pulse + one line, at 178 bpm</span>
       </div>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="wrap" style="display:flex;justify-content:space-between;width:100%;flex-wrap:wrap;gap:14px;padding:0">
+  <div class="wrap" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;padding:0">
     <span>Selah · built for <b style="color:var(--muted)">Scripture in New Frontiers</b></span>
     <span>YouVersion Platform API · Gloo AI Studio API</span>
     <span>“Selah” — the Psalmist's word for a lifted pause.</span>
   </div>
+  <div class="wrap fnote" style="padding:0">Demo verse text is public-domain (World English Bible); live mode serves the reader's chosen translation via YouVersion. Translations shown are illustrative of Selah's language reach.</div>
 </footer>
 
 <script>
-/* ── data: session, verses, mapping (from the hackathon CSVs + YouVersion) ── */
-const SESSION = [ /* S001, running, NIV — compressed for a live demo */
- {t:0,  hr:68, z:1, e:.10, m:"pre_workout",       act:"running · warm-up",  ref:"PSA.118.24"},
- {t:1,  hr:142,z:3, e:.61, m:"steady_state",      act:"running · finding rhythm", ref:"PSA.23.4"},
- {t:2,  hr:162,z:4, e:.78, m:"breakthrough_wall", act:"running · the wall", ref:"PHI.4.13"},
- {t:3,  hr:168,z:4, e:.83, m:"breakthrough_wall", act:"running · pushing", ref:"JOS.1.9"},
- {t:4,  hr:174,z:5, e:.91, m:"peak_effort",       act:"running · peak effort", ref:"ISA.40.31"},
- {t:5,  hr:155,z:4, e:.73, m:"steady_state",      act:"running · holding", ref:"PSA.23.4"},
- {t:6,  hr:170,z:4, e:.85, m:"breakthrough_wall", act:"running · second wall", ref:"PHI.4.13"},
- {t:7,  hr:178,z:5, e:.92, m:"peak_effort",       act:"running · full send", ref:"ISA.40.31"},
- {t:8,  hr:165,z:4, e:.82, m:"finishing_strong",  act:"running · the last mile", ref:"GAL.6.9"},
- {t:9,  hr:75, z:1, e:.15, m:"post_workout",      act:"cool-down · walking", ref:"1CO.9.24"},
-];
-const THEME = { // moment → glow, theme label, delivery format
- pre_workout:      {c:"#f0a6c0,#e0729a", tag:"warm-up",           th:"a day made", fmt:"gentle display"},
- steady_state:     {c:"#38e1c0,#14b8a6", tag:"steady state",      th:"presence",   fmt:"ambient display"},
- breakthrough_wall:{c:"#6f8cff,#3d5bff", tag:"the wall",          th:"strength",   fmt:"haptic pulse + audio"},
- peak_effort:      {c:"#ffb347,#ff7a1a", tag:"peak effort",       th:"endurance",  fmt:"haptic pulse + display"},
- finishing_strong: {c:"#ffd34d,#f5a623", tag:"finishing strong",  th:"perseverance", fmt:"haptic pulse + display"},
- post_workout:     {c:"#8ee6b0,#37c98a", tag:"cool-down",         th:"the prize",  fmt:"ambient glow"},
+/* ═══ data mirrors engine/selah_engine.py — IP-safe public-domain (WEB) demo verses ═══ */
+const MOMENT_VERSE={warmup:["PSA.118.24","gratitude"],steady_state:["PSA.23.4","presence"],
+ breakthrough_wall:["PHI.4.13","strength"],peak_effort:["ISA.40.31","endurance"],
+ finishing_strong:["GAL.6.9","perseverance"],post_workout:["1CO.9.24","purpose"],
+ working_set:["PRO.3.5","trust"],final_rep:["2CO.12.9","grace"],rest_set:["ISA.41.10","renewal"],
+ redline:["ROM.8.37","victory"],active_recovery:["LAM.3.22","renewal"]};
+const DELIVERY={warmup:["gentle glow","ambient"],steady_state:["ambient display","ambient"],
+ breakthrough_wall:["haptic pulse + audio","interrupt"],peak_effort:["haptic pulse + display","interrupt"],
+ finishing_strong:["haptic pulse + display","interrupt"],post_workout:["ambient glow","ambient"],
+ working_set:["ambient display","ambient"],final_rep:["haptic pulse + display","interrupt"],
+ rest_set:["ambient glow","ambient"],redline:["haptic pulse + display","interrupt"],active_recovery:["ambient glow","ambient"]};
+const THEME={gratitude:"#f0a6c0,#e0729a",presence:"#38e1c0,#14b8a6",strength:"#6f8cff,#3d5bff",
+ endurance:"#ffb347,#ff7a1a",perseverance:"#ffd34d,#f5a623",purpose:"#ffd34d,#f5a623",
+ trust:"#a98bff,#7c5cff",grace:"#7fd8ff,#38b6ff",renewal:"#8ee6b0,#37c98a",victory:"#ffd34d,#f5a623"};
+const VERSES={
+ "PSA.118.24":{n:"Psalm 118:24",langs:{en:"This is the day that the LORD has made. We will rejoice and be glad in it!",
+   es:"Este es el día que hizo Jehová; nos gozaremos y alegraremos en él.",sw:"Hii ndiyo siku aliyoifanya Bwana; tutashangilia na kuifurahia.",
+   ko:"이 날은 여호와께서 정하신 것이라 이 날에 우리가 즐거워하고 기뻐하리로다.",pt:"Este é o dia que o Senhor fez; regozijemo-nos e alegremo-nos nele."}},
+ "PSA.23.4":{n:"Psalm 23:4",langs:{en:"Even though I walk through the valley of the shadow of death, I will fear no evil, for you are with me.",
+   es:"Aunque ande en valle de sombra de muerte, no temeré mal alguno, porque tú estarás conmigo.",sw:"Nijapopita bondeni la uvuli wa mauti, sitaogopa mabaya, kwa maana wewe upo pamoja nami.",
+   ko:"내가 사망의 음침한 골짜기로 다닐지라도 해를 두려워하지 않을 것은 주께서 나와 함께 하심이라.",pt:"Ainda que eu ande pelo vale da sombra da morte, não temerei mal algum, porque tu estás comigo."}},
+ "PHI.4.13":{n:"Philippians 4:13",langs:{en:"I can do all things through Christ, who strengthens me.",
+   es:"Todo lo puedo en Cristo que me fortalece.",sw:"Nayaweza mambo yote katika yeye anitiaye nguvu.",
+   ko:"내게 능력 주시는 자 안에서 내가 모든 것을 할 수 있느니라.",pt:"Posso todas as coisas naquele que me fortalece."}},
+ "ISA.40.31":{n:"Isaiah 40:31",langs:{en:"But those who wait for the LORD will renew their strength. They will run, and not be weary.",
+   es:"Los que esperan a Jehová tendrán nuevas fuerzas; correrán, y no se cansarán.",sw:"Wanaomngoja Bwana watapata nguvu mpya; watapiga mbio wala hawatachoka.",
+   ko:"오직 여호와를 앙망하는 자는 새 힘을 얻으리니 달음박질하여도 곤비하지 아니하리로다.",pt:"Mas os que esperam no Senhor renovarão as forças; correrão e não se cansarão."}},
+ "GAL.6.9":{n:"Galatians 6:9",langs:{en:"Let us not be weary in doing good, for we will reap in due season, if we don't give up.",
+   es:"No nos cansemos, pues, de hacer bien; porque a su tiempo segaremos, si no desmayamos.",sw:"Tusichoke katika kutenda mema; maana tutavuna kwa wakati wake tusipozimia roho.",
+   ko:"우리가 선을 행하되 낙심하지 말지니 포기하지 아니하면 때가 이르매 거두리라.",pt:"E não nos cansemos de fazer o bem, porque a seu tempo ceifaremos, se não houvermos desfalecido."}},
+ "1CO.9.24":{n:"1 Corinthians 9:24",langs:{en:"Run in such a way that you may win the prize.",
+   es:"Corred de tal manera que lo obtengáis.",sw:"Pigeni mbio namna hiyo, ili mpate.",
+   ko:"너희도 상을 얻도록 이와 같이 달음질하라.",pt:"Correi de tal maneira que o alcanceis."}},
+ "PRO.3.5":{n:"Proverbs 3:5",langs:{en:"Trust in the LORD with all your heart, and don't lean on your own understanding.",
+   es:"Fíate de Jehová de todo tu corazón, y no te apoyes en tu propia prudencia.",sw:"Mtumaini Bwana kwa moyo wako wote, wala usizitegemee akili zako mwenyewe.",
+   ko:"너는 마음을 다하여 여호와를 신뢰하고 네 명철을 의지하지 말라.",pt:"Confia no Senhor de todo o teu coração, e não te estribes no teu próprio entendimento."}},
+ "2CO.12.9":{n:"2 Corinthians 12:9",langs:{en:"My grace is sufficient for you, for my power is made perfect in weakness.",
+   es:"Bástate mi gracia; porque mi poder se perfecciona en la debilidad.",sw:"Neema yangu yakutosha; maana uweza wangu hutimilika katika udhaifu.",
+   ko:"내 은혜가 네게 족하도다 이는 내 능력이 약한 데서 온전하여짐이라.",pt:"A minha graça te basta, porque o meu poder se aperfeiçoa na fraqueza."}},
+ "ISA.41.10":{n:"Isaiah 41:10",langs:{en:"Don't be afraid, for I am with you. I will strengthen you. Yes, I will help you.",
+   es:"No temas, porque yo estoy contigo; te esforzaré, y te ayudaré.",sw:"Usiogope, kwa maana mimi ni pamoja nawe; nitakutia nguvu, naam, nitakusaidia.",
+   ko:"두려워하지 말라 내가 너와 함께 함이라 내가 너를 굳세게 하리라 참으로 너를 도와주리라.",pt:"Não temas, porque eu sou contigo; eu te fortaleço, e te ajudo."}},
+ "ROM.8.37":{n:"Romans 8:37",langs:{en:"In all these things we are more than conquerors through him who loved us.",
+   es:"En todas estas cosas somos más que vencedores por medio de aquel que nos amó.",sw:"Katika mambo hayo yote tunashinda, na zaidi ya kushinda, kwa yeye aliyetupenda.",
+   ko:"이 모든 일에 우리를 사랑하시는 이로 말미암아 우리가 넉넉히 이기느니라.",pt:"Em todas estas coisas somos mais que vencedores, por aquele que nos amou."}},
+ "LAM.3.22":{n:"Lamentations 3:22",langs:{en:"It is because of the LORD's loving kindnesses that we are not consumed, for his compassion doesn't fail.",
+   es:"Por la misericordia de Jehová no hemos sido consumidos, porque nunca decayeron sus misericordias.",sw:"Ni huruma za Bwana kwamba hatuangamii, kwa kuwa rehema zake hazikomi.",
+   ko:"여호와의 인자와 긍휼이 무궁하시므로 우리가 진멸되지 아니함이니이다.",pt:"As misericórdias do Senhor são a causa de não sermos consumidos, porque as suas misericórdias não têm fim."}},
 };
-const VERSES = { // ref → {name, langs:{code:text}}
- "PSA.118.24":{name:"Psalm 118:24", langs:{en:"This is the day the LORD has made; let us rejoice and be glad in it.",
-   es:"Este es el día que hizo el Señor; nos gozaremos y alegraremos en él.", sw:"Hii ndiyo siku aliyoifanya Bwana; tutashangilia na kuifurahia.",
-   ko:"이 날은 여호와께서 정하신 것이라 이 날에 우리가 즐거워하고 기뻐하리로다.", pt:"Este é o dia que o Senhor fez; regozijemo-nos e alegremo-nos nele."}},
- "PSA.23.4":{name:"Psalm 23:4", langs:{en:"Even though I walk through the darkest valley, I will fear no evil, for you are with me.",
-   es:"Aunque ande en valle de sombra de muerte, no temeré mal alguno, porque tú estarás conmigo.", sw:"Ijapokuwa nikienda bondeni la uvuli wa mauti, sitaogopa mabaya, kwa maana wewe upo pamoja nami.",
-   ko:"내가 사망의 음침한 골짜기로 다닐지라도 해를 두려워하지 않을 것은 주께서 나와 함께 하심이라.", pt:"Ainda que eu andasse pelo vale da sombra da morte, não temeria mal algum, porque tu estás comigo."}},
- "PHI.4.13":{name:"Philippians 4:13", langs:{en:"I can do all this through him who gives me strength.",
-   es:"Todo lo puedo en Cristo que me fortalece.", sw:"Naweza kufanya mambo yote katika yeye anitiaye nguvu.",
-   ko:"내게 능력 주시는 자 안에서 내가 모든 것을 할 수 있느니라.", pt:"Posso todas as coisas naquele que me fortalece."}},
- "JOS.1.9":{name:"Joshua 1:9", langs:{en:"Be strong and courageous. Do not be afraid; the LORD your God will be with you wherever you go.",
-   es:"Esfuérzate y sé valiente; no temas, porque el Señor tu Dios estará contigo dondequiera que vayas.", sw:"Uwe hodari na moyo wa ushujaa; usiogope, kwa kuwa Bwana, Mungu wako, yu pamoja nawe kila uendako.",
-   ko:"강하고 담대하라 두려워하지 말라 네 하나님 여호와가 너와 함께 하느니라.", pt:"Sê forte e corajoso; não temas, porque o Senhor teu Deus estará contigo por onde quer que andares."}},
- "ISA.40.31":{name:"Isaiah 40:31", langs:{en:"Those who hope in the LORD will renew their strength. They will run and not grow weary.",
-   es:"Los que esperan en el Señor tendrán nuevas fuerzas; correrán y no se cansarán.", sw:"Wanaomngoja Bwana watapata nguvu mpya; watakimbia wala hawatachoka.",
-   ko:"오직 여호와를 앙망하는 자는 새 힘을 얻으리니 달음박질하여도 곤비하지 아니하리로다.", pt:"Os que esperam no Senhor renovarão as suas forças; correrão e não se cansarão."}},
- "GAL.6.9":{name:"Galatians 6:9", langs:{en:"Let us not become weary in doing good, for at the proper time we will reap a harvest if we do not give up.",
-   es:"No nos cansemos de hacer el bien, porque a su tiempo cosecharemos si no desmayamos.", sw:"Tusichoke katika kutenda mema; kwa maana tutavuna kwa wakati wake tusipozimia moyo.",
-   ko:"우리가 선을 행하되 낙심하지 말지니 포기하지 아니하면 때가 이르매 거두리라.", pt:"Não nos cansemos de fazer o bem, pois no tempo próprio colheremos, se não desanimarmos."}},
- "1CO.9.24":{name:"1 Corinthians 9:24", langs:{en:"In a race all the runners run, but only one gets the prize. Run in such a way as to get the prize.",
-   es:"En una carrera todos corren, pero solo uno recibe el premio. Corran, pues, de tal modo que lo obtengan.", sw:"Katika mashindano wote hukimbia, lakini apokeaye tuzo ni mmoja. Kimbieni namna hiyo mpate.",
-   ko:"운동장에서 달음질하는 자들이 다 달릴지라도 상 얻는 자는 한 사람인 줄을 너희가 알지 못하느냐 너희도 상을 얻도록 이와 같이 달음질하라.", pt:"Numa corrida todos correm, mas um só leva o prêmio. Corram de tal modo que o alcancem."}},
-};
-const NOTES = { // Gloo-style one-line, per moment (personalized voice)
- pre_workout:"Morgan — before the first step, this one's yours.",
- steady_state:"You've found the rhythm. He's in it with you.",
- breakthrough_wall:"This is the wall. You were built to go through it.",
+const NOTES={breakthrough_wall:"This is the wall, Maya. You were built to go through it.",
  peak_effort:"Right here, at the top — new strength. Keep running.",
  finishing_strong:"The last mile is the offering. Don't give up now.",
- post_workout:"You ran your race today. Well done.",
-};
+ final_rep:"One more. His power shows up right where you're weakest.",
+ redline:"All the way through the red. More than a conqueror."};
 
-let lang="en", sound=false, playing=false, idx=0, timer=null, loop=true, restartT=null;
-const $=s=>document.querySelector(s), field=$("#field"), watch=$("#watch");
+/* three workouts — compressed timelines; moment drives verse+delivery */
+const WORKOUTS={
+ run:[[0,68,1,.10,"warmup","running · warm-up"],[3,142,3,.61,"steady_state","running · finding rhythm"],
+   [5,162,4,.78,"breakthrough_wall","running · the wall"],[8,174,5,.91,"peak_effort","running · peak effort"],
+   [12,155,4,.73,"steady_state","running · holding"],[18,170,4,.85,"breakthrough_wall","running · second wall"],
+   [21,178,5,.92,"peak_effort","running · full send"],[24,165,4,.82,"finishing_strong","running · the last mile"],
+   [30,75,1,.15,"post_workout","cool-down · walking"]],
+ lift:[[0,70,1,.12,"warmup","lifting · warm-up"],[4,120,2,.50,"working_set","lifting · working set"],
+   [8,138,3,.64,"working_set","lifting · building"],[11,158,4,.82,"final_rep","lifting · the last rep"],
+   [13,110,2,.34,"rest_set","lifting · between sets"],[16,142,3,.66,"working_set","lifting · working set"],
+   [19,166,5,.88,"final_rep","lifting · failure point"],[22,150,4,.78,"finishing_strong","lifting · finishing"],
+   [26,78,1,.18,"post_workout","cool-down · stretch"]],
+ hiit:[[0,72,1,.15,"warmup","HIIT · warm-up"],[2,145,3,.58,"working_set","HIIT · interval"],
+   [4,182,5,.94,"redline","HIIT · redline"],[6,130,2,.40,"active_recovery","HIIT · recover"],
+   [8,185,5,.95,"redline","HIIT · redline"],[10,128,2,.38,"active_recovery","HIIT · recover"],
+   [12,150,3,.60,"working_set","HIIT · interval"],[15,180,5,.92,"redline","HIIT · final round"],
+   [17,80,1,.20,"post_workout","cool-down"]]};
+
+let lang="en",sound=false,playing=false,idx=0,timer=null,loop=true,restartT=null,act="run",received=[];
+const $=s=>document.querySelector(s),watch=$("#watch");
+const REDUCED=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
 function setGlow(cc){const[a,b]=cc.split(",");document.documentElement.style.setProperty("--glow",a);document.documentElement.style.setProperty("--glow2",b);}
-function fmtClock(t){const total=Math.round(t/9*30*60);const m=Math.floor(total/60),s=total%60;return m+":"+String(s).padStart(2,"0");}
+function sess(){return WORKOUTS[act];}
+function fmtClock(t){const tot=Math.round(t/(sess()[sess().length-1][0])* (act==="run"?30:act==="lift"?26:17)*60);const m=Math.floor(tot/60),s=tot%60;return m+":"+String(s).padStart(2,"0");}
 
-// build timeline markers
+/* ECG waveform */
+const ecg=$("#ecg"),ctx=ecg.getContext("2d");let ecgX=0,ecgData=new Array(180).fill(17),ecgHR=68,ecgRAF=null;
+function ecgStep(){ecgX=(ecgX+1)%180;const beat=Math.max(6,Math.round((60/ecgHR)*22));const ph=ecgX%beat;
+  let y=17; if(ph===1)y=24; else if(ph===2)y=6; else if(ph===3)y=27; else if(ph===4)y=15; else y=17+(Math.random()*1.4-.7);
+  ecgData[ecgX]=y; ctx.clearRect(0,0,180,34);
+  const g=getComputedStyle(document.documentElement).getPropertyValue("--glow").trim()||"#38e1c0";
+  ctx.strokeStyle=g;ctx.lineWidth=1.6;ctx.beginPath();
+  for(let i=0;i<180;i++){const xi=(i-ecgX+180)%180;ctx.globalAlpha=.15+.85*(xi/180);ctx.lineTo(i,ecgData[i]);}
+  ctx.stroke();ctx.globalAlpha=1;}
+function ecgStart(){if(ecgRAF||REDUCED)return;const loopf=()=>{ecgStep();ecgRAF=setTimeout(loopf,26);};loopf();}
+
 const tl=$("#timeline");
-SESSION.forEach((s,i)=>{const b=document.createElement("b");b.style.left=(i/(SESSION.length-1)*100)+"%";b.dataset.i=i;tl.appendChild(b);});
+function buildTimeline(){tl.querySelectorAll("b").forEach(b=>b.remove());const S=sess();
+  S.forEach((s,i)=>{const b=document.createElement("b");b.style.left=(i/(S.length-1)*100)+"%";
+    if(DELIVERY[s[4]][1]==="interrupt")b.classList.add("interrupt");tl.appendChild(b);});}
 
-function say(text){
-  if(!sound||!window.speechSynthesis)return;
-  window.speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(text);u.rate=.92;u.pitch=1;u.volume=.9;
-  const map={en:"en-US",es:"es-ES",sw:"sw",ko:"ko-KR",pt:"pt-BR"};u.lang=map[lang]||"en-US";
-  window.speechSynthesis.speak(u);
-}
+function say(text){if(!sound||!window.speechSynthesis)return;window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);u.rate=.92;u.volume=.9;
+  u.lang=({en:"en-US",es:"es-ES",sw:"sw",ko:"ko-KR",pt:"pt-BR"})[lang]||"en-US";window.speechSynthesis.speak(u);}
 
-function render(step, i){
-  const th=THEME[step.m]; setGlow(th.c);
-  $("#bpm").textContent=step.hr;
-  document.documentElement.style.setProperty("--beat",(60/step.hr)+"s");
-  $("#activity").textContent=step.act;
-  $("#effort").textContent=Math.round(step.e*100)+"%";
-  $("#zone").textContent=step.z;
-  $("#zonebar").style.width=(step.z/5*100)+"%";
-  $("#clock").textContent=fmtClock(step.t);
-  $("#mtag").textContent=th.tag;
-  $("#tlfill").style.width=(i/(SESSION.length-1)*100)+"%";
+function clearOverlays(){$("#bloom").classList.remove("show");$("#whisper").classList.remove("show");
+  $("#recap").classList.remove("show");$("#face").style.opacity="1";}
+
+function render(step,i){
+  const[min,hr,z,e,m,label]=step, th=THEME[MOMENT_VERSE[m][1]], [fmt,mode]=DELIVERY[m];
+  setGlow(th); ecgHR=hr;
+  $("#bpm").textContent=hr; document.documentElement.style.setProperty("--beat",(60/hr)+"s");
+  $("#activity").textContent=label; $("#effort").textContent=Math.round(e*100)+"%";
+  $("#zone").textContent=z; $("#zonebar").style.width=(z/5*100)+"%"; $("#clock").textContent=fmtClock(min);
+  $("#mtag").textContent=m.replace(/_/g," ");
+  $("#tlfill").style.width=(i/(sess().length-1)*100)+"%";
   document.querySelectorAll(".timeline b").forEach((b,bi)=>b.classList.toggle("hit",bi<=i));
+  $("#why").innerHTML=`zone <b>${z}</b> · effort <b>${Math.round(e*100)}%</b> → <b>${m.replace(/_/g," ")}</b>`;
+  const pill=$("#pill");pill.style.display="inline-flex";pill.classList.toggle("ambient",mode==="ambient");$("#pilltext").textContent=fmt;
 
-  const v=VERSES[step.ref], text=v.langs[lang]||v.langs.en;
-  const deliver = step.m!=="steady_state" && step.m!=="pre_workout" || i===0; // most moments deliver
-  // choose whether to bloom scripture (skip a plain steady beat to feel selective)
-  const bloomIt = !(step.m==="steady_state" && i===5);
-  $("#why").innerHTML = `zone <b>${step.z}</b> · effort <b>${Math.round(step.e*100)}%</b> → <b>${th.tag}</b> · theme of <b>${th.th}</b>`;
-  const pill=$("#pill"); pill.style.display="inline-flex"; $("#pilltext").textContent=th.fmt;
-
-  if(bloomIt){
-    $("#bref").textContent = v.name.toUpperCase()+" · "+(lang==="en"?"NIV":lang.toUpperCase());
-    const bv=$("#bverse"); bv.textContent=text; bv.classList.toggle("long",text.length>90);
-    // haptic ripple for haptic moments
-    if(th.fmt.includes("haptic")){const r=$("#ripple");r.classList.remove("go");void r.offsetWidth;r.classList.add("go");
-      if(navigator.vibrate)navigator.vibrate([30,40,30]);}
-    $("#face").style.opacity="0"; $("#bloom").classList.add("show");
+  const ref=MOMENT_VERSE[m][0], v=VERSES[ref], text=(v.langs[lang]||v.langs.en);
+  if(mode==="interrupt"){
+    // haptic verse — interrupt
+    $("#bref").textContent=v.n.toUpperCase()+" · "+(lang==="en"?"WEB":lang.toUpperCase());
+    const bv=$("#bverse");bv.textContent=text;bv.classList.toggle("long",text.length>92);
+    $("#bnote").textContent=NOTES[m]||"";
+    if(fmt.includes("haptic")&&!REDUCED){const r=$("#ripple");r.classList.remove("go");void r.offsetWidth;r.classList.add("go");if(navigator.vibrate)navigator.vibrate([30,40,30]);}
+    $("#face").style.opacity="0";$("#bloom").classList.add("show");
+    if(!received.find(x=>x.ref===ref))received.push({ref,name:v.n});
     say(text.replace(/LORD/g,"Lord"));
   } else {
-    $("#face").style.opacity="1";
+    // ambient — never interrupts: telemetry stays, watch just breathes + a whisper
+    $("#wref").textContent=v.n+" · "+MOMENT_VERSE[m][1];
+    $("#wtheme").textContent="“"+MOMENT_VERSE[m][1]+"”";
+    $("#whisper").classList.add("show");
   }
 }
-
 function step(){
-  if(idx>=SESSION.length){stop();return;}   // leave the closing verse on the face
-  $("#bloom").classList.remove("show"); $("#face").style.opacity="1";
-  setTimeout(()=>{ render(SESSION[idx], idx); idx++; }, 480);
+  if(idx>=sess().length){finish();return;}
+  clearOverlays();
+  setTimeout(()=>{render(sess()[idx],idx);idx++;}, REDUCED?60:460);
 }
-function play(){
-  playing=true; $("#begin").textContent="Running…"; $("#begin").disabled=true;
-  idx=0; step(); timer=setInterval(step, 4200);
-}
-function stop(){
-  clearInterval(timer); playing=false;
-  $("#begin").textContent="Run it again ▶"; $("#begin").disabled=false;
+function play(){playing=true;received=[];$("#begin").textContent="Working out…";$("#begin").disabled=true;
+  ecgStart();buildTimeline();idx=0;step();timer=setInterval(step, REDUCED?1600:4200);}
+function finish(){
+  clearInterval(timer);playing=false;$("#begin").textContent="Do it again ▶";$("#begin").disabled=false;
+  // recap — the shareable close
+  const rl=$("#recaplist");rl.innerHTML="";
+  received.forEach(r=>{const li=document.createElement("li");li.innerHTML=`<b>${r.name}</b>`;rl.appendChild(li);});
+  $("#face").style.opacity="0";$("#recap").classList.add("show");
   if(window.speechSynthesis)window.speechSynthesis.cancel();
-  if(loop) restartT=setTimeout(()=>{ if(loop) play(); }, 5200); // ambient loop for the demo
+  if(loop)restartT=setTimeout(()=>{if(loop){clearOverlays();play();}},6000);
 }
+function stopAll(){clearInterval(timer);clearTimeout(restartT);playing=false;if(window.speechSynthesis)window.speechSynthesis.cancel();}
 
-$("#begin").addEventListener("click",()=>{ if(playing)return; loop=true; clearTimeout(restartT); play(); });
-$("#soundBtn").addEventListener("click",e=>{
-  sound=!sound; e.target.setAttribute("aria-pressed",sound); e.target.textContent=sound?"Sound on":"Sound off";
-  if(!sound&&window.speechSynthesis)window.speechSynthesis.cancel();
-});
-document.querySelectorAll(".chip[data-lang]").forEach(c=>c.addEventListener("click",()=>{
-  document.querySelectorAll(".chip[data-lang]").forEach(x=>x.setAttribute("aria-pressed","false"));
-  c.setAttribute("aria-pressed","true"); lang=c.dataset.lang;
-  // re-render current verse in the new language, live
-  if(idx>0){const s=SESSION[Math.min(idx-1,SESSION.length-1)],v=VERSES[s.ref],t=v.langs[lang]||v.langs.en;
-    $("#bref").textContent=v.name.toUpperCase()+" · "+(lang==="en"?"NIV":lang.toUpperCase());
-    const bv=$("#bverse");bv.textContent=t;bv.classList.toggle("long",t.length>90);say(t);}
-}));
-// idle heartbeat, then auto-begin (self-playing ambient demo; click still controls)
+$("#begin").addEventListener("click",()=>{if(playing)return;loop=true;clearTimeout(restartT);clearOverlays();play();});
+$("#soundBtn").addEventListener("click",e=>{sound=!sound;e.target.setAttribute("aria-pressed",sound);e.target.textContent=sound?"Sound on":"Sound off";if(!sound&&window.speechSynthesis)window.speechSynthesis.cancel();});
+document.querySelectorAll(".act").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll(".act").forEach(x=>x.setAttribute("aria-pressed","false"));
+  b.setAttribute("aria-pressed","true");act=b.dataset.act;stopAll();loop=true;clearOverlays();play();}));
+function pickLang(c){document.querySelectorAll(".chip[data-lang]").forEach(x=>x.setAttribute("aria-pressed","false"));
+  c.setAttribute("aria-pressed","true");lang=c.dataset.lang;
+  if(playing&&idx>0){const s=sess()[Math.min(idx-1,sess().length-1)];if(DELIVERY[s[4]][1]==="interrupt"){const v=VERSES[MOMENT_VERSE[s[4]][0]],t=v.langs[lang]||v.langs.en;
+    $("#bref").textContent=v.n.toUpperCase()+" · "+(lang==="en"?"WEB":lang.toUpperCase());const bv=$("#bverse");bv.textContent=t;bv.classList.toggle("long",t.length>92);say(t);}}}
+document.querySelectorAll(".chip[data-lang]").forEach(c=>{c.addEventListener("click",()=>pickLang(c));
+  c.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();pickLang(c);}});});
+
 document.documentElement.style.setProperty("--beat",(60/64)+"s");
-setTimeout(()=>{ if(!playing){ play(); } }, 2600);
+buildTimeline();ecgStart();
+setTimeout(()=>{if(!playing)play();}, REDUCED?1200:2600);
 </script>
 </body>
 </html>
