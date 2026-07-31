@@ -1,0 +1,40 @@
+{
+  "name": "scripture-frontiers",
+  "version": "1.0.0",
+  "description": "**A wearable-native Scripture companion for the [Scripture in New Frontiers](https://www.kaggle.com/competitions/scripture-in-new-frontiers) hackathon.** Selah reads the body in motion and delivers the right verse at the exact physiological moment — the wall, the peak, the quiet after — using the **YouVersion Platform API** (Scripture in 2,000+ languages) and the **Gloo AI Studio API** (faith-tuned encouragement).",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "video:serve": "cd app && python3 -m http.server 8099",
+    "video:capture": "node scripts/capture.mjs && mkdir -p video/public/stills && cp capture/*.webm video/public/ && cp capture/stills/*.png video/public/stills/",
+    "video:voiceover": "bash scripts/make_voiceover.sh && mkdir -p video/public/vo && cp vo/0*.wav video/public/vo/",
+    "video:music": "python scripts/make_music.py",
+    "video:studio": "remotion studio video/src/index.ts --public-dir=video/public",
+    "video:render": "remotion render video/src/index.ts Selah docs/selah-demo.mp4 --codec=h264 --public-dir=video/public --concurrency=4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/petitgen-ltd/selah-scripture.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/petitgen-ltd/selah-scripture/issues"
+  },
+  "homepage": "https://github.com/petitgen-ltd/selah-scripture#readme",
+  "devDependencies": {
+    "playwright": "^1.62.1"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.503",
+    "@remotion/media-utils": "^4.0.503",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "remotion": "^4.0.503"
+  }
+}

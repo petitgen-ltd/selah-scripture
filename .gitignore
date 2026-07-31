@@ -3,3 +3,12 @@ node_modules/
 __pycache__/
 *.pyc
 .pytest_cache/
+
+# video pipeline — large / regenerable assets (recreate with scripts/)
+vo/models/          # 126MB piper voice models — re-download via scripts/capture setup
+vo/*.wav            # regenerate: bash scripts/make_voiceover.sh
+vo/*.mp3
+capture/            # raw Playwright captures — regenerate: node scripts/capture.mjs
+video/public/       # staged render assets (clips/vo/music/stills)
+video/out/
+video/.remotion/
