@@ -36,3 +36,27 @@ Deadline: **Aug 1, 12:59 PM GMT+8**. Submit = a Kaggle **Writeup** with all asse
 - Verse text: public-domain, labels say "public domain" (not a specific copyrighted translation).
 - Tone: presence, not performance. No "crush your workout." Camera-heartbeat = easter egg only, not in the video.
 - Numbers/URLs identical across writeup, video description, repo README.
+
+## E. YouTube upload kit (paste-ready)
+**Title:** Selah — Scripture that finds you when you can't go looking
+**Description:**
+```
+Selah is a wearable-native Scripture companion. It reads the body in motion —
+heart-rate, effort, recovery — and delivers the right verse at the exact
+physiological moment: a haptic pulse at the wall, a wordless ambient glow in the
+cool-down. Not a pop-up. Not another Bible app. Scripture for the moments you
+can't go looking — on a run, in cardiac rehab, in the ninth hour of labor, on the
+3 a.m. grief walk. Presence, not performance.
+
+Built for the "Scripture in New Frontiers" hackathon with the YouVersion Platform
+API (Scripture, 2,000+ languages) and the Gloo AI Studio API (faith-tuned,
+pastoral encouragement).
+
+Live demo: https://petitgen-ltd.github.io/selah-scripture/
+Code: https://github.com/petitgen-ltd/selah-scripture
+
+Scripture text shown is public domain; live mode serves the reader's own
+translation via YouVersion. "Selah" — the Psalmist's word for a lifted pause.
+```
+**Visibility:** Public (or Unlisted if you prefer — judges must access without login).
+**Tags:** Scripture, YouVersion, Gloo AI, wearable, faith tech, hackathon, Bible, presence
