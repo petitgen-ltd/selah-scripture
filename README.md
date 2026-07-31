@@ -1,5 +1,7 @@
 # Selah — Scripture at the right physiological moment
 
+[![CI](https://github.com/petitgen-ltd/selah-scripture/actions/workflows/ci.yml/badge.svg)](https://github.com/petitgen-ltd/selah-scripture/actions/workflows/ci.yml) · **License MIT** · **46 tests**
+
 **A wearable-native Scripture companion for the [Scripture in New Frontiers](https://www.kaggle.com/competitions/scripture-in-new-frontiers) hackathon (YouVersion × Gloo).**
 
 > Not another Bible app. **Scripture that finds you when you can't go looking** — for the moments you can't open an app: the wall on a run, the hospital corridor, the ninth hour of labor, the 3 a.m. grief walk. Presence, not performance.

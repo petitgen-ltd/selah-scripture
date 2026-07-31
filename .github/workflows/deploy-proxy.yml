@@ -1,0 +1,35 @@
+name: Deploy proxy
+
+# Deploys the Cloudflare Worker. Runs on manual dispatch, and automatically when
+# proxy/ changes on main — but only if the repo has the two secrets set:
+#   CLOUDFLARE_API_TOKEN  (Workers deploy permission)
+#   CLOUDFLARE_ACCOUNT_ID
+# Without them the deploy step is skipped (the job stays green), so forks/clones
+# never see a failing pipeline. Secrets never touch the client or the repo.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "proxy/**"
+
+jobs:
+  deploy:
+    name: Deploy Cloudflare Worker
+    runs-on: ubuntu-latest
+    env:
+      CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy with Wrangler
+        if: ${{ env.CF_TOKEN != '' }}
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: proxy
+          command: deploy
+      - name: Deploy skipped (no Cloudflare secrets)
+        if: ${{ env.CF_TOKEN == '' }}
+        run: echo "Set CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID repo secrets to enable proxy auto-deploy."
