@@ -14,7 +14,7 @@
 2. **Discern.** Given the moment *and* what you whispered, **Gloo's** faith-tuned AI chooses the verse **from a curated, safe set** — so it can't invent a reference — and writes one pastoral line; **YouVersion** serves the authoritative text in 2,000+ languages.
 3. **Deliver.** The watch speaks it natively — haptic, glow, or voice.
 
-**Built to be real.** App → a deployed **Cloudflare Worker** proxy → YouVersion + Gloo; keys live server-side, cached and rate-limited so the public demo survives on a $20 credit. Verses stream live (a ● live badge proves it); the engine is a tested module (46 tests, CI); the notebook runs end-to-end. Gloo is wired and running an honest, clearly-labeled simulation while a card-payment decline is resolved — one credential from live. No copyrighted translations ship; embedded fallback text is public domain.
+**Built to be real.** App → a deployed **Cloudflare Worker** proxy → YouVersion + Gloo; keys live server-side, cached and rate-limited so the demo survives on a $20 credit. Verses stream live (● live badge); the engine is tested (46 tests, CI); the notebook runs end-to-end. Gloo is wired and running an honest, labeled simulation while a card-payment decline is resolved — one credential from live. No copyrighted translations ship; embedded fallback is public domain.
 
 **The vision.** Not a fitness app. Wherever a heart races or finally rests — the gym, the rehab ward, the delivery room, the long grief-walk — the right word can already be there. Not Scripture you go to. **Scripture that shows up.**
 
