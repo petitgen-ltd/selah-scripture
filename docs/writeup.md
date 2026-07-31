@@ -10,7 +10,7 @@
 
 1. **Sense.** Heart-rate, zone, effort and recovery stream off the wearable; a tiny on-device classifier, trained on the provided sessions, names the physiological moment — the wall, the peak, the last rep, the redline, the quiet after.
 2. **Discern.** Each moment maps to Scripture built for it — strength at the wall, endurance at the peak, stillness in recovery — pulled live from the **YouVersion Platform API** in any of its 2,000+ languages.
-3. **Deliver.** The **Gloo AI Studio API** shapes one short, personal, pastoral line for *this* person, *this* moment, and the watch speaks it in the moment's native format.
+3. **Deliver.** The **Gloo AI Studio API** shapes one short, personal, pastoral line for *this* person, *this* moment — and, over weeks, learns which words land — and the watch speaks it in the moment's native format.
 
 **Why these choices.** Detection runs on-device and must never fire wrong, so the model is small and data-anchored. Verse retrieval belongs to YouVersion — translation and 2,000+ languages are solved problems to stand on. Encouragement belongs to Gloo, because a faith-tuned voice holds the tone under the one constraint that matters: it's read at 178 bpm, with no room to be off.
 
