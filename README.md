@@ -10,6 +10,29 @@
 
 Selah reads the body in motion — heart-rate, effort, recovery — senses the *moment*, and delivers the right verse at the exact physiological instant: a **haptic pulse** at the wall, a **wordless ambient glow** in the cool-down. And because a racing heart is ambiguous — exertion? fear? grief? — you can **whisper a few words and it discerns the verse that meets you** (*"I'm scared"* → Isaiah 41:10). Real verses come from the **YouVersion Platform API**; the pastoral line from the **Gloo AI Studio API**.
 
+Selah is a **watch + mobile app**; this repo is the working, testable front-end of that system.
+
+## ▶ Try it live — no install
+**→ https://petitgen-ltd.github.io/selah-scripture/** — works in any browser. Real YouVersion verses stream through the [live proxy](https://selah-proxy.petitgen.workers.dev/health); look for the green **● YouVersion live** badge.
+
+1. It **self-plays** a run — watch the verse *bloom* at the wall (real Berean Standard Bible text, live badge).
+2. Tap **🎙 Whisper** and say what's on your heart — *"I'm scared,"* *"I can't do this,"* *"thank you"* — and the fitting verse is discerned live.
+3. Switch **language** (Español · Kiswahili · 한국어 · Português) — retrieval in 2,000+ languages.
+4. **Hear the Word** speaks the verse aloud; **Feel it live** reads your real pulse from the camera (easter egg).
+
+### See it in action
+| At the wall | The whisper (the peak) | In the quiet |
+|---|---|---|
+| ![the wall](docs/screenshots/the-wall.png) | ![the whisper](docs/screenshots/whisper.png) | ![presence](docs/screenshots/presence.png) |
+| A haptic pulse + Philippians 4:13 — *"you're one of N being met by this word right now."* | Whisper *"I'm scared"* → **Isaiah 41:10**, live, with the **● YouVersion live** badge. | A wordless ambient glow — Psalm 23:4. Presence, not performance. |
+
+### Where Selah meets you (use cases)
+- **The wall on a run** → strength: *"I can do all things through Christ"* (Philippians 4:13)
+- **Cardiac rehab**, a heart relearning to beat → *"Be still, and know that I am God"* (Psalm 46:10)
+- **The ninth hour of labor** → *"Do not fear, for I am with you"* (Isaiah 41:10)
+- **The 3 a.m. grief walk** → *"through the valley… you are with me"* (Psalm 23:4)
+- **A nurse's twelfth hour, a soldier's ruck, a parent's dawn** — wherever a heart races, or finally rests.
+
 ## What's inside
 | Path | What it is |
 |---|---|
