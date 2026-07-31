@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+    --bg:#0a0c10; --ink:#f4efe6; --teal:#39d0c8; --indigo:#8a90ff; --green:#5fe0a8;
+    --muted:#8b93a3; --line:#262b36; --panel:#11151c; --panel2:#0e1219;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{background:var(--bg);}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink); -webkit-font-smoothing:antialiased;}
+  #frame{width:1600px; padding:64px 72px 56px; position:relative; background:
+    radial-gradient(1100px 500px at 12% -10%, rgba(57,208,200,.06), transparent 60%),
+    radial-gradient(1200px 560px at 90% 120%, rgba(95,224,168,.06), transparent 60%),
+    var(--bg);}
+
+  .kicker{font-size:14px; letter-spacing:.32em; text-transform:uppercase; color:var(--teal); font-weight:600;}
+  h1{font-size:40px; font-weight:700; letter-spacing:-.01em; margin-top:12px;}
+  h1 .thin{color:var(--muted); font-weight:400;}
+  .sub{font-size:17px; color:var(--muted); margin-top:10px; max-width:1080px; line-height:1.5;}
+
+  .flow{display:flex; align-items:stretch; margin-top:44px;}
+  .card{background:linear-gradient(180deg,var(--panel),var(--panel2)); border:1px solid var(--line);
+    border-radius:18px; padding:22px 22px 20px; position:relative; display:flex; flex-direction:column;}
+  .tag{font-size:12px; letter-spacing:.16em; text-transform:uppercase; font-weight:600;}
+  .card h3{font-size:20px; font-weight:700; margin-top:8px; letter-spacing:-.01em; line-height:1.2;}
+  .card .desc{font-size:14px; color:var(--muted); margin-top:9px; line-height:1.5;}
+  .top-teal{border-top:3px solid var(--teal);}
+  .top-indigo{border-top:3px solid var(--indigo);}
+  .top-green{border-top:3px solid var(--green);}
+
+  .conn{width:60px; display:flex; align-items:center; justify-content:center;}
+  .conn svg{overflow:visible;}
+
+  /* left inputs column */
+  .inputs{width:298px; display:flex; flex-direction:column; gap:18px; justify-content:center;}
+  .signal{display:flex; gap:13px; align-items:flex-start;}
+  .sig-ico{width:38px; height:38px; border-radius:11px; flex:0 0 auto; display:flex; align-items:center; justify-content:center; font-size:18px;
+    background:#0c1017; border:1px solid var(--line);}
+  .sig-t{font-size:15.5px; font-weight:600;}
+  .sig-d{font-size:13px; color:var(--muted); margin-top:2px; line-height:1.4;}
+  .three{font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--teal); font-weight:600; margin-bottom:4px;}
+
+  .metrics{display:flex; gap:7px; margin-top:14px; flex-wrap:wrap;}
+  .metric{font-size:12px; padding:5px 10px; border-radius:8px; background:#0c1017; border:1px solid var(--line); color:var(--ink);}
+
+  .classifier{width:300px; justify-content:center;}
+  .silent{margin-top:14px; padding:11px 13px; border-radius:11px; background:rgba(57,208,200,.06);
+    border:1px solid rgba(57,208,200,.28); font-size:13px; color:var(--ink); line-height:1.45;}
+  .silent b{color:var(--teal);}
+
+  /* candidate set */
+  .candset{width:262px; justify-content:center;}
+  .verse-list{display:flex; flex-direction:column; gap:7px; margin-top:14px;}
+  .verse{font-size:13px; padding:8px 12px; border-radius:9px; background:#0c1017; border:1px solid var(--line);
+    display:flex; align-items:center; gap:9px; color:var(--ink); font-family:ui-monospace,SFMono-Regular,Menlo,monospace;}
+  .verse .vd{width:6px; height:6px; border-radius:50%; background:var(--green);}
+  .vetted{margin-top:13px; font-size:12.5px; color:var(--green); font-weight:600; display:flex; align-items:center; gap:7px;}
+
+  .gloo{width:312px; justify-content:center;}
+  .constrained{margin-top:14px; padding:12px 14px; border-radius:11px; background:rgba(138,144,255,.07);
+    border:1px solid rgba(138,144,255,.3); font-size:13px; line-height:1.5; color:var(--ink);}
+  .constrained b{color:var(--indigo);}
+  .quote{margin-top:14px; font-size:14px; font-style:italic; color:var(--ink); line-height:1.45;
+    padding-left:13px; border-left:2px solid var(--indigo);}
+  .quote span{color:var(--muted); font-style:normal;}
+
+  /* deliver row (bottom) */
+  .deliverwrap{margin-top:40px; display:flex; align-items:center; gap:26px;}
+  .yv{flex:0 0 auto; width:436px;}
+  .yv .card{padding:20px 22px;}
+  .deliver{flex:1; display:flex; gap:16px;}
+  .dch{flex:1; background:linear-gradient(180deg,var(--panel),var(--panel2)); border:1px solid var(--line);
+    border-radius:16px; padding:18px 18px; display:flex; flex-direction:column; align-items:flex-start; gap:6px;}
+  .dch .di{font-size:22px;}
+  .dch .dt{font-size:15px; font-weight:600; margin-top:4px;}
+  .dch .dd{font-size:12.5px; color:var(--muted); line-height:1.4;}
+  .arrow-h{color:var(--muted); font-size:24px; align-self:center;}
+
+  .banner{margin-top:38px; padding:18px 24px; border-radius:14px; display:flex; align-items:center; gap:18px;
+    background:linear-gradient(90deg, rgba(57,208,200,.07), rgba(138,144,255,.07), rgba(95,224,168,.07));
+    border:1px solid var(--line);}
+  .banner .lock{font-size:22px;}
+  .banner .bt{font-size:15px; color:var(--ink); line-height:1.5;}
+  .banner .bt b{font-weight:700;}
+  .banner .bt .t{color:var(--teal);} .banner .bt .i{color:var(--indigo);} .banner .bt .g{color:var(--green);}
+
+  .brand{position:absolute; top:64px; right:72px; font-size:14px; color:var(--muted);}
+  .brand b{color:var(--ink); font-weight:700;}
+</style>
+</head>
+<body>
+<div id="frame">
+  <div class="brand"><b>Selah</b></div>
+  <div class="kicker">Selah &middot; The Discernment Pipeline</div>
+  <h1>Three signals in. One vetted verse out. <span class="thin">The model can't hallucinate a reference.</span></h1>
+  <div class="sub">A racing heart is ambiguous — exertion, fear, or grief. Selah fuses body, voice, and two faith APIs, and constrains the AI to a curated safe set so it never invents Scripture.</div>
+
+  <!-- MAIN FLOW -->
+  <div class="flow">
+
+    <!-- inputs -->
+    <div class="card top-teal inputs">
+      <div class="three">Signal 1 &middot; the body</div>
+      <div class="signal">
+        <div class="sig-ico">💓</div>
+        <div><div class="sig-t">Biometrics</div><div class="sig-d">HR &middot; effort &middot; recovery, once a second</div></div>
+      </div>
+      <div class="signal" style="margin-top:2px;">
+        <div class="sig-ico" style="border-color:rgba(57,208,200,.4)">🗣️</div>
+        <div><div class="sig-t">Whispered context <span style="color:var(--muted); font-weight:400; font-size:12px;">· optional</span></div><div class="sig-d">&ldquo;I&rsquo;m scared&rdquo; — via Web Speech</div></div>
+      </div>
+    </div>
+
+    <div class="conn"><svg width="60" height="20"><defs>
+      <marker id="a1" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#39d0c8"/></marker></defs>
+      <line x1="0" y1="10" x2="54" y2="10" stroke="#39d0c8" stroke-width="2.2" marker-end="url(#a1)"/></svg></div>
+
+    <!-- classifier -->
+    <div class="card top-teal classifier">
+      <div class="tag" style="color:var(--teal)">ON-DEVICE</div>
+      <h3>Moment Classifier</h3>
+      <div class="desc">Names the moment from the body — <i>the wall</i>, <i>cool-down</i>, <i>recovery</i>.</div>
+      <div class="silent">🤫 <b>Stays silent when unsure.</b> A verse at the wrong moment is worse than none.</div>
+    </div>
+
+    <div class="conn"><svg width="60" height="20"><defs>
+      <marker id="a2" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#5fe0a8"/></marker></defs>
+      <line x1="0" y1="10" x2="54" y2="10" stroke="#5fe0a8" stroke-width="2.2" marker-end="url(#a2)"/></svg></div>
+
+    <!-- candidate set -->
+    <div class="card top-green candset">
+      <div class="tag" style="color:var(--green)">CURATED &middot; SAFE</div>
+      <h3>Candidate Verse Set</h3>
+      <div class="desc">Only verses vetted for this moment.</div>
+      <div class="verse-list">
+        <div class="verse"><span class="vd"></span>Isaiah 41:10</div>
+        <div class="verse"><span class="vd"></span>Isaiah 40:31</div>
+        <div class="verse"><span class="vd"></span>Psalm 23:4</div>
+      </div>
+      <div class="vetted">✓ human-curated allow-list</div>
+    </div>
+
+    <div class="conn"><svg width="60" height="20"><defs>
+      <marker id="a3" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#8a90ff"/></marker></defs>
+      <line x1="0" y1="10" x2="54" y2="10" stroke="#8a90ff" stroke-width="2.2" marker-end="url(#a3)"/></svg></div>
+
+    <!-- gloo -->
+    <div class="card top-indigo gloo">
+      <div class="tag" style="color:var(--indigo)">GLOO AI &middot; FAITH-TUNED</div>
+      <h3>Chooses &amp; Writes</h3>
+      <div class="constrained"><b>Constrained to the safe set.</b> The LLM picks the fitting verse — it cannot return a reference outside the vetted list.</div>
+      <div class="quote">&ldquo;Do not fear&mdash;you are not carrying this alone.&rdquo;<br><span>one pastoral line, grounded in what you said</span></div>
+    </div>
+
+  </div>
+
+  <!-- DELIVERY -->
+  <div class="deliverwrap">
+    <div class="yv">
+      <div class="card top-green">
+        <div class="tag" style="color:var(--green)">YOUVERSION &middot; AUTHORITATIVE TEXT</div>
+        <h3 style="margin-top:8px;">Serves the real words</h3>
+        <div class="desc">Gloo chose the reference; YouVersion returns the authoritative verse text — never AI-generated Scripture.</div>
+        <div class="quote" style="border-color:var(--green); margin-top:14px;">&ldquo;Do not fear, for I am with you.&rdquo; <span>— Isaiah 41:10</span></div>
+      </div>
+    </div>
+
+    <div class="arrow-h">→</div>
+
+    <div class="deliver">
+      <div class="dch"><div class="di">📳</div><div class="dt">Haptic pulse</div><div class="dd">at the wall — one line</div></div>
+      <div class="dch"><div class="di">✨</div><div class="dt">Ambient glow</div><div class="dd">wordless, in cool-down</div></div>
+      <div class="dch"><div class="di">🔊</div><div class="dt">Spoken word</div><div class="dd">the moment's native format</div></div>
+    </div>
+  </div>
+
+  <!-- SAFETY BANNER -->
+  <div class="banner">
+    <div class="lock">🛡️</div>
+    <div class="bt"><b>Safety by construction:</b> <span class="t">three signals</span> combined &nbsp;·&nbsp; the <span class="i">LLM is constrained to a vetted candidate set</span> (no hallucinated references) &nbsp;·&nbsp; <span class="g">authoritative text comes from YouVersion</span>, not the model.</div>
+  </div>
+
+</div>
+</body>
+</html>

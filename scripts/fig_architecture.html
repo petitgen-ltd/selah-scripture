@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+    --bg:#0a0c10; --ink:#f4efe6; --teal:#39d0c8; --indigo:#8a90ff; --green:#5fe0a8;
+    --muted:#8b93a3; --line:#262b36; --panel:#11151c; --panel2:#0e1219;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{background:var(--bg);}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink); -webkit-font-smoothing:antialiased;
+  }
+  #frame{width:1600px; padding:64px 72px 56px; background:
+    radial-gradient(1200px 520px at 18% -8%, rgba(57,208,200,.06), transparent 60%),
+    radial-gradient(1100px 560px at 92% 118%, rgba(138,144,255,.07), transparent 60%),
+    var(--bg);
+    position:relative;
+  }
+  /* header */
+  .kicker{font-size:14px; letter-spacing:.32em; text-transform:uppercase; color:var(--teal); font-weight:600;}
+  h1{font-size:40px; font-weight:700; letter-spacing:-.01em; margin-top:12px;}
+  h1 .thin{color:var(--muted); font-weight:400;}
+  .sub{font-size:17px; color:var(--muted); margin-top:10px; max-width:1050px; line-height:1.5;}
+
+  /* flow */
+  .flow{display:flex; align-items:stretch; gap:0; margin-top:52px;}
+  .stage{flex:0 0 auto; display:flex; flex-direction:column; justify-content:center;}
+  .col-wear{width:300px;}
+  .col-worker{width:452px;}
+  .col-apis{width:452px; display:flex; flex-direction:column; gap:26px; justify-content:center;}
+
+  .card{
+    background:linear-gradient(180deg,var(--panel),var(--panel2));
+    border:1px solid var(--line); border-radius:18px; padding:24px 24px 22px;
+    position:relative;
+  }
+  .card .tag{font-size:12.5px; letter-spacing:.18em; text-transform:uppercase; font-weight:600;}
+  .card h3{font-size:22px; font-weight:700; margin-top:9px; letter-spacing:-.01em;}
+  .card .desc{font-size:14.5px; color:var(--muted); margin-top:8px; line-height:1.5;}
+  .accent-teal{border-top:3px solid var(--teal);}
+  .accent-indigo{border-top:3px solid var(--indigo);}
+  .accent-green{border-top:3px solid var(--green);}
+  .accent-muted{border-top:3px solid #3a4150;}
+
+  ul.props{list-style:none; margin-top:16px; display:flex; flex-direction:column; gap:9px;}
+  ul.props li{font-size:14px; color:var(--ink); display:flex; gap:10px; align-items:flex-start; line-height:1.4;}
+  ul.props li b{color:var(--ink); font-weight:600;}
+  ul.props li span.d{color:var(--muted); font-weight:400;}
+  .dot{width:7px; height:7px; border-radius:50%; margin-top:6px; flex:0 0 auto; background:var(--teal);}
+
+  .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px;}
+  .chip{font-size:12.5px; padding:5px 11px; border-radius:999px; border:1px solid var(--line);
+    background:#0c1017; color:var(--ink); font-family:ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.01em;}
+  .chip.teal{border-color:rgba(57,208,200,.4); color:var(--teal);}
+
+  /* connectors */
+  .conn{width:70px; position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center;}
+  .conn svg{overflow:visible;}
+  .conn .clabel{position:absolute; top:50%; left:50%; transform:translate(-50%,-160%);
+    font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); white-space:nowrap; font-weight:600;}
+
+  /* key badge */
+  .keys{position:absolute; display:flex; align-items:center; gap:7px; font-size:12px; font-weight:600;
+     padding:6px 12px; border-radius:999px; }
+  .keys.no{color:var(--green); background:rgba(95,224,168,.08); border:1px solid rgba(95,224,168,.35);}
+  .keys.yes{color:var(--indigo); background:rgba(138,144,255,.08); border:1px solid rgba(138,144,255,.35);}
+
+  .mini{font-size:12.5px; color:var(--muted); margin-top:13px; padding-top:13px; border-top:1px solid var(--line); line-height:1.45;}
+  .mini b{color:var(--green); font-weight:600;}
+
+  /* footer legend */
+  .legend{display:flex; gap:30px; margin-top:46px; padding-top:24px; border-top:1px solid var(--line); align-items:center; flex-wrap:wrap;}
+  .legend .item{display:flex; align-items:center; gap:9px; font-size:13.5px; color:var(--muted);}
+  .sw{width:26px; height:4px; border-radius:2px;}
+  .brand{margin-left:auto; font-size:14px; color:var(--muted); letter-spacing:.02em;}
+  .brand b{color:var(--ink); font-weight:700;}
+</style>
+</head>
+<body>
+<div id="frame">
+
+  <div class="kicker">Selah &middot; System Architecture</div>
+  <h1>Scripture at the right physiological moment <span class="thin">— deployed, keys server-side</span></h1>
+  <div class="sub">A wearable-native companion. The client holds no secrets; a Cloudflare Worker proxy fronts every faith API, caches, and rate-limits — so the whole system survives on a $20 credit.</div>
+
+  <div class="flow">
+
+    <!-- Wearable -->
+    <div class="stage col-wear">
+      <div class="card accent-teal">
+        <div class="tag" style="color:var(--teal)">CLIENT &middot; ON-DEVICE</div>
+        <h3>Wearable App</h3>
+        <div class="desc">Self-contained web demo / watch UI. No login, no keys.</div>
+        <ul class="props">
+          <li><span class="dot"></span><span><b>Reads</b> <span class="d">HR &middot; effort &middot; recovery</span></span></li>
+          <li><span class="dot"></span><span><b>Moment classifier</b> <span class="d">runs on-device</span></span></li>
+          <li><span class="dot"></span><span><b>Whisper</b> <span class="d">via Web Speech API</span></span></li>
+        </ul>
+        <div class="keys no" style="position:static; margin-top:16px; display:inline-flex;">🔓 zero secrets on the client</div>
+      </div>
+    </div>
+
+    <!-- connector 1 -->
+    <div class="stage conn">
+      <div class="clabel">HTTPS</div>
+      <svg width="70" height="24"><defs>
+        <marker id="ah" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#39d0c8"/></marker>
+      </defs><line x1="2" y1="12" x2="64" y2="12" stroke="#39d0c8" stroke-width="2.2" marker-end="url(#ah)"/></svg>
+    </div>
+
+    <!-- Worker -->
+    <div class="stage col-worker">
+      <div class="card accent-indigo">
+        <div class="tag" style="color:var(--indigo)">EDGE &middot; CLOUDFLARE WORKER</div>
+        <h3>selah-proxy.petitgen.workers.dev</h3>
+        <div class="desc">The trust boundary. Every credential lives here — never in the browser.</div>
+        <div class="chips">
+          <span class="chip teal">/verse</span><span class="chip teal">/discern</span>
+          <span class="chip teal">/personalize</span><span class="chip teal">/health</span>
+        </div>
+        <ul class="props" style="margin-top:16px;">
+          <li><span class="dot" style="background:var(--indigo)"></span><span><b>Holds API keys server-side</b> <span class="d">— OAuth + app-keys</span></span></li>
+          <li><span class="dot" style="background:var(--indigo)"></span><span><b>KV caching</b> <span class="d">— tokens & passages at the edge</span></span></li>
+          <li><span class="dot" style="background:var(--indigo)"></span><span><b>Per-IP + global rate-limits</b> <span class="d">— protects the $20 Gloo credit</span></span></li>
+          <li><span class="dot" style="background:var(--indigo)"></span><span><b>Graceful degradation</b> <span class="d">— always returns something safe</span></span></li>
+          <li><span class="dot" style="background:var(--indigo)"></span><span><b>CORS-open, no login</b> <span class="d">— public read-only demo</span></span></li>
+        </ul>
+        <div class="keys yes" style="position:static; margin-top:16px; display:inline-flex;">🔑 all secrets sealed at the edge</div>
+      </div>
+    </div>
+
+    <!-- connector 2 (branching) -->
+    <div class="stage conn">
+      <svg width="70" height="200"><defs>
+        <marker id="ah2" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#5fe0a8"/></marker>
+        <marker id="ah3" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#8a90ff"/></marker>
+      </defs>
+        <path d="M2,100 C26,100 26,50 64,50" stroke="#5fe0a8" stroke-width="2.2" fill="none" marker-end="url(#ah2)"/>
+        <path d="M2,100 C26,100 26,150 64,150" stroke="#8a90ff" stroke-width="2.2" fill="none" marker-end="url(#ah3)"/>
+      </svg>
+    </div>
+
+    <!-- APIs -->
+    <div class="stage col-apis">
+      <div class="card accent-green">
+        <div class="tag" style="color:var(--green)">EXTERNAL API &middot; AUTHORITATIVE TEXT</div>
+        <h3>YouVersion Platform API</h3>
+        <div class="chips">
+          <span class="chip">GET /v1/bibles/{id}/passages/{ref}</span>
+          <span class="chip">X-YVP-App-Key</span>
+        </div>
+        <div class="mini" style="color:var(--muted); border:0; margin-top:12px; padding-top:0;">Berean Standard Bible &middot; <b style="color:var(--ink)">2,000+ languages</b> &middot; live verse text, streamed on demand.</div>
+      </div>
+
+      <div class="card accent-indigo">
+        <div class="tag" style="color:var(--indigo)">EXTERNAL API &middot; FAITH-TUNED AI</div>
+        <h3>Gloo AI Studio API</h3>
+        <div class="chips">
+          <span class="chip">OAuth2 client-credentials</span>
+          <span class="chip">Completions V2</span>
+        </div>
+        <div class="mini"><b>Honest labeled simulation</b> <span style="color:var(--muted)">(<code style="font-family:ui-monospace,monospace">gloo-sim</code>) fallback — live activation blocked by a payment decline; one credential from live.</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- legend -->
+  <div class="legend">
+    <div class="item"><span class="sw" style="background:var(--teal)"></span>Client request</div>
+    <div class="item"><span class="sw" style="background:var(--green)"></span>Authoritative Scripture</div>
+    <div class="item"><span class="sw" style="background:var(--indigo)"></span>Faith-tuned AI</div>
+    <div class="item">🔓 = no secrets &nbsp;&nbsp; 🔑 = secrets sealed at the edge</div>
+    <div class="brand"><b>Selah</b> &nbsp;presence, at the speed of a heartbeat</div>
+  </div>
+
+</div>
+</body>
+</html>
