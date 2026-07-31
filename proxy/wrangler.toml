@@ -1,0 +1,19 @@
+# Selah live-API proxy — Cloudflare Worker config.
+# Deploy steps are in proxy/README.md. Secrets are set with `wrangler secret put`
+# (never committed); only the KV namespace id goes here.
+
+name = "selah-proxy"
+main = "src/worker.js"
+compatibility_date = "2026-07-01"
+
+# KV: token cache + response cache + rate/budget counters.
+# Create once:  wrangler kv namespace create SELAH
+# then paste the returned id below (replace PASTE_KV_ID_HERE).
+[[kv_namespaces]]
+binding = "SELAH"
+id = "PASTE_KV_ID_HERE"
+
+[vars]
+# Optional overrides (safe to leave commented):
+# BIBLES = '{"en":206,"es":128,"sw":1126,"ko":88,"pt":129}'  # verify ids via GET /bibles
+# GLOO_MODEL = "..."   # pin a model instead of Gloo auto-routing

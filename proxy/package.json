@@ -1,0 +1,15 @@
+{
+  "name": "selah-proxy",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Selah live-API proxy — resilient Cloudflare Worker fronting YouVersion + Gloo",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "kv:create": "wrangler kv namespace create SELAH",
+    "tail": "wrangler tail"
+  },
+  "devDependencies": {
+    "wrangler": "^3.90.0"
+  }
+}
