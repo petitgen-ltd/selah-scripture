@@ -61,6 +61,12 @@ nav a{text-decoration:none}nav a:hover{color:var(--fg)}
   border-radius:100px;padding:8px 16px;cursor:pointer;transition:.18s;display:flex;align-items:center;gap:7px}
 .act:hover{color:var(--fg)}
 .act[aria-pressed="true"]{color:#04110d;background:var(--glow);border-color:var(--glow);font-weight:600}
+.live-btn{border-color:color-mix(in oklab,#ff5a6a 55%,var(--line));color:#ff8f9a}
+.live-btn:hover{color:#ffb3ba;border-color:#ff5a6a}
+.live-btn[aria-pressed="true"]{background:#ff4d5e;border-color:#ff4d5e;color:#fff}
+.livehint{position:absolute;left:50%;bottom:-2px;transform:translate(-50%,100%);font-size:11.5px;color:var(--muted);
+  background:var(--ink2);border:1px solid var(--line);border-radius:10px;padding:8px 12px;white-space:nowrap;opacity:0;transition:.3s;pointer-events:none;z-index:5}
+.livehint.show{opacity:1;bottom:-8px}
 .watch{position:relative;width:340px;height:340px;border-radius:50%;
   background:radial-gradient(circle at 50% 38%, #1a212b, #090b0f 72%);
   box-shadow:0 40px 120px rgba(0,0,0,.6), inset 0 0 0 10px #05070a, inset 0 0 0 11px rgba(255,255,255,.05),
@@ -184,7 +190,11 @@ footer .fnote{margin-top:12px;font-size:11.5px;color:var(--faint);max-width:70ch
       <button class="act" data-act="run" aria-pressed="true">◷ Run</button>
       <button class="act" data-act="lift" aria-pressed="false">▤ Lift</button>
       <button class="act" data-act="hiit" aria-pressed="false">⚡ HIIT</button>
+      <button class="act live-btn" id="liveBtn" aria-pressed="false" title="Read your real heartbeat with your camera">◉ Feel it live</button>
     </div>
+    <video id="cam" playsinline muted style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none"></video>
+    <canvas id="camc" width="64" height="64" style="display:none"></canvas>
+    <div class="livehint" id="livehint"></div>
     <div class="watch" id="watch">
       <div class="pulse"><i></i></div>
       <div class="ripple" id="ripple"><i></i><i></i><i></i></div>
@@ -440,9 +450,113 @@ function pickLang(c){document.querySelectorAll(".chip[data-lang]").forEach(x=>x.
 document.querySelectorAll(".chip[data-lang]").forEach(c=>{c.addEventListener("click",()=>pickLang(c));
   c.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();pickLang(c);}});});
 
+/* ═══ WAOOOH: live camera heart-rate (photoplethysmography) ═══
+   Reads the viewer's REAL pulse from a fingertip on the camera and delivers
+   Scripture at their actual physiological moment. Fully optional + isolated —
+   never touches the self-playing demo. Graceful fallback everywhere. */
+let live=false, camStream=null, ppgRAF=null, ppgBuf=[], ppgT=[], liveBpm=0, liveRAF=null, restBpm=0, lastMoment="";
+const camv=$("#cam"), camc=$("#camc"), camctx=camc.getContext("2d",{willReadFrequently:true}), hint=$("#livehint");
+function showHint(t,keep){hint.textContent=t;hint.classList.add("show");if(!keep){clearTimeout(hint._t);hint._t=setTimeout(()=>hint.classList.remove("show"),3200);}}
+
+async function startLive(){
+  try{
+    stopAll(); loop=false; clearOverlays();
+    $("#begin").disabled=true; $("#begin").textContent="Live ◉";
+    document.querySelectorAll(".act:not(.live-btn)").forEach(x=>x.setAttribute("aria-pressed","false"));
+    $("#liveBtn").setAttribute("aria-pressed","true");
+    showHint("Requesting camera…", true);
+    camStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment",width:320,height:240},audio:false});
+    camv.srcObject = camStream; await camv.play();
+    live=true; ppgBuf=[]; ppgT=[]; liveBpm=0; restBpm=0;
+    showHint("Gently cover the camera lens with a fingertip — hold still.", true);
+    $("#activity").textContent="reading your pulse…"; $("#mtag").textContent="live";
+    $("#why").innerHTML="Cover the lens with a fingertip. Selah is reading your <b>real</b> heartbeat.";
+    ecgStart(); ppgLoop(); liveTick();
+  }catch(err){
+    live=false; $("#liveBtn").setAttribute("aria-pressed","false");
+    $("#begin").disabled=false; $("#begin").textContent="Begin a workout ▶";
+    showHint(err && err.name==="NotAllowedError" ? "Camera blocked — allow it and tap again, or watch the demo." : "No camera here — the demo below plays on its own.");
+    if(!playing){loop=true; play();}
+  }
+}
+function stopLive(){
+  live=false; if(ppgRAF)cancelAnimationFrame(ppgRAF); clearTimeout(liveRAF);
+  if(camStream){camStream.getTracks().forEach(t=>t.stop()); camStream=null;}
+  $("#liveBtn").setAttribute("aria-pressed","false"); hint.classList.remove("show");
+}
+function ppgLoop(){
+  if(!live)return;
+  try{
+    camctx.drawImage(camv,0,0,64,64);
+    const d=camctx.getImageData(16,16,32,32).data; let r=0;
+    for(let i=0;i<d.length;i+=4)r+=d[i];
+    ppgBuf.push(r/(d.length/4)); ppgT.push(performance.now());
+    if(ppgBuf.length>256){ppgBuf.shift();ppgT.shift();}
+    if(ppgBuf.length>=90) estimateBpm();
+  }catch(e){}
+  ppgRAF=requestAnimationFrame(ppgLoop);
+}
+function estimateBpm(){
+  const n=ppgBuf.length, win=32; // detrend with a moving average, then count peaks
+  const dt=[]; for(let i=0;i<n;i++){let s=0,c=0;for(let j=Math.max(0,i-win);j<Math.min(n,i+win);j++){s+=ppgBuf[j];c++;}dt.push(ppgBuf[i]-s/c);}
+  const mx=Math.max(...dt),mn=Math.min(...dt); if(mx-mn<0.6){showHint("Hold your fingertip still on the lens…",true);return;}
+  const th=(mx-mn)*0.35; let peaks=[];
+  for(let i=2;i<n-2;i++){if(dt[i]>th && dt[i]>=dt[i-1] && dt[i]>dt[i+1] && dt[i]>dt[i-2] && dt[i]>=dt[i+2]) peaks.push(ppgT[i]);}
+  peaks=peaks.filter((t,i)=>i===0||t-peaks[i-1]>300); // refractory (>300ms => <200bpm)
+  if(peaks.length<4)return;
+  const iv=[]; for(let i=1;i<peaks.length;i++)iv.push(peaks[i]-peaks[i-1]);
+  iv.sort((a,b)=>a-b); const med=iv[Math.floor(iv.length/2)]; const bpm=60000/med;
+  if(bpm>=45&&bpm<=190){ liveBpm=liveBpm?Math.round(liveBpm*0.7+bpm*0.3):Math.round(bpm); if(!restBpm)restBpm=liveBpm; hint.classList.remove("show"); }
+}
+function liveTick(){
+  if(!live)return;
+  if(liveBpm){
+    const bpm=liveBpm; ecgHR=bpm; $("#bpm").textContent=bpm;
+    document.documentElement.style.setProperty("--beat",(60/bpm)+"s");
+    // derive effort/zone from real HR relative to a resting baseline
+    const base=Math.min(restBpm||70,80), span=Math.max(110,190-base);
+    const effort=Math.max(.08,Math.min(.98,(bpm-base)/span));
+    const zone=bpm<100?1:bpm<130?2:bpm<150?3:bpm<168?4:5;
+    const m=classifyLive(zone,effort);
+    $("#activity").textContent="live · your heartbeat";
+    // build a step the existing renderer understands: [min,hr,zone,effort,moment,label]
+    const step=[0,bpm,zone,effort,m,"live · your heartbeat"];
+    if(m!==lastMoment){ // only re-deliver when the moment changes (no spam)
+      lastMoment=m; clearOverlays(); setTimeout(()=>{ if(live) renderLive(step); }, 220);
+    } else { // same moment: just keep telemetry fresh
+      $("#effort").textContent=Math.round(effort*100)+"%"; $("#zone").textContent=zone; $("#zonebar").style.width=(zone/5*100)+"%";
+    }
+  }
+  liveRAF=setTimeout(liveTick, 1400);
+}
+function classifyLive(zone,effort){
+  if(effort>=0.85||zone>=5)return "peak_effort";
+  if(effort>=0.68)return "breakthrough_wall";
+  if(effort>=0.42)return "steady_state";
+  if(effort>=0.22)return "working_set";
+  return "recovery_window";
+}
+function renderLive(step){ // reuse the render path but without the timeline/session
+  const[min,hr,z,e,m]=step, th=THEME[MOMENT_VERSE[m][1]], [fmt,mode]=DELIVERY[m];
+  setGlow(th); $("#effort").textContent=Math.round(e*100)+"%"; $("#zone").textContent=z; $("#zonebar").style.width=(z/5*100)+"%";
+  $("#mtag").textContent=m.replace(/_/g," ");
+  $("#why").innerHTML=`your pulse <b>${hr}</b>bpm · effort <b>${Math.round(e*100)}%</b> → <b>${m.replace(/_/g," ")}</b>`;
+  const pill=$("#pill");pill.style.display="inline-flex";pill.classList.toggle("ambient",mode==="ambient");$("#pilltext").textContent=fmt;
+  const ref=MOMENT_VERSE[m][0], v=VERSES[ref], text=(v.langs[lang]||v.langs.en);
+  if(mode==="interrupt"){
+    $("#bref").textContent=v.n.toUpperCase()+" · "+(lang==="en"?"WEB":lang.toUpperCase());
+    const bv=$("#bverse");bv.textContent=text;bv.classList.toggle("long",text.length>92);$("#bnote").textContent=NOTES[m]||"";
+    if(fmt.includes("haptic")&&!REDUCED){const r=$("#ripple");r.classList.remove("go");void r.offsetWidth;r.classList.add("go");if(navigator.vibrate)navigator.vibrate([30,40,30]);}
+    $("#face").style.opacity="0";$("#bloom").classList.add("show"); say(text.replace(/LORD/g,"Lord"));
+  } else {
+    $("#wref").textContent=v.n+" · "+MOMENT_VERSE[m][1]; $("#wtheme").textContent="“"+MOMENT_VERSE[m][1]+"”"; $("#whisper").classList.add("show");
+  }
+}
+$("#liveBtn").addEventListener("click",()=>{ if(live){stopLive(); loop=true; clearOverlays(); play();} else startLive(); });
+
 document.documentElement.style.setProperty("--beat",(60/64)+"s");
 buildTimeline();ecgStart();
-setTimeout(()=>{if(!playing)play();}, REDUCED?1200:2600);
+setTimeout(()=>{if(!playing&&!live)play();}, REDUCED?1200:2600);
 </script>
 </body>
 </html>
