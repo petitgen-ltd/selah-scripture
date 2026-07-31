@@ -27,21 +27,21 @@ const SANS = '"Space Grotesk", -apple-system, "Segoe UI", Inter, Helvetica, sans
 
 // ── measured Sarah (ElevenLabs) VO durations, seconds ──
 const B = {
-  b01: { start: 1.5, dur: 17.46, file: 'vo/01.wav' }, // ache
-  b02: { start: 25.0, dur: 1.02, file: 'vo/02.wav' }, // until now
-  b03: { start: 27.2, dur: 7.66, file: 'vo/03.wav' }, // name
-  b04: { start: 36.0, dur: 8.17, file: 'vo/04.wav' }, // mechanism
-  b05: { start: 45.2, dur: 5.02, file: 'vo/05.wav' }, // the wall
-  b06: { start: 52.0, dur: 6.73, file: 'vo/06.wav' }, // it listens
-  b07: { start: 61.0, dur: 3.11, file: 'vo/07.wav' }, // the right one found her
-  b08: { start: 66.8, dur: 11.61, file: 'vo/08.wav' }, // it's real
-  b09: { start: 79.2, dur: 11.98, file: 'vo/09.wav' }, // widen
-  b10: { start: 91.8, dur: 2.09, file: 'vo/10.wav' }, // presence not performance
-  b11: { start: 94.8, dur: 3.72, file: 'vo/11.wav' }, // grace
-  b12: { start: 99.2, dur: 2.32, file: 'vo/12.wav' }, // benediction
-  b13: { start: 102.6, dur: 3.62, file: 'vo/13.wav' }, // close
+  b01: { start: 1.5, dur: 18.15, file: 'vo/01.wav' }, // ache
+  b02: { start: 24.5, dur: 1.8, file: 'vo/02.wav' }, // until now
+  b03: { start: 27.5, dur: 8.53, file: 'vo/03.wav' }, // name
+  b04: { start: 37.0, dur: 9.05, file: 'vo/04.wav' }, // mechanism
+  b05: { start: 47.0, dur: 6.17, file: 'vo/05.wav' }, // the wall
+  b06: { start: 54.5, dur: 8.49, file: 'vo/06.wav' }, // it listens
+  b07: { start: 63.5, dur: 4.08, file: 'vo/07.wav' }, // the right one found her
+  b08: { start: 69.5, dur: 13.18, file: 'vo/08.wav' }, // it's real
+  b09: { start: 84.0, dur: 12.67, file: 'vo/09.wav' }, // widen
+  b10: { start: 97.0, dur: 2.5, file: 'vo/10.wav' }, // presence not performance
+  b11: { start: 100.5, dur: 3.75, file: 'vo/11.wav' }, // grace
+  b12: { start: 105.0, dur: 3.19, file: 'vo/12.wav' }, // benediction
+  b13: { start: 109.0, dur: 3.71, file: 'vo/13.wav' }, // close
 };
-const END_S = 113;
+const END_S = 119;
 export const TOTAL_FRAMES = s(END_S);
 
 // ═══ helpers ═══
@@ -204,20 +204,21 @@ const LiveTag: React.FC = () => {
 // ═══ caption band (locked per beat) ═══
 type Cue = { text: string; from: number; to: number };
 const CUES: Cue[] = [
-  // b03 name handled by NameReveal; captions for spoken narration beats:
-  { text: 'Every second, Selah reads the body — and names the moment.', from: 36.2, to: 40.3 },
-  { text: 'Most of the time it says nothing at all. Just a colour that breathes.', from: 40.3, to: 44.0 },
-  { text: 'But when she hits the wall — it feels it.', from: 45.4, to: 48.0 },
-  { text: 'No menu. A pulse on her wrist.', from: 48.0, to: 50.0 },
-  { text: "But a racing heart doesn't always mean the same thing.", from: 52.2, to: 55.2 },
-  { text: 'So Selah does something no app has done. It listens.', from: 55.2, to: 58.6 },
-  { text: 'She said two words. And the right one found her.', from: 61.2, to: 64.0 },
-  { text: 'This is live. Real verses, from the YouVersion Platform, in two thousand languages.', from: 67.0, to: 72.0 },
-  { text: "And one short, personal line, shaped by Gloo's faith-tuned voice.", from: 72.0, to: 75.6 },
-  { text: 'Nothing here is staged.', from: 75.6, to: 78.0 },
-  { text: 'This was never about fitness.', from: 79.4, to: 82.0 },
-  { text: 'Cardiac rehab. The ninth hour of labor. A nurse’s twelfth hour.', from: 82.0, to: 86.2 },
-  { text: 'Wherever a heart races — or finally rests — the right word can already be there.', from: 86.2, to: 91.0 },
+  // captions for narration-over-footage beats (b01/b02/b03/b10/b12/b13 have their own treatments)
+  { text: 'Every second, Selah reads the body — and names the moment.', from: 37.3, to: 41.4 },
+  { text: 'Most of the time it says nothing at all. Just a colour that breathes.', from: 41.4, to: 45.9 },
+  { text: 'But when she hits the wall — it feels it.', from: 47.4, to: 50.0 },
+  { text: 'No menu. A pulse on her wrist.', from: 50.0, to: 52.7 },
+  { text: "But a racing heart doesn't always mean the same thing.", from: 54.9, to: 58.1 },
+  { text: 'So Selah does something no app has done. It listens.', from: 58.1, to: 62.5 },
+  { text: 'She said two words. And the right one found her.', from: 63.9, to: 67.3 },
+  { text: 'This is live. Real verses, from the YouVersion Platform, in two thousand languages.', from: 70.0, to: 75.3 },
+  { text: "And one short, personal line, shaped by Gloo's faith-tuned voice.", from: 75.3, to: 79.3 },
+  { text: 'Nothing here is staged.', from: 79.3, to: 82.2 },
+  { text: 'This was never about fitness.', from: 84.4, to: 87.1 },
+  { text: 'Cardiac rehab. The ninth hour of labor. A nurse’s twelfth hour.', from: 87.1, to: 91.6 },
+  { text: 'Wherever a heart races — or finally rests — the right word can already be there.', from: 91.6, to: 96.2 },
+  { text: 'And when she finally slows… a different kind of word.', from: 100.8, to: 104.3 },
 ];
 const CaptionBand: React.FC = () => {
   const t = useCurrentFrame() / FPS;
@@ -276,70 +277,74 @@ const SignOff: React.FC = () => {
 
 // ═══ music that breathes: ducks to near-silence under the verses ═══
 const duckWindows: [number, number][] = [
-  [19.0, 25.0], // Psalm 23:4 rise
-  [45.0, 51.5], // the wall verse
-  [59.5, 66.5], // the whisper peak
-  [98.5, 102.0], // benediction
+  [20.0, 26.0], // Psalm 23:4 rise
+  [47.0, 53.5], // the wall verse
+  [61.0, 69.5], // the whisper peak + held silence
+  [104.5, 108.5], // benediction
 ];
+const BASE_VOL = 0.22; // raised — was a touch low
+const DUCK = 0.4; // duck to 40% (audible, not silent) — gentler
+const RAMP = 1.6; // slow 1.6s ramps so ducking never feels like a cut
 const Score: React.FC = () => {
   const t = useCurrentFrame() / FPS;
-  let vol = 0.15;
+  const cl = { extrapolateLeft: 'clamp' as const, extrapolateRight: 'clamp' as const };
+  let vol = BASE_VOL;
   for (const [a, b] of duckWindows) {
-    if (t > a - 1 && t < b + 1) {
-      const d = Math.min(interpolate(t, [a - 1, a], [1, 0.22], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }), interpolate(t, [b, b + 1], [0.22, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }));
-      vol = 0.15 * d;
+    if (t > a - RAMP && t < b + RAMP) {
+      const d = Math.min(interpolate(t, [a - RAMP, a], [1, DUCK], cl), interpolate(t, [b, b + RAMP], [DUCK, 1], cl));
+      vol = BASE_VOL * d;
     }
   }
-  const fade = Math.min(interpolate(t, [0, 2], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }), interpolate(t, [END_S - 3, END_S], [1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }));
-  return <Audio src={staticFile('music/score.mp3')} volume={Math.max(0.02, vol * fade)} />;
+  const fade = Math.min(interpolate(t, [0, 2.5], [0, 1], cl), interpolate(t, [END_S - 3.5, END_S], [1, 0], cl));
+  return <Audio src={staticFile('music/score.mp3')} volume={Math.max(0.03, vol * fade)} />;
 };
 
 export const Selah: React.FC = () => (
   <AbsoluteFill style={{ background: INK }}>
-    {/* ══ 0:00–0:26 THE ACHE ══ */}
-    <Sequence from={0} durationInFrames={s(26)} name="Ache">
+    {/* ══ THE ACHE ══ */}
+    <Sequence from={0} durationInFrames={s(26.5)} name="Ache">
       <FadeWrap inSec={1.6} outSec={1.0}><FullVideo src="ambient.webm" /></FadeWrap>
       <AbsoluteFill style={{ background: 'rgba(3,4,6,0.9)' }} />
       <AcheText />
     </Sequence>
-    <Sequence from={s(19.2)} durationInFrames={s(6.2)} name="PsalmRise"><PsalmRise /></Sequence>
+    <Sequence from={s(20.0)} durationInFrames={s(6.2)} name="PsalmRise"><PsalmRise /></Sequence>
 
-    {/* ══ 0:26–0:35 THE NAME ══ */}
-    <Sequence from={s(26.2)} durationInFrames={s(9.3)} name="Name"><NameReveal /></Sequence>
+    {/* ══ THE NAME ══ */}
+    <Sequence from={s(26.8)} durationInFrames={s(9.8)} name="Name"><NameReveal /></Sequence>
 
-    {/* ══ 0:35–0:51 MECHANISM + THE WALL ══ */}
-    <Sequence from={s(35.5)} durationInFrames={s(16.3)} name="Run">
+    {/* ══ MECHANISM + THE WALL ══ */}
+    <Sequence from={s(36.6)} durationInFrames={s(17.4)} name="Run">
       <FadeWrap inSec={1.0} outSec={0.7}><Tint color={INDIGO} /><DemoStage src="run.webm" /></FadeWrap>
     </Sequence>
-    <Sequence from={s(45.4)} durationInFrames={s(6.0)} name="wall-ref"><VerseRef vref="Philippians 4:13 · live" tag="the wall" accent={INDIGO} /></Sequence>
+    <Sequence from={s(47.2)} durationInFrames={s(6.2)} name="wall-ref"><VerseRef vref="Philippians 4:13 · live" tag="the wall" accent={INDIGO} /></Sequence>
 
-    {/* ══ 0:51–1:06 THE WHISPER — the peak ══ */}
-    <Sequence from={s(51.5)} durationInFrames={s(15.0)} name="Whisper">
-      <FadeWrap inSec={0.9} outSec={0.9}><Tint color={RENEWAL} strength={0.2} /><DemoStage src="whisper.webm" startFrom={s(4)} /></FadeWrap>
+    {/* ══ THE WHISPER — the peak ══ */}
+    <Sequence from={s(54.0)} durationInFrames={s(15.7)} name="Whisper">
+      <FadeWrap inSec={0.9} outSec={0.9}><Tint color={RENEWAL} strength={0.2} /><DemoStage src="whisper.webm" startFrom={s(0)} /></FadeWrap>
     </Sequence>
-    <Sequence from={s(61.0)} durationInFrames={s(5.5)} name="whisper-ref"><VerseRef vref="Isaiah 41:10 · live" tag='she whispered — "I’m scared"' accent={RENEWAL} /></Sequence>
+    <Sequence from={s(63.4)} durationInFrames={s(5.9)} name="whisper-ref"><VerseRef vref="Isaiah 41:10 · live" tag='she whispered — "I’m scared"' accent={RENEWAL} /></Sequence>
 
-    {/* ══ 1:06–1:18 IT'S REAL ══ */}
-    <Sequence from={s(66.5)} durationInFrames={s(12.3)} name="Real">
+    {/* ══ IT'S REAL ══ */}
+    <Sequence from={s(69.6)} durationInFrames={s(14.0)} name="Real">
       <FadeWrap inSec={0.8} outSec={0.8}><DemoStage src="live.webm" /></FadeWrap>
       <LiveTag />
     </Sequence>
 
-    {/* ══ 1:18–1:31 THE WIDEN ══ */}
-    <Sequence from={s(78.8)} durationInFrames={s(13.0)} name="Who">
+    {/* ══ THE WIDEN ══ */}
+    <Sequence from={s(83.6)} durationInFrames={s(13.3)} name="Who">
       <FadeWrap inSec={1.0} outSec={1.0}><FullVideo src="who.webm" /></FadeWrap>
     </Sequence>
-    <Sequence from={s(91.5)} durationInFrames={s(3.0)} name="Presence"><BigLine text="Presence — not performance." size={70} /></Sequence>
+    <Sequence from={s(96.9)} durationInFrames={s(3.4)} name="Presence"><BigLine text="Presence — not performance." size={70} /></Sequence>
 
-    {/* ══ 1:34–1:42 GRACE / BENEDICTION ══ */}
-    <Sequence from={s(94.6)} durationInFrames={s(4.6)} name="Cooldown">
+    {/* ══ GRACE / BENEDICTION ══ */}
+    <Sequence from={s(100.2)} durationInFrames={s(4.9)} name="Cooldown">
       <FadeWrap inSec={0.9} outSec={0.7}><Tint color={TEAL} /><DemoStage src="cooldown.webm" /></FadeWrap>
     </Sequence>
-    <Sequence from={s(99.0)} durationInFrames={s(3.6)} name="Benediction"><Benediction /></Sequence>
+    <Sequence from={s(104.9)} durationInFrames={s(3.9)} name="Benediction"><Benediction /></Sequence>
 
-    {/* ══ 1:42–1:53 CLOSE + SIGN-OFF ══ */}
-    <Sequence from={s(102.6)} durationInFrames={s(4.2)} name="Close"><BigLine text="Not Scripture you go to. Scripture that shows up." italic size={58} /></Sequence>
-    <Sequence from={s(106.8)} durationInFrames={s(6.2)} name="SignOff"><SignOff /></Sequence>
+    {/* ══ CLOSE + SIGN-OFF ══ */}
+    <Sequence from={s(108.8)} durationInFrames={s(4.1)} name="Close"><BigLine text="Not Scripture you go to. Scripture that shows up." italic size={58} /></Sequence>
+    <Sequence from={s(112.8)} durationInFrames={s(6.2)} name="SignOff"><SignOff /></Sequence>
 
     {/* ── overlays ── */}
     <Grain />
