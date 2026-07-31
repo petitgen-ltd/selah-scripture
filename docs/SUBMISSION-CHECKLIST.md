@@ -11,7 +11,8 @@ Deadline: **Aug 1, 12:59 PM GMT+8**. Submit = a Kaggle **Writeup** with all asse
 | **Public notebook** | `negtitep/selah-scripture-engine` (Kaggle) | ✅ private now → auto-publishes after deadline (host-approved) |
 | **Public code repo** | github.com/petitgen-ltd/selah-scripture | ✅ public, MIT license |
 | **Public project link** | https://petitgen-ltd.github.io/selah-scripture/ | ✅ live |
-| **Both APIs demonstrated** | notebook + `docs/SETUP-APIS.md` | ⚠️ **needs keys → one real YouVersion + Gloo call, visible** (host requirement) |
+| **YouVersion demonstrated** | live proxy `selah-proxy.petitgen.workers.dev` + notebook | ✅ real verses via the deployed Cloudflare Worker (add `YVP_APP_KEY` secret → live badge) |
+| **Gloo demonstrated** | proxy `/personalize` + `/discern` + notebook | ⚠️ **integration built & wired** (endpoints verified vs live docs); live activation blocked by a **payment-processor decline on 3 cards** — raised with host (mhill@gloo.us + Discord); honest **labeled simulation** (`gloo-sim`) runs meanwhile, flips to real with one secret |
 
 ## B. Tonight, together (the human-only + key-dependent parts)
 1. **API keys** (`docs/SETUP-APIS.md`): YouVersion App Key + Gloo credentials ($20 credit). ~15 min.
