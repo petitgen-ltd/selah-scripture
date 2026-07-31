@@ -1,7 +1,9 @@
 # Setup — Get both API keys in minutes
 
-Selah runs in **demo mode** out of the box (public-domain WEB verses, templated notes), so
-nothing here is required to reproduce the notebook. To light up **live mode** — real
+Selah runs in **demo mode** out of the box (embedded public-domain **WEB** fallback verses,
+templated notes), so nothing here is required to reproduce the notebook. The **live demo**
+serves the **Berean Standard Bible (BSB, bibleId 3034 — public domain)** via the deployed
+proxy `selah-proxy.petitgen.workers.dev`. To light up **live mode** yourself — real
 translations in 2,000+ languages from YouVersion, and faith-tuned encouragement from Gloo —
 you need two keys. This is the exact, current signup path for each. Budget ~10 minutes total.
 
@@ -34,15 +36,17 @@ Paths that are publicly documented:
 
 | Purpose | Method + path | Notes |
 |---|---|---|
-| List Bible versions | `GET /bibles` | returns version ids + languages; find the `bibleId` for a translation (e.g. WEB, NIV) |
-| Verse / passage by reference | `GET /bibles/{bibleId}/passages/{reference}` | reference in OSIS-style form, e.g. `JHN.3.16`, `PHI.4.13`. Example: `https://api.youversion.com/v1/bibles/3034/passages/JHN.3.16` |
+| List Bible versions | `GET /bibles?language_ranges[]=<lang>` | returns version ids + languages; find the `bibleId` for a translation. English default = **3034 (Berean Standard Bible, BSB — public domain)** |
+| Verse / passage by reference | `GET /bibles/{bibleId}/passages/{passageId}` | passage id uses **USFM** book codes, e.g. `JHN.3.16`, `PHP.4.13` (Philippians = `PHP`, not `PHI`). Verse text is in the response **`.content`** field. Example: `https://api.youversion.com/v1/bibles/3034/passages/JHN.3.16` |
 
 Example request Selah makes for a verse:
 
 ```bash
-curl "https://api.youversion.com/v1/bibles/3034/passages/PHI.4.13" \
+# bibleId 3034 = Berean Standard Bible (BSB, public domain); PHP = Philippians (USFM)
+curl "https://api.youversion.com/v1/bibles/3034/passages/PHP.4.13" \
   -H "X-YVP-App-Key: $YOUVERSION_API_KEY" \
   -H "Accept: application/json"
+# → verse text is in the response `.content` field
 ```
 
 **Language / translation** are selected by choosing the right `bibleId` from `/bibles` (each
@@ -102,15 +106,14 @@ curl -X POST https://platform.ai.gloo.com/oauth2/token \
 ```
 
 ### Base URL + chat/inference endpoint
-The hackathon host's sample uses base URL **`https://api.gloo.ai/studio/v1`** with an
-OpenAI-compatible **`/chat/completions`** endpoint. (The general Gloo platform equivalent is
-`https://platform.ai.gloo.com/ai/v2/chat/completions` — same OpenAI-compatible shape; use the
-host's base URL for the hackathon.)
+Selah uses the current Gloo platform endpoint **`https://platform.ai.gloo.com/ai/v2/chat/completions`**
+(Completions V2, OpenAI-compatible, auto-routing) with the bearer token minted above. This is
+the endpoint the deployed proxy (`proxy/src/worker.js`) and the engine's live branch both call.
 
 Example — a short faith-tuned completion (the exact call Selah's engine makes):
 
 ```bash
-curl -X POST https://api.gloo.ai/studio/v1/chat/completions \
+curl -X POST https://platform.ai.gloo.com/ai/v2/chat/completions \
   -H "Authorization: Bearer $GLOO_ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -120,6 +123,7 @@ curl -X POST https://api.gloo.ai/studio/v1/chat/completions \
     "max_tokens": 40
   }'
 # → choices[0].message.content  ← the one-line encouragement
+# `model` is optional (auto-routed) unless you pin one.
 ```
 
 Because it's OpenAI-compatible, you can also point any OpenAI SDK at the base URL — swap

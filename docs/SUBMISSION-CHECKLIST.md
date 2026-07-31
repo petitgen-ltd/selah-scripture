@@ -5,9 +5,9 @@ Deadline: **Aug 1, 12:59 PM GMT+8**. Submit = a Kaggle **Writeup** with all asse
 ## A. Assets — status
 | Asset | Where | Status |
 |---|---|---|
-| **Writeup** (≤500 words) | `docs/writeup.md` | ✅ 487 words, presence-over-performance, IP-safe |
-| **Video** (≤3 min, public YouTube) | `docs/selah-demo.mp4` | ⏳ v2 rendering → **upload to YouTube (Public/Unlisted), paste link** |
-| **Cover image** (required) | `docs/cover.jpg` | ⏳ refresh from the new hero before submit |
+| **Writeup** (≤500 words) | `docs/writeup.md` | ✅ 488 words (auto-check: `wc -w docs/writeup.md`), presence-over-performance, IP-safe |
+| **Video** (≤3 min, public YouTube) | `docs/selah-demo.mp4` | ✅ file exists → still needs the final re-cut, then **upload to YouTube (Public/Unlisted), paste link** |
+| **Cover image** (required) | `docs/cover.jpg` | ✅ file exists (`docs/cover.jpg`) — refresh from the new hero only if it changes before submit |
 | **Public notebook** | `negtitep/selah-scripture-engine` (Kaggle) | ✅ private now → auto-publishes after deadline (host-approved) |
 | **Public code repo** | github.com/petitgen-ltd/selah-scripture | ✅ public, MIT license |
 | **Public project link** | https://petitgen-ltd.github.io/selah-scripture/ | ✅ live |

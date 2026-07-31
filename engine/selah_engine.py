@@ -4,8 +4,13 @@ sense (physiological moment) → discern (verse, via YouVersion) → deliver (Gl
 
 Dependency-free and testable. The notebook imports this; the test-suite tests it;
 the web demo mirrors its data. Scripture text for offline demo mode is **public
-domain** (World English Bible / KJV) to stay IP-safe (Rules §3.14); live mode serves
+domain** (World English Bible) to stay IP-safe (Rules §3.14); live mode serves
 the reader's chosen translation via the YouVersion Platform API.
+
+The deployed Cloudflare Worker `proxy/src/worker.js` (selah-proxy.petitgen.workers.dev)
+is the REFERENCE live integration — it holds the keys server-side, does the Gloo
+OAuth2 token exchange, and is what the web demo actually calls. The live branches
+below mirror that flow for the notebook / direct use.
 """
 from __future__ import annotations
 from dataclasses import dataclass
@@ -129,31 +134,89 @@ def delivery_for(moment: str):
     return DELIVERY.get(moment, ("display", "ambient"))
 
 
+# internal ref book-codes → YouVersion USFM codes (only where they differ).
+# Passage ids use USFM codes, e.g. Philippians is PHP (not PHI).
+_YV_BOOK_FIX = {"PHI": "PHP"}
+
+
+def _to_yv_ref(ref):
+    """Map an internal ref (e.g. 'PHI.4.13') to a YouVersion USFM passage id ('PHP.4.13')."""
+    dot = ref.find(".")
+    book = ref[:dot] if dot > 0 else ref
+    return _YV_BOOK_FIX[book] + ref[dot:] if book in _YV_BOOK_FIX else ref
+
+
+# English public-domain default: bibleId 3034 = Berean Standard Bible (BSB).
+YV_DEFAULT_BIBLE_ID = 3034
+
+
 def get_verse(ref, translation="WEB", language="en", *, live=False,
-              api_key="", api_base="https://api.youversion.com/v1", requests=None):
-    """DEMO: public-domain (WEB) mirror. LIVE: YouVersion Platform API (any translation/lang)."""
+              api_key="", api_base="https://api.youversion.com/v1",
+              bible_id=YV_DEFAULT_BIBLE_ID, requests=None):
+    """DEMO: public-domain (WEB) mirror. LIVE: YouVersion Platform API.
+
+    Live path mirrors proxy/src/worker.js:
+      GET {api_base}/bibles/{bible_id}/passages/{passage_id}
+      header  X-YVP-App-Key: <key>   (NOT Authorization: Bearer)
+      Accept: application/json  →  verse text is in the response `.content` field.
+    English default bible_id = 3034 (Berean Standard Bible, public domain).
+    Other languages/translations: pick the bibleId via GET /v1/bibles?language_ranges[]=<lang>.
+    """
     if not live or requests is None:
         return {"reference": ref, "name": VERSE_NAME.get(ref, ref),
                 "text": DEMO_VERSES_PD.get(ref, ""), "translation": "public domain"}
-    r = requests.get(f"{api_base}/verses/{ref}",
-                     headers={"Authorization": f"Bearer {api_key}", "Accept": "application/json"},
-                     params={"translation": translation, "language": language}, timeout=10)
+    passage_id = _to_yv_ref(ref)
+    r = requests.get(f"{api_base}/bibles/{bible_id}/passages/{passage_id}",
+                     headers={"X-YVP-App-Key": api_key, "Accept": "application/json"},
+                     timeout=10)
     r.raise_for_status()
     d = r.json()
     return {"reference": ref, "name": VERSE_NAME.get(ref, ref),
-            "text": d.get("text", ""), "translation": translation}
+            "text": d.get("content", ""), "translation": translation}
+
+
+# Gloo real endpoints (see proxy/src/worker.js — the reference implementation).
+GLOO_TOKEN_URL = "https://platform.ai.gloo.com/oauth2/token"
+GLOO_CHAT_URL = "https://platform.ai.gloo.com/ai/v2/chat/completions"
+
+
+def _gloo_token(api_key, requests):
+    """Exchange Gloo client-credentials for a short-lived bearer token.
+
+    `api_key` may be either "CLIENT_ID:CLIENT_SECRET" (real OAuth2 flow) or an
+    already-minted bearer token (returned as-is).
+    """
+    if ":" not in api_key:
+        return api_key  # already a bearer token
+    client_id, client_secret = api_key.split(":", 1)
+    r = requests.post(GLOO_TOKEN_URL,
+                      data={"grant_type": "client_credentials", "scope": "api/access"},
+                      auth=(client_id, client_secret), timeout=15)
+    r.raise_for_status()
+    return r.json()["access_token"]
 
 
 def personalize(moment, verse, name="Maya", *, live=False,
-                api_key="", api_base="https://api.gloo.ai/studio/v1", requests=None):
-    """DEMO: pastoral template. LIVE: Gloo AI Studio (faith-tuned)."""
+                api_key="", requests=None):
+    """DEMO: pastoral template. LIVE: Gloo AI (faith-tuned, OpenAI-compatible).
+
+    Live path mirrors proxy/src/worker.js:
+      1) OAuth2 client-credentials token exchange at platform.ai.gloo.com/oauth2/token
+         (grant_type=client_credentials&scope=api/access, HTTP Basic CLIENT_ID:CLIENT_SECRET)
+      2) POST platform.ai.gloo.com/ai/v2/chat/completions with Authorization: Bearer <token>
+         body {messages:[...]}; model is optional (auto-routed).
+    NOTE: the deployed proxy (proxy/src/worker.js) is the reference implementation and
+    is what the web demo calls. Gloo is currently gated by a billing decline, so the
+    proxy runs an honest labeled simulation (source:"gloo-sim") — see docs/GLOO-STATUS.md.
+    """
     if not live or requests is None:
         return DEMO_NOTES.get(moment, "Keep going — He's with you.")
+    token = _gloo_token(api_key, requests)
     prompt = (f"In one short, warm sentence a runner can read at a glance during "
               f"'{moment.replace('_',' ')}', encourage {name} with this verse: "
               f"\"{verse['text']}\" ({verse['reference']}). Pastoral, no preamble.")
-    r = requests.post(f"{api_base}/chat/completions",
-                      headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+    r = requests.post(GLOO_CHAT_URL,
+                      headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
                       json={"messages":[{"role":"user","content":prompt}], "max_tokens":40}, timeout=15)
     r.raise_for_status()
     return r.json()["choices"][0]["message"]["content"].strip()
