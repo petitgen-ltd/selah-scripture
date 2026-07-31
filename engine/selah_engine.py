@@ -59,18 +59,18 @@ THEME_COLOR = {
 # ── public-domain verse text for offline DEMO mode (World English Bible) ──
 # Live mode serves the reader's own translation via YouVersion (licensed).
 DEMO_VERSES_PD = {
- "PSA.118.24":"This is the day that Yahweh has made. We will rejoice and be glad in it!",
- "JOS.1.9":"Haven't I commanded you? Be strong and courageous. Don't be afraid, neither be dismayed, for Yahweh your God is with you wherever you go.",
+ "PSA.118.24":"This is the day that the LORD has made. We will rejoice and be glad in it!",
+ "JOS.1.9":"Haven't I commanded you? Be strong and courageous. Don't be afraid, neither be dismayed, for the LORD your God is with you wherever you go.",
  "PSA.23.4":"Even though I walk through the valley of the shadow of death, I will fear no evil, for you are with me.",
- "PRO.3.5":"Trust in Yahweh with all your heart, and don't lean on your own understanding.",
+ "PRO.3.5":"Trust in the LORD with all your heart, and don't lean on your own understanding.",
  "PHI.4.13":"I can do all things through Christ, who strengthens me.",
- "ISA.40.31":"But those who wait for Yahweh will renew their strength. They will mount up with wings like eagles. They will run, and not be weary.",
+ "ISA.40.31":"But those who wait for the LORD will renew their strength. They will mount up with wings like eagles. They will run, and not be weary.",
  "ROM.8.37":"No, in all these things, we are more than conquerors through him who loved us.",
  "2CO.12.9":"My grace is sufficient for you, for my power is made perfect in weakness.",
  "GAL.6.9":"Let us not be weary in doing good, for we will reap in due season, if we don't give up.",
  "ISA.41.10":"Don't be afraid, for I am with you. Don't be dismayed, for I am your God. I will strengthen you.",
  "PSA.46.10":"Be still, and know that I am God.",
- "LAM.3.22":"It is because of Yahweh's loving kindnesses that we are not consumed, because his compassion doesn't fail.",
+ "LAM.3.22":"It is because of the LORD's loving kindnesses that we are not consumed, because his compassion doesn't fail.",
  "1CO.9.24":"Don't you know that those who run in a race all run, but one receives the prize? Run like that, so that you may win.",
 }
 VERSE_NAME = {
@@ -134,7 +134,7 @@ def get_verse(ref, translation="WEB", language="en", *, live=False,
     """DEMO: public-domain (WEB) mirror. LIVE: YouVersion Platform API (any translation/lang)."""
     if not live or requests is None:
         return {"reference": ref, "name": VERSE_NAME.get(ref, ref),
-                "text": DEMO_VERSES_PD.get(ref, ""), "translation": "WEB (public domain)"}
+                "text": DEMO_VERSES_PD.get(ref, ""), "translation": "public domain"}
     r = requests.get(f"{api_base}/verses/{ref}",
                      headers={"Authorization": f"Bearer {api_key}", "Accept": "application/json"},
                      params={"translation": translation, "language": language}, timeout=10)

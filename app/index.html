@@ -113,7 +113,8 @@ nav a{text-decoration:none}nav a:hover{color:var(--fg)}
 .recap li{font-size:12.5px;color:var(--muted)}.recap li b{color:color-mix(in oklab,var(--glow) 72%,white 28%);font-weight:600}
 .recap .share{margin-top:16px;font-size:11px;letter-spacing:.06em;color:var(--muted);border:1px solid var(--line);border-radius:100px;padding:7px 15px}
 
-.caption{min-height:52px;text-align:center;max-width:400px}
+.caption{min-height:52px;text-align:center;max-width:440px}
+.storyline{font-family:var(--serif);font-style:italic;font-size:15.5px;color:var(--fg);opacity:.92;min-height:22px;margin-bottom:10px;transition:opacity .5s ease}
 .caption .mtag{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--glow);transition:color 1s}
 .caption .why{color:var(--faint);font-size:13px;line-height:1.5;margin-top:6px}
 .caption .why b{color:var(--muted);font-weight:600}
@@ -131,6 +132,17 @@ nav a{text-decoration:none}nav a:hover{color:var(--fg)}
 .timeline b.interrupt{width:13px;height:13px;top:-4px}
 
 section.band{padding:96px 0;border-top:1px solid var(--line)}
+.vign{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.vcard{position:relative;border:1px solid var(--line);border-radius:16px;padding:24px 24px 22px;
+  background:linear-gradient(180deg,color-mix(in oklab,var(--vc,#38e1c0) 6%,transparent),transparent);overflow:hidden}
+.vcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--vc,#38e1c0);opacity:.7}
+.vcard .vc-ctx{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--vc,#38e1c0);margin-bottom:12px;font-weight:600}
+.vcard p{color:var(--muted);font-size:14.5px;line-height:1.62;margin:0 0 16px}
+.vcard p em{color:var(--fg);font-style:italic}
+.vcard .vc-verse{font-family:var(--serif);font-style:italic;font-size:15px;line-height:1.4;color:var(--fg)}
+.vcard .vc-verse b{font-style:normal;font-family:var(--ui);font-weight:600;font-size:12px;letter-spacing:.04em;
+  color:color-mix(in oklab,var(--vc,#38e1c0) 75%,white 25%);display:block;margin-bottom:5px;text-transform:uppercase}
+@media (max-width:900px){.vign{grid-template-columns:1fr}}
 .kicker{font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--faint);margin:0 0 14px}
 .band h2{font-family:var(--serif);font-weight:300;font-size:clamp(28px,3.6vw,42px);letter-spacing:-.01em;margin:0 0 40px;max-width:20ch}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
@@ -219,6 +231,7 @@ footer .fnote{margin-top:12px;font-size:11.5px;color:var(--faint);max-width:70ch
     </div>
 
     <div class="caption" id="caption">
+      <div class="storyline" id="storyline">This is Maya. Every morning, she runs before the world wakes up.</div>
       <div class="mtag" id="mtag">standing by</div>
       <div class="why" id="why">Pick a workout — Selah reads the effort and chooses the moment.</div>
       <div class="deliverpill" id="pill" style="display:none"><span class="dot"></span><span id="pilltext"></span></div>
@@ -236,6 +249,36 @@ footer .fnote{margin-top:12px;font-size:11.5px;color:var(--faint);max-width:70ch
   </div>
 </main>
 </div>
+
+<section class="band" id="who">
+  <div class="wrap">
+    <p class="kicker">Not just athletes</p>
+    <h2>A body under load is a body under load — in the gym, in rehab, in labor, in grief.</h2>
+    <p style="color:var(--muted);font-size:16.5px;line-height:1.7;max-width:60ch;margin:-24px 0 40px">Selah began with a run. But the same heartbeat that spikes at the wall spikes in a hospital corridor, in the ninth hour of labor, on the 3&nbsp;a.m. walk grief takes you on. Wherever a heart races or finally rests — and hands are the last thing that will reach for a phone — the right word can already be there. <em style="color:var(--fg);font-style:italic;font-family:var(--serif)">Presence, not performance.</em></p>
+    <div class="vign">
+      <div class="vcard" style="--vc:#8ee6b0">
+        <div class="vc-ctx">Cardiac rehab · week three</div>
+        <p>A heart relearning to beat, watching a number he used to ignore. His effort barely registers — and that's the point.</p>
+        <div class="vc-verse"><b>Psalm 46:10</b> — “Be still, and know that I am God.”</div>
+      </div>
+      <div class="vcard" style="--vc:#7fd8ff">
+        <div class="vc-ctx">Labor · hour nine</div>
+        <p>Ninety seconds between contractions. Her watch feels the surge before she can say a word. No screen to open. Just a hand on her wrist.</p>
+        <div class="vc-verse"><b>Isaiah 41:10</b> — “I will strengthen you. Yes, I will help you.”</div>
+      </div>
+      <div class="vcard" style="--vc:#a98bff">
+        <div class="vc-ctx">The 3 a.m. walk · grief</div>
+        <p>Sleep won't come, so she walks. Her heart-rate is high with something no coach ever trained for. The valley is real; so is the company.</p>
+        <div class="vc-verse"><b>Psalm 23:4</b> — “Through the valley of the shadow… you are with me.”</div>
+      </div>
+      <div class="vcard" style="--vc:#ffb347">
+        <div class="vc-ctx">The twelfth hour · a nurse, a soldier, a parent</div>
+        <p>A long shift. A ruck far from home. A newborn at dawn. The body says <em>done</em>. The Word, arriving wordlessly, says otherwise.</p>
+        <div class="vc-verse"><b>Joshua 1:9</b> — “The LORD your God is with you wherever you go.”</div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="band" id="how">
   <div class="wrap">
@@ -312,7 +355,7 @@ const VERSES={
  "PHI.4.13":{n:"Philippians 4:13",langs:{en:"I can do all things through Christ, who strengthens me.",
    es:"Todo lo puedo en Cristo que me fortalece.",sw:"Nayaweza mambo yote katika yeye anitiaye nguvu.",
    ko:"내게 능력 주시는 자 안에서 내가 모든 것을 할 수 있느니라.",pt:"Posso todas as coisas naquele que me fortalece."}},
- "ISA.40.31":{n:"Isaiah 40:31",langs:{en:"But those who wait for the LORD will renew their strength. They will run, and not be weary.",
+ "ISA.40.31":{n:"Isaiah 40:31",langs:{en:"But those who wait for the LORD will renew their strength. They will mount up with wings like eagles. They will run, and not be weary.",
    es:"Los que esperan a Jehová tendrán nuevas fuerzas; correrán, y no se cansarán.",sw:"Wanaomngoja Bwana watapata nguvu mpya; watapiga mbio wala hawatachoka.",
    ko:"오직 여호와를 앙망하는 자는 새 힘을 얻으리니 달음박질하여도 곤비하지 아니하리로다.",pt:"Mas os que esperam no Senhor renovarão as forças; correrão e não se cansarão."}},
  "GAL.6.9":{n:"Galatians 6:9",langs:{en:"Let us not be weary in doing good, for we will reap in due season, if we don't give up.",
@@ -337,6 +380,18 @@ const VERSES={
    es:"Por la misericordia de Jehová no hemos sido consumidos, porque nunca decayeron sus misericordias.",sw:"Ni huruma za Bwana kwamba hatuangamii, kwa kuwa rehema zake hazikomi.",
    ko:"여호와의 인자와 긍휼이 무궁하시므로 우리가 진멸되지 아니함이니이다.",pt:"As misericórdias do Senhor são a causa de não sermos consumidos, porque as suas misericórdias não têm fim."}},
 };
+/* Maya's story — narrated beats through the run (the product tells a story) */
+const STORY={warmup:"6:04 a.m. Maya starts before the world is awake.",
+ steady_state:"She settles into the rhythm. This part, she loves.",
+ breakthrough_wall:"Mile three — the wall. Where she usually stops.",
+ peak_effort:"She's climbing past what she thought she had.",
+ finishing_strong:"The last stretch. She isn't running it alone.",
+ post_workout:"She stops. Breathes. Today, she went further.",
+ working_set:"Set after set. Nobody's watching but Him.",
+ final_rep:"One more rep than last week. Right at the edge.",
+ redline:"All the way into the red. Then through it.",
+ active_recovery:"Ten seconds to breathe before the next round.",
+ rest_set:"The pause between. Even this counts."};
 const NOTES={breakthrough_wall:"This is the wall, Maya. You were built to go through it.",
  peak_effort:"Right here, at the top — new strength. Keep running.",
  finishing_strong:"The last mile is the offering. Don't give up now.",
@@ -393,7 +448,7 @@ function clearOverlays(){$("#bloom").classList.remove("show");$("#whisper").clas
 
 function render(step,i){
   const[min,hr,z,e,m,label]=step, th=THEME[MOMENT_VERSE[m][1]], [fmt,mode]=DELIVERY[m];
-  setGlow(th); ecgHR=hr;
+  setGlow(th); ecgHR=hr; $("#storyline").textContent=STORY[m]||"";
   $("#bpm").textContent=hr; document.documentElement.style.setProperty("--beat",(60/hr)+"s");
   $("#activity").textContent=label; $("#effort").textContent=Math.round(e*100)+"%";
   $("#zone").textContent=z; $("#zonebar").style.width=(z/5*100)+"%"; $("#clock").textContent=fmtClock(min);
@@ -406,7 +461,7 @@ function render(step,i){
   const ref=MOMENT_VERSE[m][0], v=VERSES[ref], text=(v.langs[lang]||v.langs.en);
   if(mode==="interrupt"){
     // haptic verse — interrupt
-    $("#bref").textContent=v.n.toUpperCase()+" · "+(lang==="en"?"WEB":lang.toUpperCase());
+    $("#bref").textContent=v.n.toUpperCase()+" · "+(lang==="en"?"public domain":lang.toUpperCase());
     const bv=$("#bverse");bv.textContent=text;bv.classList.toggle("long",text.length>92);
     $("#bnote").textContent=NOTES[m]||"";
     if(fmt.includes("haptic")&&!REDUCED){const r=$("#ripple");r.classList.remove("go");void r.offsetWidth;r.classList.add("go");if(navigator.vibrate)navigator.vibrate([30,40,30]);}
@@ -446,7 +501,7 @@ document.querySelectorAll(".act").forEach(b=>b.addEventListener("click",()=>{
 function pickLang(c){document.querySelectorAll(".chip[data-lang]").forEach(x=>x.setAttribute("aria-pressed","false"));
   c.setAttribute("aria-pressed","true");lang=c.dataset.lang;
   if(playing&&idx>0){const s=sess()[Math.min(idx-1,sess().length-1)];if(DELIVERY[s[4]][1]==="interrupt"){const v=VERSES[MOMENT_VERSE[s[4]][0]],t=v.langs[lang]||v.langs.en;
-    $("#bref").textContent=v.n.toUpperCase()+" · "+(lang==="en"?"WEB":lang.toUpperCase());const bv=$("#bverse");bv.textContent=t;bv.classList.toggle("long",t.length>92);say(t);}}}
+    $("#bref").textContent=v.n.toUpperCase()+" · "+(lang==="en"?"public domain":lang.toUpperCase());const bv=$("#bverse");bv.textContent=t;bv.classList.toggle("long",t.length>92);say(t);}}}
 document.querySelectorAll(".chip[data-lang]").forEach(c=>{c.addEventListener("click",()=>pickLang(c));
   c.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();pickLang(c);}});});
 
@@ -544,7 +599,7 @@ function renderLive(step){ // reuse the render path but without the timeline/ses
   const pill=$("#pill");pill.style.display="inline-flex";pill.classList.toggle("ambient",mode==="ambient");$("#pilltext").textContent=fmt;
   const ref=MOMENT_VERSE[m][0], v=VERSES[ref], text=(v.langs[lang]||v.langs.en);
   if(mode==="interrupt"){
-    $("#bref").textContent=v.n.toUpperCase()+" · "+(lang==="en"?"WEB":lang.toUpperCase());
+    $("#bref").textContent=v.n.toUpperCase()+" · "+(lang==="en"?"public domain":lang.toUpperCase());
     const bv=$("#bverse");bv.textContent=text;bv.classList.toggle("long",text.length>92);$("#bnote").textContent=NOTES[m]||"";
     if(fmt.includes("haptic")&&!REDUCED){const r=$("#ripple");r.classList.remove("go");void r.offsetWidth;r.classList.add("go");if(navigator.vibrate)navigator.vibrate([30,40,30]);}
     $("#face").style.opacity="0";$("#bloom").classList.add("show"); say(text.replace(/LORD/g,"Lord"));

@@ -8,7 +8,7 @@ Rubric: **Impact & Vision 40 · Video Storytelling 30 · Technical Depth 30.** J
 ---
 
 ## 🔴 P0 — Compliance / disqualification risk (must do)
-- [x] **Open-source LICENSE.** Rules §2.5: the winning submission + source must be under an OSI-approved license allowing commercial use. Repo had none → add **Apache-2.0**.
+- [x] **Open-source LICENSE.** Rules §2.5: the winning submission + source must be under an OSI-approved license allowing commercial use. Repo had none → add **MIT** (OSI-approved, allows commercial use).
 - [ ] **Scripture IP.** Rules §3.14 warranty (original, non-infringing). Copyrighted translations (NIV/ESV/NLT) must be **served via the YouVersion API (licensed)**, not shipped as hardcoded text. Fix: demo fallback uses **public-domain (KJV / WEB)**; live mode uses YouVersion for all translations; state this in the writeup + code comments.
 - [ ] **One-submission rigor.** No leaderboard do-overs → the writeup, video, notebook, links must all be final-quality and mutually consistent (name, numbers, URLs) before submit.
 - [ ] **Attribution.** YouVersion + Gloo credited; Scripture © respective translations via YouVersion.
