@@ -27,6 +27,8 @@ Selah is a **watch + mobile app**; this repo is the working, testable front-end 
 | A haptic pulse + Philippians 4:13 — *"you're one of N being met by this word right now."* | Whisper *"I'm scared"* → **Isaiah 41:10**, live, with the **● YouVersion live** badge. | A wordless ambient glow — Psalm 23:4. Presence, not performance. |
 
 ### Where Selah meets you (use cases)
+![Where Selah meets you](docs/figures/personas.png)
+
 - **The wall on a run** → strength: *"I can do all things through Christ"* (Philippians 4:13)
 - **Cardiac rehab**, a heart relearning to beat → *"Be still, and know that I am God"* (Psalm 46:10)
 - **The ninth hour of labor** → *"Do not fear, for I am with you"* (Isaiah 41:10)
