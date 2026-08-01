@@ -31,16 +31,12 @@ const B = {
   b01: { start: 1.5, dur: 18.15, file: 'vo/01.wav' }, // ache
   b02: { start: 22.5, dur: 1.8, file: 'vo/02.wav' }, // until now
   b03: { start: 27.2, dur: 9.7, file: 'vo/03.wav' }, // name — it's a watch, don't open it
-  b04: { start: 37.0, dur: 7.93, file: 'vo/04.wav' }, // mechanism — senses the body
-  b05: { start: 46.5, dur: 6.17, file: 'vo/05.wav' }, // the wall
-  b06: { start: 54.0, dur: 7.19, file: 'vo/06.wav' }, // it lets her speak
-  b07: { start: 62.5, dur: 4.87, file: 'vo/07.wav' }, // whispered "I'm scared"
+  b0405: { start: 37.0, dur: 13.5, file: 'vo/g0405.wav' }, // mechanism → the wall (one continuous read)
+  b0607: { start: 54.0, dur: 11.64, file: 'vo/g0607.wav' }, // it listens → the whisper (one read)
   b08: { start: 69.5, dur: 11.0, file: 'vo/08.wav' }, // it's live — not staged
   b14: { start: 84.5, dur: 14.43, file: 'vo/14.wav' }, // UNDER THE HOOD — real ML (proof)
   b09: { start: 99.8, dur: 14.99, file: 'vo/09.wav' }, // widen + 2,000 languages payoff
-  b10: { start: 116.0, dur: 2.5, file: 'vo/10.wav' }, // presence not performance
-  b11: { start: 119.3, dur: 3.75, file: 'vo/11.wav' }, // grace
-  b12: { start: 124.0, dur: 3.19, file: 'vo/12.wav' }, // benediction
+  b101112: { start: 116.0, dur: 9.46, file: 'vo/g101112.wav' }, // presence → grace → benediction (one read)
   b13: { start: 128.0, dur: 3.71, file: 'vo/13.wav' }, // close
 };
 const END_S = 138;
@@ -207,13 +203,13 @@ const LiveTag: React.FC = () => {
 type Cue = { text: string; from: number; to: number };
 const CUES: Cue[] = [
   // captions for narration-over-footage beats (b01/b02/b03/b10/b12/b13 have their own treatments)
-  { text: 'Every second, it senses how the body is doing.', from: 37.4, to: 41.4 },
-  { text: 'Most of the time it says nothing at all — just a colour that breathes.', from: 41.4, to: 45.9 },
-  { text: 'But when she hits the wall — it feels it.', from: 47.0, to: 49.6 },
-  { text: 'No menu. A pulse on her wrist.', from: 49.6, to: 52.7 },
-  { text: "But a racing heart doesn't mean the same thing twice.", from: 54.4, to: 58.0 },
-  { text: 'So Selah does more than sense — it lets her speak.', from: 58.0, to: 61.5 },
-  { text: 'And the right verse found her.', from: 64.8, to: 67.4 },
+  { text: 'Every second, it senses how the body is doing.', from: 37.4, to: 43.7 },
+  { text: 'Most of the time it says nothing at all — just a colour that breathes.', from: 43.9, to: 46.7 },
+  { text: 'But when she hits the wall — it feels it.', from: 47.1, to: 48.9 },
+  { text: 'No menu. A pulse on her wrist.', from: 49.0, to: 51.0 },
+  { text: "But a racing heart doesn't mean the same thing twice.", from: 54.3, to: 60.2 },
+  { text: 'So Selah does more than sense — it lets her speak.', from: 60.4, to: 62.3 },
+  { text: 'And the right verse found her.', from: 65.2, to: 67.6 },
   { text: 'And this is live. Real verses, straight from the YouVersion Platform.', from: 70.0, to: 74.6 },
   { text: "One short, personal line, shaped by Gloo's faith-tuned voice.", from: 74.6, to: 78.4 },
   { text: 'Nothing here is staged.', from: 78.4, to: 80.6 },
@@ -221,7 +217,7 @@ const CUES: Cue[] = [
   { text: 'Cardiac rehab. The ninth hour of labor. A nurse’s twelfth hour.', from: 102.6, to: 106.7 },
   { text: 'In over two thousand languages.', from: 106.7, to: 109.2 },
   { text: 'Wherever a heart races — or finally rests — the right word is already waiting.', from: 109.2, to: 114.6 },
-  { text: 'And when she finally slows… a different kind of word.', from: 119.6, to: 123.0 },
+  { text: 'And when she finally slows… a different kind of word.', from: 118.3, to: 122.3 },
 ];
 const CaptionBand: React.FC = () => {
   const t = useCurrentFrame() / FPS;
@@ -339,7 +335,7 @@ export const Selah: React.FC = () => (
     <Sequence from={s(54.0)} durationInFrames={s(15.7)} name="Whisper">
       <FadeWrap inSec={0.9} outSec={0.9}><Tint color={RENEWAL} strength={0.2} /><DemoStage src="whisper.webm" startFrom={s(0)} /></FadeWrap>
     </Sequence>
-    <Sequence from={s(63.4)} durationInFrames={s(5.9)} name="whisper-ref"><VerseRef vref="Isaiah 41:10 · live" tag='she whispered — "I’m scared"' accent={RENEWAL} /></Sequence>
+    <Sequence from={s(62.6)} durationInFrames={s(6.4)} name="whisper-ref"><VerseRef vref="Isaiah 41:10 · live" tag='she whispered — "I’m scared"' accent={RENEWAL} /></Sequence>
 
     {/* ══ IT'S LIVE ══ */}
     <Sequence from={s(69.6)} durationInFrames={s(13.4)} name="Real">
