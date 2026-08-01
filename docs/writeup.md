@@ -2,7 +2,7 @@
 
 ### A wearable-native companion. Presence, at the speed of a heartbeat.
 
-**The moments you can't go looking.** A billion people wear a device that feels every heartbeat. It knows when Maya hits the wall on her morning run — and it knows the same racing pulse in a hospital corridor, in the ninth hour of labor, on the 3 a.m. walk grief takes you on. In all of it, Scripture has never once shown up — not because it doesn't belong, but because Bible apps wait to be *opened*, and the moment you most need *"they will run and not grow weary"* is the moment your hands will never reach for a phone. **Selah is Scripture for the moments you can't go looking.**
+**The moments you can't go looking.** A billion people wear a device that feels every heartbeat. It knows when Maya hits the wall on her run — and it knows the same racing pulse in a hospital corridor, in the ninth hour of labor, on the 3 a.m. walk grief takes you on. In all of it, Scripture has never once shown up — not because it doesn't belong, but because Bible apps wait to be *opened*, and the moment you most need *"they will run and not grow weary"* is the moment your hands will never reach for a phone. **Selah is Scripture for the moments you can't go looking.**
 
 **Not a pop-up — presence.** Selah lives *inside* the effort and speaks the way a watch does: a haptic pulse and one line at the wall; a wordless, ambient glow in the cool-down. It chooses not only the verse but the *volume* — interrupting only when it should. The name is the Psalmist's word for a lifted pause, placed where a body needs it.
 
@@ -16,6 +16,6 @@
 
 **Built to be real.** App → a deployed **Cloudflare Worker** proxy → YouVersion + Gloo; keys live server-side, cached and rate-limited so it survives on a $20 credit. Verses stream live (● live badge); the engine is tested (46 tests, CI); the notebook runs end-to-end. Gloo is wired and running an honest, labeled simulation while a card-payment decline is resolved — one credential from live. No copyrighted translations ship; embedded fallback is public domain.
 
-**The vision.** Not a fitness app. Wherever a heart races or finally rests — the gym, the rehab ward, the delivery room, the grief-walk — the right word can already be there. Not Scripture you go to. **Scripture that shows up.**
+**The vision.** Not a fitness app. Wherever a heart races or finally rests — the gym, the rehab ward, the delivery room, the grief-walk — the right word can be there. Not Scripture you go to. **Scripture that shows up.**
 
 **Try it live:** petitgen-ltd.github.io/selah-scripture — **Code + notebook:** github.com/petitgen-ltd/selah-scripture
