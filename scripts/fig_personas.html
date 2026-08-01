@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+    --bg:#0a0c10; --ink:#f4efe6; --teal:#39d0c8; --indigo:#8a90ff; --green:#5fe0a8;
+    --muted:#8b93a3; --line:#262b36; --panel:#11151c; --panel2:#0e1219;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{background:var(--bg);}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink); -webkit-font-smoothing:antialiased;
+  }
+  #frame{width:1600px; padding:60px 72px 52px; background:
+    radial-gradient(1200px 520px at 16% -10%, rgba(57,208,200,.06), transparent 60%),
+    radial-gradient(1100px 560px at 90% 120%, rgba(138,144,255,.07), transparent 62%),
+    var(--bg);
+    position:relative;
+  }
+  /* header */
+  .kicker{font-size:14px; letter-spacing:.34em; text-transform:uppercase; color:var(--teal); font-weight:600;}
+  h1{font-size:40px; font-weight:700; letter-spacing:-.015em; margin-top:14px; line-height:1.12;}
+  h1 .thin{color:var(--muted); font-weight:400;}
+  .sub{font-size:16.5px; color:var(--muted); margin-top:12px; max-width:900px; line-height:1.5;}
+
+  /* grid */
+  .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:46px;}
+  .card{
+    background:linear-gradient(180deg,var(--panel),var(--panel2));
+    border:1px solid var(--line); border-radius:16px; padding:24px 24px 24px;
+    position:relative; display:flex; flex-direction:column; min-height:230px;
+  }
+  .card .accent-bar{position:absolute; top:0; left:24px; right:24px; height:2px; border-radius:2px; opacity:.85;}
+  .moment{font-size:12.5px; letter-spacing:.18em; text-transform:uppercase; font-weight:600;}
+  .signal{font-size:14.5px; color:var(--muted); margin-top:13px; line-height:1.5; display:flex; gap:10px; align-items:flex-start;}
+  .signal .pulse{width:7px; height:7px; border-radius:50%; margin-top:6px; flex:0 0 auto;}
+  .divider{height:1px; background:var(--line); margin:20px 0 18px;}
+  .verse{font-family:Georgia,"Times New Roman",serif; font-size:20.5px; line-height:1.4; color:var(--ink);
+    font-style:italic; letter-spacing:-.005em; margin-top:auto;}
+  .ref{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; font-style:normal;
+    font-size:13px; letter-spacing:.06em; text-transform:uppercase; font-weight:600; margin-top:14px; display:block;}
+
+  .c-teal .accent-bar{background:var(--teal);} .c-teal .moment{color:var(--teal);} .c-teal .pulse{background:var(--teal);} .c-teal .ref{color:var(--teal);}
+  .c-indigo .accent-bar{background:var(--indigo);} .c-indigo .moment{color:var(--indigo);} .c-indigo .pulse{background:var(--indigo);} .c-indigo .ref{color:var(--indigo);}
+  .c-green .accent-bar{background:var(--green);} .c-green .moment{color:var(--green);} .c-green .pulse{background:var(--green);} .c-green .ref{color:var(--green);}
+
+  /* the "rest" card, softer */
+  .card.rest{background:linear-gradient(180deg,#0f1a17,#0c1512); border-color:rgba(95,224,168,.28);}
+  .card.rest .verse{color:var(--green); font-size:21px;}
+
+  /* bottom strip */
+  .strip{margin-top:44px; border-top:1px solid var(--line); padding-top:24px; display:flex; align-items:center; justify-content:space-between;}
+  .tagline{font-size:18px; color:var(--ink); font-weight:500; letter-spacing:-.005em;}
+  .tagline .em{color:var(--teal);}
+  .brand{font-size:14px; color:var(--muted);}
+  .brand b{color:var(--ink); font-weight:700;}
+</style>
+</head>
+<body>
+<div id="frame">
+  <div class="kicker">SELAH &middot; NOT JUST ATHLETES</div>
+  <h1>Wherever a heart races &mdash; <span class="thin">or finally rests.</span></h1>
+  <div class="sub">The same wearable, the same heartbeat sensor. Six lives, six moments &mdash; each one met by the word already waiting for it.</div>
+
+  <div class="grid">
+    <div class="card c-teal">
+      <span class="accent-bar"></span>
+      <div class="moment">The wall, on a run</div>
+      <div class="signal"><span class="pulse"></span><span>Heart-rate spikes, effort climbs toward the limit.</span></div>
+      <div class="divider"></div>
+      <div class="verse">&ldquo;I can do all things through Christ who strengthens me.&rdquo;
+        <span class="ref">Philippians 4:13</span></div>
+    </div>
+
+    <div class="card c-indigo">
+      <span class="accent-bar"></span>
+      <div class="moment">Cardiac rehab</div>
+      <div class="signal"><span class="pulse"></span><span>A heart relearning how to beat, watched closely.</span></div>
+      <div class="divider"></div>
+      <div class="verse">&ldquo;Be still, and know that I am God.&rdquo;
+        <span class="ref">Psalm 46:10</span></div>
+    </div>
+
+    <div class="card c-green">
+      <span class="accent-bar"></span>
+      <div class="moment">The ninth hour of labor</div>
+      <div class="signal"><span class="pulse"></span><span>Racing pulse, rising waves, and no free hands.</span></div>
+      <div class="divider"></div>
+      <div class="verse">&ldquo;Do not fear, for I am with you.&rdquo;
+        <span class="ref">Isaiah 41:10</span></div>
+    </div>
+
+    <div class="card c-indigo">
+      <span class="accent-bar"></span>
+      <div class="moment">The 3&nbsp;a.m. grief walk</div>
+      <div class="signal"><span class="pulse"></span><span>Elevated resting heart-rate, another sleepless night.</span></div>
+      <div class="divider"></div>
+      <div class="verse">&ldquo;&hellip;through the valley&hellip; you are with me.&rdquo;
+        <span class="ref">Psalm 23:4</span></div>
+    </div>
+
+    <div class="card c-teal">
+      <span class="accent-bar"></span>
+      <div class="moment">A nurse&rsquo;s twelfth hour</div>
+      <div class="signal"><span class="pulse"></span><span>Sustained strain, running on empty, still giving.</span></div>
+      <div class="divider"></div>
+      <div class="verse">&ldquo;Be strong and courageous.&rdquo;
+        <span class="ref">Joshua 1:9</span></div>
+    </div>
+
+    <div class="card rest c-green">
+      <span class="accent-bar"></span>
+      <div class="moment">The finish &middot; the quiet after</div>
+      <div class="signal"><span class="pulse"></span><span>Recovery &mdash; the heart settling back down to rest.</span></div>
+      <div class="divider"></div>
+      <div class="verse">&ldquo;You ran your race today. Well done.&rdquo;
+        <span class="ref">Selah &middot; a moment of rest</span></div>
+    </div>
+  </div>
+
+  <div class="strip">
+    <div class="tagline">One heartbeat, a thousand contexts &mdash; the right word, <span class="em">already there.</span></div>
+    <div class="brand"><b>Selah</b> &nbsp;presence, not performance.</div>
+  </div>
+</div>
+</body>
+</html>
