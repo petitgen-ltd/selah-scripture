@@ -29,21 +29,21 @@ const SANS = '"Space Grotesk", -apple-system, "Segoe UI", Inter, Helvetica, sans
 // ── measured Sarah (ElevenLabs) VO durations, seconds ──
 const B = {
   b01: { start: 1.5, dur: 18.15, file: 'vo/01.wav' }, // ache
-  b02: { start: 24.5, dur: 1.8, file: 'vo/02.wav' }, // until now
-  b03: { start: 27.5, dur: 8.53, file: 'vo/03.wav' }, // name
-  b04: { start: 37.0, dur: 9.05, file: 'vo/04.wav' }, // mechanism
-  b05: { start: 47.0, dur: 6.17, file: 'vo/05.wav' }, // the wall
-  b06: { start: 54.5, dur: 8.49, file: 'vo/06.wav' }, // it listens
-  b07: { start: 63.5, dur: 4.08, file: 'vo/07.wav' }, // the right one found her
-  b08: { start: 69.5, dur: 13.18, file: 'vo/08.wav' }, // it's real
-  b14: { start: 84.5, dur: 13.97, file: 'vo/14.wav' }, // UNDER THE HOOD (technical)
-  b09: { start: 100.0, dur: 12.67, file: 'vo/09.wav' }, // widen (shifted +16)
-  b10: { start: 113.0, dur: 2.5, file: 'vo/10.wav' }, // presence not performance
-  b11: { start: 116.5, dur: 3.75, file: 'vo/11.wav' }, // grace
-  b12: { start: 121.0, dur: 3.19, file: 'vo/12.wav' }, // benediction
-  b13: { start: 125.0, dur: 3.71, file: 'vo/13.wav' }, // close
+  b02: { start: 22.5, dur: 1.8, file: 'vo/02.wav' }, // until now
+  b03: { start: 27.2, dur: 9.7, file: 'vo/03.wav' }, // name — it's a watch, don't open it
+  b04: { start: 37.0, dur: 7.93, file: 'vo/04.wav' }, // mechanism — senses the body
+  b05: { start: 46.5, dur: 6.17, file: 'vo/05.wav' }, // the wall
+  b06: { start: 54.0, dur: 7.19, file: 'vo/06.wav' }, // it lets her speak
+  b07: { start: 62.5, dur: 4.87, file: 'vo/07.wav' }, // whispered "I'm scared"
+  b08: { start: 69.5, dur: 11.0, file: 'vo/08.wav' }, // it's live — not staged
+  b14: { start: 84.5, dur: 14.43, file: 'vo/14.wav' }, // UNDER THE HOOD — real ML (proof)
+  b09: { start: 99.8, dur: 14.99, file: 'vo/09.wav' }, // widen + 2,000 languages payoff
+  b10: { start: 116.0, dur: 2.5, file: 'vo/10.wav' }, // presence not performance
+  b11: { start: 119.3, dur: 3.75, file: 'vo/11.wav' }, // grace
+  b12: { start: 124.0, dur: 3.19, file: 'vo/12.wav' }, // benediction
+  b13: { start: 128.0, dur: 3.71, file: 'vo/13.wav' }, // close
 };
-const END_S = 135;
+const END_S = 138;
 export const TOTAL_FRAMES = s(END_S);
 
 // ═══ helpers ═══
@@ -207,20 +207,21 @@ const LiveTag: React.FC = () => {
 type Cue = { text: string; from: number; to: number };
 const CUES: Cue[] = [
   // captions for narration-over-footage beats (b01/b02/b03/b10/b12/b13 have their own treatments)
-  { text: 'Every second, Selah reads the body — and names the moment.', from: 37.3, to: 41.4 },
-  { text: 'Most of the time it says nothing at all. Just a colour that breathes.', from: 41.4, to: 45.9 },
-  { text: 'But when she hits the wall — it feels it.', from: 47.4, to: 50.0 },
-  { text: 'No menu. A pulse on her wrist.', from: 50.0, to: 52.7 },
-  { text: "But a racing heart doesn't always mean the same thing.", from: 54.9, to: 58.1 },
-  { text: 'So Selah does something no app has done. It listens.', from: 58.1, to: 62.5 },
-  { text: 'She said two words. And the right one found her.', from: 63.9, to: 67.3 },
-  { text: 'This is live. Real verses, from the YouVersion Platform, in two thousand languages.', from: 70.0, to: 75.3 },
-  { text: "And one short, personal line, shaped by Gloo's faith-tuned voice.", from: 75.3, to: 79.3 },
-  { text: 'Nothing here is staged.', from: 79.3, to: 82.2 },
-  { text: 'This was never about fitness.', from: 100.4, to: 103.1 },
-  { text: 'Cardiac rehab. The ninth hour of labor. A nurse’s twelfth hour.', from: 103.1, to: 107.6 },
-  { text: 'Wherever a heart races — or finally rests — the right word can already be there.', from: 107.6, to: 112.2 },
-  { text: 'And when she finally slows… a different kind of word.', from: 116.8, to: 120.3 },
+  { text: 'Every second, it senses how the body is doing.', from: 37.4, to: 41.4 },
+  { text: 'Most of the time it says nothing at all — just a colour that breathes.', from: 41.4, to: 45.9 },
+  { text: 'But when she hits the wall — it feels it.', from: 47.0, to: 49.6 },
+  { text: 'No menu. A pulse on her wrist.', from: 49.6, to: 52.7 },
+  { text: "But a racing heart doesn't mean the same thing twice.", from: 54.4, to: 58.0 },
+  { text: 'So Selah does more than sense — it lets her speak.', from: 58.0, to: 61.5 },
+  { text: 'And the right verse found her.', from: 64.8, to: 67.4 },
+  { text: 'And this is live. Real verses, straight from the YouVersion Platform.', from: 70.0, to: 74.6 },
+  { text: "One short, personal line, shaped by Gloo's faith-tuned voice.", from: 74.6, to: 78.4 },
+  { text: 'Nothing here is staged.', from: 78.4, to: 80.6 },
+  { text: 'This was never about fitness.', from: 100.2, to: 102.6 },
+  { text: 'Cardiac rehab. The ninth hour of labor. A nurse’s twelfth hour.', from: 102.6, to: 106.7 },
+  { text: 'In over two thousand languages.', from: 106.7, to: 109.2 },
+  { text: 'Wherever a heart races — or finally rests — the right word is already waiting.', from: 109.2, to: 114.6 },
+  { text: 'And when she finally slows… a different kind of word.', from: 119.6, to: 123.0 },
 ];
 const CaptionBand: React.FC = () => {
   const t = useCurrentFrame() / FPS;
@@ -271,7 +272,8 @@ const SignOff: React.FC = () => {
         <div style={{ fontFamily: SERIF, fontSize: 116, color: PAPER, letterSpacing: 6 }}>Selah</div>
         <div style={{ fontFamily: SANS, fontSize: 28, color: PAPER, marginTop: 14, opacity: 0.9, letterSpacing: 1 }}>wearable scripture</div>
         <div style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 26, color: TEAL, marginTop: 30 }}>For the moments you can't go looking.</div>
-        <div style={{ fontFamily: SANS, fontSize: 19, color: FAINT, marginTop: 34 }}>YouVersion Platform API · Gloo AI Studio · ● live demo</div>
+        <div style={{ fontFamily: SANS, fontSize: 23, color: PAPER, marginTop: 40, opacity: 0.96, letterSpacing: 0.4 }}>Try it live → <span style={{ color: TEAL, fontWeight: 600 }}>petitgen-ltd.github.io/selah-scripture</span></div>
+        <div style={{ fontFamily: SANS, fontSize: 17, color: FAINT, marginTop: 16 }}>YouVersion Platform API · Gloo AI Studio · ● live</div>
       </div>
     </AbsoluteFill>
   );
@@ -282,7 +284,7 @@ const duckWindows: [number, number][] = [
   [20.0, 26.0], // Psalm 23:4 rise
   [47.0, 53.5], // the wall verse
   [61.0, 69.5], // the whisper peak + held silence
-  [120.5, 124.5], // benediction (shifted +16 for the technical beat)
+  [123.5, 127.5], // benediction
 ];
 const BASE_VOL = 0.22; // raised — was a touch low
 const DUCK = 0.4; // duck to 40% (audible, not silent) — gentler
@@ -298,7 +300,7 @@ const Score: React.FC = () => {
     }
   }
   const fade = Math.min(interpolate(t, [0, 2.5], [0, 1], cl), interpolate(t, [END_S - 3.5, END_S], [1, 0], cl));
-  return <Audio src={staticFile('music/score.mp3')} volume={Math.max(0.03, vol * fade)} />;
+  return <Audio src={staticFile('music/score.mp3')} loop volume={Math.max(0.03, vol * fade)} />;
 };
 
 // ═══ UNDER THE HOOD — technical diagram frame ═══
@@ -324,8 +326,8 @@ export const Selah: React.FC = () => (
     </Sequence>
     <Sequence from={s(20.0)} durationInFrames={s(6.2)} name="PsalmRise"><PsalmRise /></Sequence>
 
-    {/* ══ THE NAME ══ */}
-    <Sequence from={s(26.8)} durationInFrames={s(9.8)} name="Name"><NameReveal /></Sequence>
+    {/* ══ THE NAME — it's a watch, you don't open it ══ */}
+    <Sequence from={s(26.8)} durationInFrames={s(10.2)} name="Name"><NameReveal /></Sequence>
 
     {/* ══ MECHANISM + THE WALL ══ */}
     <Sequence from={s(36.6)} durationInFrames={s(17.4)} name="Run">
@@ -339,32 +341,32 @@ export const Selah: React.FC = () => (
     </Sequence>
     <Sequence from={s(63.4)} durationInFrames={s(5.9)} name="whisper-ref"><VerseRef vref="Isaiah 41:10 · live" tag='she whispered — "I’m scared"' accent={RENEWAL} /></Sequence>
 
-    {/* ══ IT'S REAL ══ */}
-    <Sequence from={s(69.6)} durationInFrames={s(14.0)} name="Real">
+    {/* ══ IT'S LIVE ══ */}
+    <Sequence from={s(69.6)} durationInFrames={s(13.4)} name="Real">
       <FadeWrap inSec={0.8} outSec={0.8}><DemoStage src="live.webm" /></FadeWrap>
       <LiveTag />
     </Sequence>
 
-    {/* ══ UNDER THE HOOD — technical depth ══ */}
+    {/* ══ UNDER THE HOOD — the proof beneath the live demo ══ */}
     <Sequence from={s(84.0)} durationInFrames={s(5.3)} name="Tech-arch"><TechFrame src="architecture.png" kicker="Under the hood · the system" /></Sequence>
     <Sequence from={s(89.3)} durationInFrames={s(4.8)} name="Tech-cm"><TechFrame src="confusion-matrix.png" kicker="Held out by session · the classifier" /></Sequence>
-    <Sequence from={s(94.1)} durationInFrames={s(5.4)} name="Tech-abst"><TechFrame src="abstention-curve.png" kicker="It stays silent when unsure" /></Sequence>
+    <Sequence from={s(94.1)} durationInFrames={s(5.7)} name="Tech-abst"><TechFrame src="abstention-curve.png" kicker="It stays silent when unsure" /></Sequence>
 
-    {/* ══ THE WIDEN ══ */}
-    <Sequence from={s(99.6)} durationInFrames={s(13.3)} name="Who">
+    {/* ══ THE WIDEN — not just athletes, in every language ══ */}
+    <Sequence from={s(99.8)} durationInFrames={s(15.8)} name="Who">
       <FadeWrap inSec={1.0} outSec={1.0}><FullVideo src="who.webm" /></FadeWrap>
     </Sequence>
-    <Sequence from={s(112.9)} durationInFrames={s(3.4)} name="Presence"><BigLine text="Presence — not performance." size={70} /></Sequence>
+    <Sequence from={s(115.6)} durationInFrames={s(3.4)} name="Presence"><BigLine text="Presence — not performance." size={70} /></Sequence>
 
     {/* ══ GRACE / BENEDICTION ══ */}
-    <Sequence from={s(116.2)} durationInFrames={s(4.9)} name="Cooldown">
+    <Sequence from={s(119.0)} durationInFrames={s(4.9)} name="Cooldown">
       <FadeWrap inSec={0.9} outSec={0.7}><Tint color={TEAL} /><DemoStage src="cooldown.webm" /></FadeWrap>
     </Sequence>
-    <Sequence from={s(120.9)} durationInFrames={s(3.9)} name="Benediction"><Benediction /></Sequence>
+    <Sequence from={s(123.9)} durationInFrames={s(4.1)} name="Benediction"><Benediction /></Sequence>
 
     {/* ══ CLOSE + SIGN-OFF ══ */}
-    <Sequence from={s(124.8)} durationInFrames={s(4.1)} name="Close"><BigLine text="Not Scripture you go to. Scripture that shows up." italic size={58} /></Sequence>
-    <Sequence from={s(128.8)} durationInFrames={s(6.2)} name="SignOff"><SignOff /></Sequence>
+    <Sequence from={s(127.8)} durationInFrames={s(4.1)} name="Close"><BigLine text="Not Scripture you go to. Scripture that shows up." italic size={58} /></Sequence>
+    <Sequence from={s(131.9)} durationInFrames={s(6.2)} name="SignOff"><SignOff /></Sequence>
 
     {/* ── overlays ── */}
     <Grain />
