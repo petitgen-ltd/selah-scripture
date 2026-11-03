@@ -31,7 +31,7 @@
     "playwright": "^1.62.1"
   },
   "dependencies": {
-    "@remotion/cli": "^4.0.503",
+    "@remotion/cli": "^4.0.540",
     "@remotion/media-utils": "^4.0.503",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
